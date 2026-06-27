@@ -1,0 +1,852 @@
+[
+  {
+    "id": "FC_051",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 94,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Which function removes both cells with a CellAmount of NoData AND cells with a stored zero value from a data buffer?",
+    "options": {
+      "A": "RemoveNoData",
+      "B": "RemoveRelationships",
+      "C": "RemoveMember",
+      "D": "RemoveZeros"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: RemoveZeros removes both zero-valued cells AND NoData cells from the data buffer, making it the most comprehensive cleanup function. A is incorrect — RemoveNoData removes only cells where the CellAmount is NoData; it does not remove stored zero values. B is incorrect — RemoveRelationships is not a valid OneStream data buffer cleanup function. C is incorrect — RemoveMember is not a valid OneStream data buffer cleanup function."
+  },
+  {
+    "id": "FC_052",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Unit Size",
+    "source_screenshot": 95,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "In a Cube View, how can a user view the number of Zero and NoData cells for a specific data intersection?",
+    "options": {
+      "A": "Right-click the data intersection and select Drill Down.",
+      "B": "Right-click the data intersection and select Cell POV Information.",
+      "C": "Right-click the data intersection and select Cell Status.",
+      "D": "Right-click the data intersection and select Data Unit Statistics."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: right-clicking a cell and selecting Data Unit Statistics shows the total number of stored records, NoData cells, Zero cells, Real cells, Derived cells, and more for the Data Unit containing that intersection. A is incorrect — Drill Down shows the dimensional details of the data intersection but not aggregate cell counts. B is incorrect — Cell POV Information shows the Member Script and dimensional members for the cell, not aggregate statistics. C is incorrect — Cell Status shows the calculation status for the cell, not Zero/NoData counts."
+  },
+  {
+    "id": "FC_053",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 96,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "A consultant is writing an api.Data.Calculate function and wants to filter the result data buffer. What should they include?",
+    "options": {
+      "A": "Collapsing detail for the source data buffers.",
+      "B": "Conditional statements around the api.Data.Calculate call.",
+      "C": "Member Filters as positional arguments in the api.Data.Calculate function.",
+      "D": "Collapsing detail for the destination data buffer."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: Member Filters are positional arguments added after the formula string in api.Data.Calculate that reduce the result data buffer size by filtering specific dimension members. A is incorrect — collapsing detail for source data buffers reduces the scope of the source, not the result data buffer. B is incorrect — Conditional statements limit which Data Units the calculation runs on, not the result data buffer. D is incorrect — collapsing detail on the destination reduces the dimensional scope written to the cube, which differs from filtering the result data buffer via Member Filters."
+  },
+  {
+    "id": "FC_054",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 97,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "A function requires a MemberID argument. Which of the following is a valid MemberID for the entity LE_111?",
+    "options": {
+      "A": "\"E#LE_111\"",
+      "B": "\"LE_111\"",
+      "C": "E#LE_111",
+      "D": "DimTypeId.Entity"
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: a MemberID is simply the member name as a string — for example, \"LE_111\". It does not include a dimension token. A is incorrect — \"E#LE_111\" includes the dimension token (E#) used in formula strings and Member Filters, not in MemberID arguments. C is incorrect — E#LE_111 without quotes is not a valid string argument. D is incorrect — DimTypeId.Entity is a DimTypeID (dimension type identifier), not a MemberID."
+  },
+  {
+    "id": "FC_055",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 98,
+    "source_type": "EOU",
+    "difficulty": "hard",
+    "question": "A consultant is writing a stored calculation using the Calculate Finance Function Type. When should they use api.Pov?",
+    "options": {
+      "A": "For referencing the Entity and Consolidation dimensions only.",
+      "B": "For referencing dimensions of any dimension type.",
+      "C": "For referencing non-Data Unit dimensions only.",
+      "D": "For referencing Data Unit dimensions within the currently processing Data Unit."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: in stored calculations using the Calculate function type, api.Pov is used to reference the Data Unit dimensions (Entity, Parent, Scenario, Time, Consolidation) of the Data Unit currently being processed, allowing the calculation to adapt dynamically. A is incorrect — while Entity and Consolidation are Data Unit dimensions, api.Pov in stored calculations is not limited to only those two. B is incorrect — referencing any dimension type in dynamic calculations is the use case for api.Pov in dynamic (not stored) calculations. C is incorrect — non-Data Unit dimensions in stored calculations are referenced via dimension tokens and Member Filters in the formula string."
+  },
+  {
+    "id": "FC_056",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 99,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Which option shows the correct method to write an api.Data.Calculate function that uses the RemoveNoData function?",
+    "options": {
+      "A": "api.Data.Calculate(\"A#SalesCalc = A#Price * A#Volume\", RemoveNoData)",
+      "B": "api.Data.Calculate(\"A#SalesCalc = RemoveNoData(A#Price * A#Volume)\")",
+      "C": "RemoveNoData(api.Data.Calculate(\"A#SalesCalc = A#Price * A#Volume\"))",
+      "D": "api.Data.Calculate(RemoveNoData(\"A#SalesCalc = A#Price * A#Volume\"))"
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: like RemoveZeros, the RemoveNoData function is embedded inside the formula string and wrapped around the source script only. This instructs OneStream to exclude NoData cells from the source before writing to the destination. A is incorrect — RemoveNoData cannot be passed as a separate argument after the formula string. C is incorrect — wrapping the entire api.Data.Calculate call in RemoveNoData is not valid. D is incorrect — wrapping the formula string outside the quotes in RemoveNoData is not valid syntax."
+  },
+  {
+    "id": "FC_057",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 100,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "A consultant needs to view the list of API functions that use the Point of View for calculations. What should they type to initiate the IntelliSense dialog?",
+    "options": {
+      "A": "api.Members.",
+      "B": "api.Pov.",
+      "C": "api.Data.",
+      "D": "api.Cons."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: typing api.Pov. in the business rule editor triggers IntelliSense to display the list of API functions related to the Point of View, used for referencing dimension members in calculations. A is incorrect — api.Members. shows functions related to dimension members and hierarchy navigation, not POV-specific functions. C is incorrect — api.Data. shows data retrieval and calculation functions. D is incorrect — api.Cons. shows functions related to the Consolidation dimension only."
+  },
+  {
+    "id": "FC_058",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 101,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "When writing api.Data.Calculate functions, which combination of techniques is recommended for both calculation accuracy and consolidation performance?",
+    "options": {
+      "A": "Member Filters and RemoveZeros only.",
+      "B": "Conditional statements and collapsed detail only.",
+      "C": "Conditional statements, Member Filters, collapsed detail, and RemoveNoData or RemoveZeros.",
+      "D": "RemoveZeros and DurableCalculated data only."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: the OneStream reference card recommends combining Conditional statements (to limit Data Units), Member Filters (to reduce result data buffer size), collapsed detail (to reduce scope and balance the formula), and RemoveNoData or RemoveZeros (to avoid storing NoData and zero cells) for both accuracy and performance. A is incorrect — Member Filters and RemoveZeros alone do not address limiting Data Units via Conditional statements. B is incorrect — Conditional statements and collapsed detail alone do not address removal of NoData/zero cells. D is incorrect — RemoveZeros and DurableCalculated data alone are insufficient."
+  },
+  {
+    "id": "FC_059",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Custom Calculate",
+    "source_screenshot": 102,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What is the primary advantage of using Custom Calculate Finance Function Types rather than running calculations through the standard DUCS?",
+    "options": {
+      "A": "Custom Calculate functions automatically handle tasks such as clearing previously calculated data.",
+      "B": "Custom Calculate functions allow calculations to run outside the DUCS, narrowing the scope to specific elements.",
+      "C": "Custom Calculate functions are only used for complex financial and account rules.",
+      "D": "Custom Calculate functions execute every calculation step each time they are run."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: Custom Calculate functions enable calculations to run outside of the DUCS, targeting specific elements without executing the entire sequence — ideal for on-demand or narrowly scoped calculations. A is incorrect — Custom Calculate does NOT automatically clear previously calculated data; a Clear Data Script must be explicitly coded. C is incorrect — Custom Calculate can be used for many scenarios, not only complex rules. D is incorrect — executing every step describes the standard DUCS, which is the opposite of Custom Calculate."
+  },
+  {
+    "id": "FC_060",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Business Rules",
+    "source_screenshot": 103,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What is a key advantage of using business rules over Member Formulas in OneStream?",
+    "options": {
+      "A": "Business rules can only run within the DUCS.",
+      "B": "Business rules offer control over behavior through Finance Function Types.",
+      "C": "Business rules are simpler to write than Member Formulas.",
+      "D": "Business rules are used only for reporting purposes."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: business rules provide control through Finance Function Types (Calculate, Translate, ConsolidateElimination, ConsolidateShare, CustomCalculate, DataCell), which Member Formulas cannot use. This gives business rules far greater execution flexibility. A is incorrect — business rules can also run outside the DUCS via Custom Calculate. C is incorrect — business rules are generally more complex to write. D is incorrect — business rules are used for financial calculations, not only reporting."
+  },
+  {
+    "id": "FC_061",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Custom Calculate",
+    "source_screenshot": 104,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Why might a consultant use Custom Calculate Finance Function Types in OneStream?",
+    "options": {
+      "A": "To run calculations for every Data Unit in the cube.",
+      "B": "To ensure all calculated data is automatically cleared before each run.",
+      "C": "To perform specific on-demand calculations outside of the DUCS.",
+      "D": "To simplify the overall calculation process by reducing the number of steps."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: Custom Calculate Finance Function Types run calculations outside the DUCS, enabling targeted, independent, on-demand processing without triggering the full sequence. A is incorrect — processing every Data Unit describes standard DUCS behavior. B is incorrect — Custom Calculate does not automatically clear data; a Clear Data Script must be explicitly added. D is incorrect — Custom Calculate adds precision and control; it does not simplify the process."
+  },
+  {
+    "id": "FC_062",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Custom Calculate",
+    "source_screenshot": 105,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "A consultant needs to configure a Custom Calculate function in OneStream. What action should they perform?",
+    "options": {
+      "A": "Create a new cube and define its structure for the custom calculation.",
+      "B": "Set up a data management step and select the Custom Calculate step type.",
+      "C": "Run the full DUCS process for all Data Units to initialize Custom Calculate.",
+      "D": "Manually input data for each dimension member before running the calculation."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: a Custom Calculate function is triggered by creating a data management step and selecting the Custom Calculate step type, then configuring the specific Data Units, POV, and business rule function name. A is incorrect — Custom Calculate runs against existing cubes; no new cube is needed. C is incorrect — running the full DUCS is the opposite of Custom Calculate. D is incorrect — Custom Calculate calculates data programmatically; manual input is not a prerequisite."
+  },
+  {
+    "id": "FC_063",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Custom Calculate",
+    "source_screenshot": 106,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "What is a key difference between how Data Units are processed in Custom Calculate steps compared to standard calculation steps?",
+    "options": {
+      "A": "In Custom Calculate steps, calculation status is always considered before processing.",
+      "B": "In Custom Calculate steps, only Data Units explicitly defined in the step will run, regardless of calculation status.",
+      "C": "In Custom Calculate steps, all Data Units are processed regardless of how they are defined.",
+      "D": "In Custom Calculate steps, filters cannot be used for Entity, Consolidation, and Time dimensions."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: in Custom Calculate steps, only explicitly defined Data Units run and calculation status is ignored — the step always executes the defined Data Units. This gives precise control over what is processed. A is incorrect — calculation status is NOT considered; Custom Calculate always runs the defined Data Units. C is incorrect — only explicitly defined Data Units run, not all Data Units. D is incorrect — Custom Calculate steps do allow filtering by Entity, Consolidation, and Time."
+  },
+  {
+    "id": "FC_064",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Custom Calculate",
+    "source_screenshot": 107,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Why should a Clear Data Script be added at the beginning of every Custom Calculate business rule?",
+    "options": {
+      "A": "To automatically save the calculated data to the cube after each run.",
+      "B": "To ensure all previously calculated data is cleared before recalculating.",
+      "C": "To run all calculations within the standard DUCS process.",
+      "D": "To simplify the business rule by removing the need for Member Filters."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: Custom Calculate functions run outside the DUCS, so the automatic clearing step that begins the DUCS does not happen. Adding a Clear Data Script ensures stale calculated data is removed before new values are written. A is incorrect — Clear Data Script clears data; it does not save it. C is incorrect — Custom Calculate remains outside the DUCS regardless. D is incorrect — the Clear Data Script does not affect Member Filter usage."
+  },
+  {
+    "id": "FC_065",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Custom Calculate",
+    "source_screenshot": 108,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "What role does the POV property play in a Custom Calculate function?",
+    "options": {
+      "A": "It determines the calculation status of Data Units before processing.",
+      "B": "It is used to create new Data Units for the calculation.",
+      "C": "It is referenced in the calculation code to enable flexible business rule execution across different Data Units.",
+      "D": "It is optional and has no significant impact on the calculation."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: the POV (Point of View) property defines the dimension members for the Data Unit context and can be referenced in the calculation code (e.g., api.Pov) to make the business rule flexible and reusable across different Data Unit configurations. A is incorrect — Custom Calculate ignores calculation status entirely. B is incorrect — the POV identifies existing Data Units; it does not create new ones. D is incorrect — the POV property is important for targeting the correct data intersections and enabling dynamic logic."
+  },
+  {
+    "id": "FC_066",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 110,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "What is the purpose of setting isDurableCalculatedData to True in an api.Data.Calculate function?",
+    "options": {
+      "A": "To automatically clear the data during the DUCS process.",
+      "B": "To ensure the data is always recalculated on every DUCS run.",
+      "C": "To protect the calculated data from being cleared during the Clear Data step of the DUCS.",
+      "D": "To remove all previously stored data in the cube before calculating."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: setting isDurableCalculatedData to True marks calculated data as durable, protecting it from the Clear Data step that begins the DUCS. This is critical in seeding scenarios where data must persist between DUCS runs. A is incorrect — it does the opposite; it prevents clearing. B is incorrect — durable data persists and is not recalculated on every DUCS run. D is incorrect — removing previously stored data is the function of a Clear Data Script."
+  },
+  {
+    "id": "FC_067",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Custom Calculate",
+    "source_screenshot": 112,
+    "source_type": "REF",
+    "difficulty": "hard",
+    "question": "When configuring a Custom Calculate function in OneStream, which two methods can be used to trigger the execution of the custom calculation? (Select 2.)",
+    "options": {
+      "A": "Running the calculation from a Data Management step using the Custom Calculate step type.",
+      "B": "Setting a dashboard button's Selection Changed Server Task to Execute Finance Custom Calculate Business Rule.",
+      "C": "Running the calculation automatically as part of every standard DUCS execution.",
+      "D": "Running the calculation from a Member Formula using the Calculate Finance Function Type."
+    },
+    "correct_answer": ["A", "B"],
+    "explanation": "A and B are correct: Custom Calculate functions can be triggered via a Data Management step (Custom Calculate step type, also runnable from a Workflow Process step) or via a dashboard button with the Selection Changed Server Task set to Execute Finance Custom Calculate Business Rule. C is incorrect — Custom Calculate runs OUTSIDE the DUCS; it is not part of the standard DUCS. D is incorrect — Member Formulas use the Formula Type property (Calculate or DynamicCalc) and do not call Custom Calculate Finance Function Types."
+  },
+  {
+    "id": "FC_068",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 113,
+    "source_type": "KC",
+    "difficulty": "hard",
+    "question": "What happens if Unbalanced Math functions are NOT used when combining two data buffers with differing dimensionality?",
+    "options": {
+      "A": "The calculation proceeds without errors but may produce incorrect results.",
+      "B": "The data buffers automatically balance themselves.",
+      "C": "There is potential for a data explosion, leading to many unwanted data intersections.",
+      "D": "The dimensionality of the target buffer will match the second data buffer."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: combining data buffers with differing dimensionality without Unbalanced Math functions causes a data explosion — the system attempts to create all possible combinations of both buffers' dimensions, writing an unintended and massive number of intersections to the cube. A is incorrect — the result is not simply incorrect; it is an explosive multiplication of unwanted data. B is incorrect — data buffers do not self-balance; the developer must use Unbalanced Math functions explicitly. D is incorrect — the target buffer takes on the combined dimensionality of both buffers."
+  },
+  {
+    "id": "FC_069",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 114,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What is the main purpose of Unbalanced Math functions in OneStream?",
+    "options": {
+      "A": "To perform calculations on data buffers that already have matching dimensionality.",
+      "B": "To safely combine data buffers with differing dimensionality.",
+      "C": "To clear data buffers that have different dimensionality before calculation.",
+      "D": "To ensure all data buffers have the same dimensionality before processing."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: Unbalanced Math functions (MultiplyUnbalanced, DivideUnbalanced, AddUnbalanced, SubtractUnbalanced) are designed specifically to safely combine data buffers with different dimensional structures, preventing data explosion. A is incorrect — matching dimensionality uses standard math; Unbalanced Math is needed when dimensionality differs. C is incorrect — Unbalanced Math functions perform math operations, not clearing. D is incorrect — Unbalanced Math handles differing dimensionality; it does not enforce matching dimensionality."
+  },
+  {
+    "id": "FC_070",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 115,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What is the purpose of the resultDataBuffer in a Data Buffer Cell Loop (DBCL)?",
+    "options": {
+      "A": "To temporarily store data before it is cleared at the end of the loop.",
+      "B": "To write data directly to the cube without any additional processing.",
+      "C": "To hold data cells that will be written to the cube after manipulation within the loop.",
+      "D": "To store the original source data cells for reference during the loop."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: the resultDataBuffer collects and holds processed data cells during the loop. After the loop completes, api.Data.SetDataBuffer (placed outside the loop) writes all accumulated result cells to the cube at once. A is incorrect — the resultDataBuffer accumulates results; it is not cleared. B is incorrect — writing to the cube happens via SetDataBuffer after the loop, not inside it. D is incorrect — the original source cells are stored in a separate source data buffer; the resultDataBuffer holds calculated results."
+  },
+  {
+    "id": "FC_071",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 116,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which function is used to retrieve numbers from other data cells during the Data Buffer Cell Loop (DBCL) process?",
+    "options": {
+      "A": "api.Data.SetDataBuffer",
+      "B": "api.Data.ClearCalculatedData",
+      "C": "api.Data.Calculate",
+      "D": "api.Data.GetDataCell"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: api.Data.GetDataCell retrieves numeric values from specific data cell intersections during loop processing, enabling cell-by-cell calculations and comparisons. A is incorrect — api.Data.SetDataBuffer writes the result data buffer to the cube. B is incorrect — api.Data.ClearCalculatedData clears previously calculated data. C is incorrect — api.Data.Calculate performs bulk stored calculations using data buffers and does not retrieve individual cell values during a loop."
+  },
+  {
+    "id": "FC_072",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 117,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "Which two practices are recommended to improve Data Buffer Cell Loop (DBCL) performance in OneStream? (Select 2.)",
+    "options": {
+      "A": "Increase the number of loop iterations to process more data per run.",
+      "B": "Minimize loop iterations by reducing the scope of data processed.",
+      "C": "Place the api.Data.SetDataBuffer call inside the loop to write results immediately.",
+      "D": "Pre-calculate constants outside the loop to avoid recalculating them in each iteration."
+    },
+    "correct_answer": ["B", "D"],
+    "explanation": "B and D are correct: minimizing loop iterations (Tip 1) reduces processing time, and pre-calculating constants outside the loop (Tip 3) avoids redundant computation per iteration. A is incorrect — increasing iterations increases processing time and reduces performance. C is incorrect — placing SetDataBuffer inside the loop causes repeated cube writes per iteration, which is far less efficient than a single write after the loop."
+  },
+  {
+    "id": "FC_073",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 118,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What is a primary benefit of using the Data Buffer Cell Loop (DBCL) over the api.Data.Calculate (ADC) function?",
+    "options": {
+      "A": "DBCL performs calculations faster than a single ADC call.",
+      "B": "DBCL allows for the filtering and analysis of individual cells before they are added to the result buffer.",
+      "C": "DBCL is simpler to implement than ADC.",
+      "D": "DBCL uses fewer computational resources than ADC."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: the DBCL's key benefit is flexibility — it allows inspection, filtering, and analysis of each individual cell before adding it to the result buffer, enabling complex cell-by-cell logic that a single api.Data.Calculate call cannot express. A is incorrect — a single ADC call is generally faster; DBCL has per-iteration overhead. C is incorrect — DBCL is more complex to implement. D is incorrect — DBCL typically uses more computational resources due to iteration overhead."
+  },
+  {
+    "id": "FC_074",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 119,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Why should the api.Data.SetDataBuffer function be placed outside of the Data Buffer Cell Loop?",
+    "options": {
+      "A": "To improve performance by writing all result cells to the cube at once after the loop completes.",
+      "B": "To ensure that each data cell is written individually during the loop.",
+      "C": "To avoid overwriting the result data buffer in each iteration.",
+      "D": "To allow multiple result data buffers to be created during the loop."
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: placing api.Data.SetDataBuffer outside the loop batches all result cell writes into a single operation after the loop completes, improving performance significantly compared to writing to the cube on every iteration. B is incorrect — writing each cell individually during the loop would require SetDataBuffer inside the loop, which is the less efficient pattern. C is incorrect — overwriting the result buffer is not the concern; accumulation of cells throughout the loop is the correct pattern. D is incorrect — the number of result data buffers is not determined by the placement of SetDataBuffer."
+  },
+  {
+    "id": "FC_075",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 120,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What is the primary benefit of using the api.Data.GetDataBufferUsingFormula function?",
+    "options": {
+      "A": "It allows for the immediate writing of data to the cube without a SetDataBuffer call.",
+      "B": "It simplifies the process by eliminating the need for Member Scripts in the data buffer.",
+      "C": "It allows the use of formulas and functions like FilterMember and RemoveZeros when retrieving a data buffer.",
+      "D": "It automatically pre-calculates constants before the loop begins."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: api.Data.GetDataBufferUsingFormula enables the use of formulas and functions (such as FilterMember and RemoveZeros) within the buffer retrieval, providing more powerful filtering options compared to the standard GetDataBuffer. A is incorrect — this function retrieves a data buffer; writing still requires SetDataBuffer. B is incorrect — Member Scripts are still present in the buffer cells. D is incorrect — pre-calculating constants is a separate loop optimization tip."
+  },
+  {
+    "id": "FC_076",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 121,
+    "source_type": "KC",
+    "difficulty": "hard",
+    "question": "How does the MultiplyUnbalanced function help when applying a global inflation rate to expenses detailed by region?",
+    "options": {
+      "A": "It multiplies the inflation rate with only specific, manually selected regions.",
+      "B": "It generates data for all possible region-inflation combinations regardless of actual data.",
+      "C": "It ensures the dimensionality of the expenses matches the inflation rate before multiplying.",
+      "D": "It applies the inflation rate uniformly across all regional expense data despite their different dimensionality."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: MultiplyUnbalanced handles the dimensional mismatch between a global inflation rate (no regional dimension) and expenses broken out by region, applying the rate uniformly across all regional intersections without causing a data explosion. A is incorrect — MultiplyUnbalanced applies to all intersections in the data buffers, not only selected regions. B is incorrect — Unbalanced Math operates on existing populated data, not all possible intersections. C is incorrect — MultiplyUnbalanced handles cases where dimensionality does NOT match; matching dimensionality is not a prerequisite."
+  },
+  {
+    "id": "FC_077",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 122,
+    "source_type": "KC",
+    "difficulty": "hard",
+    "question": "What is a potential consequence of combining two data buffers with differing dimensionality without using Unbalanced Math functions?",
+    "options": {
+      "A": "The calculation will be slower but still produce accurate results.",
+      "B": "OneStream will automatically correct the dimensionality mismatch.",
+      "C": "A data explosion occurs, writing many unwanted data intersections to the cube.",
+      "D": "The dimensionality of both data buffers will be permanently lost."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: without Unbalanced Math functions, combining buffers with differing dimensionality causes a data explosion — the system creates all possible dimension combinations and writes a massive unintended number of intersections to the cube. A is incorrect — the results are not accurate; the explosion writes far more data than intended. B is incorrect — OneStream does not auto-correct dimensionality mismatches. D is incorrect — the dimensionality is not lost; the combination creates too many intersections."
+  },
+  {
+    "id": "FC_078",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 123,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What should be done with constants or repeatable calculations within a Data Buffer Cell Loop to improve performance?",
+    "options": {
+      "A": "Pre-calculate them outside the loop before the loop begins.",
+      "B": "Recalculate them in each iteration of the loop.",
+      "C": "Calculate them after the loop has completed.",
+      "D": "Ignore the need for constants and use hard-coded values instead."
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: pre-calculating constants once outside the loop avoids redundant computation on every iteration, significantly improving performance especially in loops with many iterations. B is incorrect — recalculating constants in each iteration wastes processing time since the value never changes. C is incorrect — constants must be available during the loop, not after it. D is incorrect — hard-coding values reduces maintainability and does not address the performance concern."
+  },
+  {
+    "id": "FC_079",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 124,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Why is it important to declare the result cell as 'New' inside a Data Buffer Cell Loop?",
+    "options": {
+      "A": "To reuse the same cell object for every loop iteration to save memory.",
+      "B": "To ensure the same properties are applied uniformly to all result cells.",
+      "C": "To skip the loop iteration if the cell does not meet a condition.",
+      "D": "To create a fresh cell object for each iteration and avoid overwriting previous results."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: declaring the result cell as New inside the loop creates a fresh object for each iteration. Without this, the same object reference is reused, causing all previously added cells in the result buffer to reflect the last iteration's values. A is incorrect — reusing the same cell object causes errors; each iteration needs its own fresh object. B is incorrect — the purpose is independent per-iteration definition, not uniform properties. C is incorrect — skipping iterations is handled by conditional logic, not cell declaration."
+  },
+  {
+    "id": "FC_080",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Buffer Cell Loops",
+    "source_screenshot": 125,
+    "source_type": "EOU",
+    "difficulty": "hard",
+    "question": "How can nested loops be optimized to enhance performance in a Data Buffer Cell Loop?",
+    "options": {
+      "A": "By increasing the number of iterations to process all data at once.",
+      "B": "By combining conditions or using alternate hierarchy structures to flatten the nested loops.",
+      "C": "By placing the api.Data.SetDataBuffer function inside each nested loop.",
+      "D": "By using separate business rules for each level of the nested loop."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: nested loops multiply processing time exponentially. OneStream recommends flattening nested loops by combining conditions or using alternate hierarchy structures to eliminate the need for multiple levels of nesting. A is incorrect — increasing iterations increases processing time. C is incorrect — placing SetDataBuffer inside nested loops triggers repeated cube writes per inner iteration, severely degrading performance. D is incorrect — separate business rules per loop level do not eliminate the nesting overhead."
+  },
+  {
+    "id": "FC_081",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 129,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "Which statement about compiling business rules and Member Formulas in OneStream is accurate?",
+    "options": {
+      "A": "Compiling a rule detects all errors, including errors within formula strings.",
+      "B": "Compiling a rule will not detect errors within formula strings; formula string errors are only detected at calculation runtime.",
+      "C": "A rule must be compiled successfully before it can be saved in OneStream.",
+      "D": "Compilation checks only Member Formulas; business rules do not need compilation."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: compiling a rule checks VB.NET syntax outside the string, but cannot detect errors within formula strings (such as invalid member names inside api.Data.Calculate formula arguments). Formula string errors only surface at runtime. A is incorrect — compilation specifically cannot detect formula string errors. C is incorrect — rules can be saved without compiling. D is incorrect — both business rules and Member Formulas support and benefit from compilation."
+  },
+  {
+    "id": "FC_082",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 130,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "When a business rule with multiple runtime errors is executed, how many errors does the error dialog display?",
+    "options": {
+      "A": "All runtime errors in the business rule.",
+      "B": "All compilation and runtime errors combined.",
+      "C": "Only the first error encountered, because the rule stops running after the first error is caught.",
+      "D": "The last three errors, because the system buffers recent errors."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: the rule stops executing after catching the first error, so only the first runtime error is shown in the dialog. Each subsequent run surfaces the next error in sequence. A is incorrect — only the first error is shown. B is incorrect — compilation errors appear at compile time; the runtime dialog shows only the first runtime error. D is incorrect — there is no error buffering mechanism."
+  },
+  {
+    "id": "FC_083",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 131,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "What does the error dialog display when attempting to run a business rule with errors from a data management step?",
+    "options": {
+      "A": "The first error encountered in the business rule.",
+      "B": "All errors in that business rule.",
+      "C": "All errors across all business rules in the application.",
+      "D": "All compilation errors and runtime errors combined."
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: the error dialog displays only the first error because the business rule stops running as soon as the first error is caught. B is incorrect — only the first error is shown; the rule stops after the first. C is incorrect — the dialog pertains only to the specific rule being run. D is incorrect — compilation errors appear at compile time; the runtime dialog only shows the first runtime error."
+  },
+  {
+    "id": "FC_084",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 132,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "When a calculation does not produce results in a Cube View, what is a benefit of right-clicking a data cell and selecting Drill Down?",
+    "options": {
+      "A": "Viewing the dimensional details of the data intersection to verify the calculation targets the correct members.",
+      "B": "Viewing the task child steps from the last calculation run.",
+      "C": "Viewing the calculation processing time for each step.",
+      "D": "Viewing the Error Log messages from the last calculation."
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: Drill Down shows the dimensional details of the intersection — including the Member Script — helping verify that source data exists at the correct intersection and that the calculation formula targets the right members. B is incorrect — task child steps are viewed in Task Activity when run with logging. C is incorrect — processing time is visible in Task Activity. D is incorrect — Error Log messages are viewed in the Error Log or Task Activity."
+  },
+  {
+    "id": "FC_085",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 133,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "An error message reads: 'Error processing Data Management Step — Invalid parameter. Cube.' What does this indicate?",
+    "options": {
+      "A": "There is an error in the business rule code.",
+      "B": "There is an error in the Member Formula.",
+      "C": "There is an error in the data management step configuration.",
+      "D": "There is an error in the Cube View."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: 'Error processing Data Management Step' with 'Invalid parameter. Cube.' indicates the data management step configuration is incorrect — for example, an invalid cube name or missing parameter. Runtime errors can stem from misconfigured application artifacts, not only from code errors. A is incorrect — a business rule code error would reference the specific line and rule. B is incorrect — Member Formula errors surface differently. D is incorrect — the error references the data management step, not the Cube View."
+  },
+  {
+    "id": "FC_086",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 134,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "A consultant ran a calculation and received an error. They want to run it again to view the task child steps in Task Activity. Which option should they use?",
+    "options": {
+      "A": "Calculate",
+      "B": "Consolidate",
+      "C": "Force Calculate",
+      "D": "Calculate with Logging"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: Calculate with Logging runs the calculation and writes detailed task child step information to Task Activity, enabling the consultant to drill into individual steps to investigate the error. A is incorrect — standard Calculate does not generate child step logging detail. B is incorrect — Consolidate runs entity-to-entity consolidation, not a calculation. C is incorrect — Force Calculate forces recalculation but does not add logging detail to Task Activity."
+  },
+  {
+    "id": "FC_087",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 135,
+    "source_type": "KC",
+    "difficulty": "hard",
+    "question": "A calculation is run and produces a data cell value. It is run again and produces a different value. What is the probable cause?",
+    "options": {
+      "A": "There is a compilation error in the business rule.",
+      "B": "There is a runtime error visible in Task Activity.",
+      "C": "There is no source data for the calculation.",
+      "D": "There are incorrect formula pass dependencies between Member Formulas."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: producing different results on successive runs most likely indicates incorrect formula pass dependencies — a Member Formula depending on another's output is assigned a Formula Pass that runs before its dependency, so results vary based on what was already in the cube. A is incorrect — a compilation error prevents the rule from running at all. B is incorrect — a runtime error fails the calculation rather than producing varying results. C is incorrect — no source data would produce consistent zero/NoData results, not different values."
+  },
+  {
+    "id": "FC_088",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 136,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "After using api.LogMessage to troubleshoot a business rule, what should the consultant do with the logging code?",
+    "options": {
+      "A": "Comment out or delete the api.LogMessage code before putting the rule into production.",
+      "B": "Leave the api.LogMessage code in the rule for ongoing production monitoring.",
+      "C": "Move the api.LogMessage code to the end of the business rule.",
+      "D": "Ensure the api.LogMessage code is placed within a loop for comprehensive logging."
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: api.LogMessage code must be commented out or deleted before the rule enters production. Leaving active logging negatively impacts performance and is flagged by System Diagnostics as a concern. B is incorrect — active production logging is a known performance problem. C is incorrect — moving the code to the rule's end does not remove the performance impact. D is incorrect — logging inside a loop amplifies the performance problem."
+  },
+  {
+    "id": "FC_089",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 138,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Which option describes all the information that can be viewed in Task Activity?",
+    "options": {
+      "A": "Task information only.",
+      "B": "Task information and error information.",
+      "C": "Task information, error information, and task child steps (when run with logging).",
+      "D": "Task information, error information, task child steps, and application reports."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: Task Activity shows task information (status, start/end time, duration), error information (error messages when a task fails), and task child steps when the calculation was run with logging enabled. A and B are incorrect — Task Activity shows more than task information alone or task plus error information. D is incorrect — application reports are a separate feature and are not part of Task Activity."
+  },
+  {
+    "id": "FC_090",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 139,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "A formula string within a business rule contains a typo. When will this error be detected?",
+    "options": {
+      "A": "When writing the rule — a wavy red error line will appear.",
+      "B": "When compiling the rule.",
+      "C": "When the calculation is run at runtime.",
+      "D": "When no data populates in the Cube View after the calculation."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: errors within formula strings are not detected during compilation — the compiler only checks VB.NET syntax outside the string. Formula string errors surface only at runtime when OneStream parses and executes the formula. A is incorrect — the rule editor does not show wavy red lines for errors inside formula strings. B is incorrect — compilation cannot detect formula string errors; this is a known limitation. D is incorrect — no data populating is a symptom, not when the error is actually caught."
+  },
+  {
+    "id": "FC_091",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 140,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What are two benefits of writing a custom message to the Error Log using api.LogMessage? (Select 2.)",
+    "options": {
+      "A": "Viewing the values of variables during calculation execution.",
+      "B": "Viewing the logged message in Task Activity when run with logging.",
+      "C": "Viewing the full dimensional details of data buffers directly in the Cube View.",
+      "D": "Automatically emailing the error message to the application administrator."
+    },
+    "correct_answer": ["A", "B"],
+    "explanation": "A and B are correct: api.LogMessage allows logging of variable values to the Error Log (for inspecting intermediate values during troubleshooting), and the messages appear in Task Activity when the calculation is run with logging enabled. C is incorrect — dimensional details of data buffers are logged using api.Data.LogDataBuffer, not api.LogMessage, and appear in the Error Log not the Cube View. D is incorrect — api.LogMessage writes to the Error Log only; OneStream does not email Error Log messages."
+  },
+  {
+    "id": "FC_092",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Troubleshooting",
+    "source_screenshot": 141,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "Which statement is correct about compilation errors in OneStream business rules?",
+    "options": {
+      "A": "A rule with compilation errors will fail to run.",
+      "B": "A rule will still run even if it has compilation errors.",
+      "C": "A rule cannot be saved in OneStream without first being successfully compiled.",
+      "D": "Only business rules are compiled; Member Formulas do not support compilation."
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: a rule with compilation errors will fail to run. OneStream will not execute a rule that has not compiled successfully. B is incorrect — rules do not run with compilation errors. C is incorrect — rules can be saved without compiling, though compilation is strongly recommended. D is incorrect — both business rules and Member Formulas support compilation."
+  },
+  {
+    "id": "FC_093",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Calculation Management",
+    "source_screenshot": 143,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which function is used to retrieve Member Formula content from dimension members in the OneStream Spreadsheet Add-In?",
+    "options": {
+      "A": "XFGetRelationshipProperty",
+      "B": "XFGetHierarchyProperty",
+      "C": "XFGetCellUsingScript",
+      "D": "XFGetMemberProperty"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: XFGetMemberProperty retrieves Member Formula content and other member properties from dimension members in the Spreadsheet Add-In, useful for auditing or bulk review. A is incorrect — XFGetRelationshipProperty retrieves relationship properties such as aggregation settings. B is incorrect — XFGetHierarchyProperty retrieves hierarchy-level properties. C is incorrect — XFGetCellUsingScript retrieves data cell values using a Member Script."
+  },
+  {
+    "id": "FC_094",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Calculation Management",
+    "source_screenshot": 147,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "What solution is used to create a snapshot of an application to analyze Finance business rule and Member Formula metrics?",
+    "options": {
+      "A": "System Diagnostics",
+      "B": "Snippet Editor",
+      "C": "Standard Application Reports",
+      "D": "Data Unit Statistics"
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: Standard Application Reports create snapshots analyzing Finance business rule and Member Formula metrics including formula statistics, CPU usage, entity data volumes, and audit trails of calculation changes. A is incorrect — System Diagnostics provides real-time application health monitoring, not detailed formula metric snapshots. B is incorrect — the Snippet Editor manages reusable code snippets. D is incorrect — Data Unit Statistics is a Cube View right-click option for a specific cell's Data Unit, not an application-wide formula analysis tool."
+  },
+  {
+    "id": "FC_095",
+    "topic": "Financial Calculations",
+    "subtopic": "Resolve and Manage Calculations — Calculation Management",
+    "source_screenshot": 149,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Which solutions help analyze Data Unit Statistics in OneStream?",
+    "options": {
+      "A": "Standard Application Reports only.",
+      "B": "Standard Application Reports and System Diagnostics.",
+      "C": "Standard Application Reports, System Diagnostics, and the Snippet Editor.",
+      "D": "Standard Application Reports, System Diagnostics, the Snippet Editor, and Grid View."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: Standard Application Reports provide volume statistics and stored record counts, while System Diagnostics shows application metrics including the number of stored records for the largest Data Unit. Both are relevant for Data Unit Statistics analysis. A is incorrect — System Diagnostics also contributes relevant statistics. C is incorrect — the Snippet Editor manages code snippets and does not analyze Data Unit statistics. D is incorrect — Grid View displays non-cube data in dashboards and is not a Data Unit statistics tool."
+  },
+  {
+    "id": "FC_096",
+    "topic": "Financial Calculations",
+    "subtopic": "Common Calculations and Resources",
+    "source_screenshot": 153,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which method is recommended for executing seeding rules when the source scenario data does NOT change frequently?",
+    "options": {
+      "A": "Using a Scenario Member Formula so the seed recalculates automatically on every DUCS run.",
+      "B": "Using manual data entry to copy values from Actual to Forecast each period.",
+      "C": "Using a Custom Calculate function for single or ad-hoc executions without DUCS integration.",
+      "D": "Using automated data imports from an external source each period."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: when source data does not change frequently, Custom Calculate is ideal for seeding — it runs on demand as a single or ad-hoc execution without being tied to every DUCS run, avoiding unnecessary processing overhead. A is incorrect — a Scenario Member Formula runs every DUCS execution, which is unnecessarily frequent when source data rarely changes. B is incorrect — manual data entry is not scalable. D is incorrect — automated external imports are for data integration, not intra-application scenario seeding."
+  },
+  {
+    "id": "FC_097",
+    "topic": "Financial Calculations",
+    "subtopic": "Common Calculations and Resources",
+    "source_screenshot": 154,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Why should the isDurableData property be set to True when using Custom Calculate for seeding from Actual to Forecast scenarios?",
+    "options": {
+      "A": "To ensure that the seeded data is overwritten with new values on every calculation run.",
+      "B": "To automatically update the Forecast scenario whenever new Actuals are loaded.",
+      "C": "To enable growth rate calculations on the seeded Forecast data.",
+      "D": "To ensure the copied data remains unchanged and is not cleared during the DUCS."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: setting isDurableData to True marks the seeded data as durable so it is not cleared during the Clear Data step of the DUCS. Without this, the seeded data would be lost every time the DUCS runs on the Forecast Data Units. A is incorrect — durable data persists until explicitly cleared; it is not overwritten on every run. B is incorrect — Custom Calculate with isDurableData does not auto-update when new Actuals are loaded; it must be re-run explicitly. C is incorrect — enabling growth rate calculations is a separate design concern."
+  },
+  {
+    "id": "FC_098",
+    "topic": "Financial Calculations",
+    "subtopic": "Common Calculations and Resources",
+    "source_screenshot": 156,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Why should Balance Sheet and Flow calculations run as part of the standard DUCS rather than as Custom Calculate functions?",
+    "options": {
+      "A": "To ensure the calculations are unaffected by changes in dependent data.",
+      "B": "To ensure they are cleared and recalculated whenever there are changes in dependent data.",
+      "C": "To allow manual intervention in the calculation process each period.",
+      "D": "To enhance the performance of financial reports by pre-calculating values."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: Balance Sheet and Flow calculations depend on accurate source data. Running them as part of the DUCS ensures they are automatically cleared and recalculated whenever dependent data changes — such as when transactions are imported or journal entries are posted. A is incorrect — the opposite is true; DUCS integration ensures the calculations DO respond to changes. C is incorrect — DUCS runs are automated and do not require manual intervention. D is incorrect — the primary reason is data accuracy in response to changes, not report performance."
+  },
+  {
+    "id": "FC_099",
+    "topic": "Financial Calculations",
+    "subtopic": "Common Calculations and Resources",
+    "source_screenshot": 157,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which statement correctly describes data storage and retrieval in the View dimension in OneStream?",
+    "options": {
+      "A": "Data is stored as MTD by default and can be viewed as YTD.",
+      "B": "Data is stored as YTD by default and can be viewed dynamically as MTD, QTD, and other views.",
+      "C": "Data is stored as QTD by default and can be retrieved using custom formulas.",
+      "D": "Data is stored in custom formats by default and requires custom calculations for all viewing."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: in OneStream, all numeric data is stored at the YTD (Year-to-Date) View member by default. Other views such as MTD, QTD, Periodic, and Trailing3MonthAvg are derived dynamically from the stored YTD data. A is incorrect — data is stored as YTD, not MTD. C is incorrect — data is stored as YTD, not QTD. D is incorrect — YTD is the single standard storage format, and most common view types are available out of the box without custom calculations."
+  },
+  {
+    "id": "FC_100",
+    "topic": "Financial Calculations",
+    "subtopic": "Common Calculations and Resources",
+    "source_screenshot": 159,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which function should a consultant use to retrieve a string value from the Globals dictionary in OneStream?",
+    "options": {
+      "A": "GetObject",
+      "B": "SetStringValue",
+      "C": "GetStringValue",
+      "D": "CType"
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: GetStringValue retrieves a string previously stored in the Globals dictionary, which is used to share values across business rule functions or executions within the same session. A is incorrect — GetObject retrieves an object (not specifically a string) and requires CType to cast to the desired type. B is incorrect — SetStringValue stores a string into the Globals dictionary; it does not retrieve one. D is incorrect — CType is a VB.NET type conversion function used after GetObject; it is not a Globals dictionary access function."
+  }
+]

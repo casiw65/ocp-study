@@ -1,0 +1,852 @@
+[
+  {
+    "id": "FC_001",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Data Fundamentals",
+    "source_screenshot": 1,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "Which statement correctly describes the relationship between cubes, Data Units, and data cells in OneStream?",
+    "options": {
+      "A": "A data cell is a group of Data Units within a cube.",
+      "B": "A data cell is a group of cubes within a Data Unit.",
+      "C": "A Data Unit is a group of cubes within a data cell.",
+      "D": "A cube contains multiple Data Units, and Data Units are groups of data cells."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: in OneStream, a cube is the highest-level structure that contains multiple Data Units, and each Data Unit is composed of groups of data cells. A is incorrect — data cells are the smallest unit, not groupings of Data Units. B is incorrect — cubes contain Data Units, not the reverse. C is incorrect — Data Units are subdivisions within a cube, not groupings of cubes."
+  },
+  {
+    "id": "FC_002",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Member Formulas",
+    "source_screenshot": 2,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "How is a Member Formula executed in OneStream?",
+    "options": {
+      "A": "By assigning the Member Formula to a data management step and running the step.",
+      "B": "By drilling down on a data cell to run the Member Formula.",
+      "C": "By running a consolidation for a data intersection that includes the member the formula is written on.",
+      "D": "By assigning the Member Formula to a business rule and running the business rule."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: a Member Formula runs automatically during a consolidation for a data intersection that includes the member the formula is written on. A is incorrect — data management steps are used to run business rules, not Member Formulas directly. B is incorrect — drilling down displays data detail but does not execute Member Formulas. D is incorrect — Member Formulas are standalone assignments on dimension members, not assigned to business rules."
+  },
+  {
+    "id": "FC_003",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Member Formulas vs. Business Rules",
+    "source_screenshot": 3,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "A consultant needs to maintain multiple financial calculations in a single location for ease of maintenance. Which approach achieves this goal?",
+    "options": {
+      "A": "Write each calculation in a different business rule.",
+      "B": "Write each calculation in a different Member Formula.",
+      "C": "Write each calculation in the same Account Member Formula.",
+      "D": "Write all calculations within the same business rule or the same Scenario Member Formula."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: consolidating calculations into a single business rule, or writing them on the same Scenario Member Formula, ensures they are maintained in one place. A is incorrect — using separate business rules disperses maintenance effort across multiple locations. B is incorrect — separate Member Formulas on different accounts spread the calculations across members. C is partially correct in concept, but a Scenario Member Formula or single business rule is the better centralized approach when calculations span multiple members."
+  },
+  {
+    "id": "FC_004",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Member Formulas vs. Business Rules",
+    "source_screenshot": 5,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "An application has a few account calculations for the Actual Scenario Type and many account calculations for the Forecast Scenario Type. Which approach is easiest from a maintenance perspective?",
+    "options": {
+      "A": "Write all calculations on Member Formulas and vary each formula by Scenario Type.",
+      "B": "Write the Actual calculations within Member Formulas and the Forecast calculations within a business rule.",
+      "C": "Write all calculations on Member Formulas and vary each formula by Time.",
+      "D": "Write the Forecast calculations within Member Formulas and the Actual calculations within a business rule."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: when there are few Actual calculations and many Forecast calculations, the recommended approach is to write the few Actual calculations within Member Formulas and the many Forecast calculations within a single business rule, minimizing the number of maintenance locations. A is incorrect — varying each Member Formula by Scenario Type creates many formulas to maintain. C is incorrect — varying by Time rather than Scenario Type does not address the maintenance concern here. D is incorrect — placing the larger set (Forecast) in Member Formulas increases maintenance effort compared to consolidating them in a business rule."
+  },
+  {
+    "id": "FC_005",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — VB.NET Fundamentals",
+    "source_screenshot": 6,
+    "source_type": "REF",
+    "difficulty": "easy",
+    "question": "In the context of OneStream business rules written in VB.NET, which statement best describes a 'Class'?",
+    "options": {
+      "A": "A class is a specific instance created based on a template.",
+      "B": "A class is a location in memory where a program can store data.",
+      "C": "A class is a template used for creating specific objects.",
+      "D": "A class is a function that interacts with and accesses objects within the engine."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: a class is a template used for creating specific objects. For example, Members is a class in OneStream. A is incorrect — that describes an Object, which is an instance of a class. B is incorrect — that describes a Variable, which is a named memory location. D is incorrect — that describes an API function or Method, which defines behavior applicable to a class."
+  },
+  {
+    "id": "FC_006",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — VB.NET Fundamentals",
+    "source_screenshot": 7,
+    "source_type": "REF",
+    "difficulty": "easy",
+    "question": "In OneStream's VB.NET context, which term describes a specific instance created based on a class?",
+    "options": {
+      "A": "Variable",
+      "B": "Method",
+      "C": "API",
+      "D": "Object"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: an Object is a specific instance created based on a class. For example, the Actual scenario member is an instance of the Member class and is therefore an Object. A is incorrect — a Variable is a named location in memory where a program stores data. B is incorrect — a Method is a function that applies to a class, defining its behavior. C is incorrect — API refers to the set of functions used to interact with the engine, not to instances of classes."
+  },
+  {
+    "id": "FC_007",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — VB.NET Fundamentals",
+    "source_screenshot": 9,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "What is the correct VB.NET syntax for representing a string value?",
+    "options": {
+      "A": "'string",
+      "B": "'string'",
+      "C": "\"string",
+      "D": "\"string\""
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: in VB.NET, a string value is encapsulated in double quotes. A is incorrect — a single leading apostrophe is the VB.NET comment syntax, not a string delimiter. B is incorrect — surrounding text with single quotes is not valid VB.NET string syntax. C is incorrect — an opening double quote without a closing double quote is incomplete and invalid syntax."
+  },
+  {
+    "id": "FC_008",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — VB.NET Fundamentals",
+    "source_screenshot": 10,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "Which option shows the correct VB.NET syntax for declaring a string variable named 'variableName' with a value of 'AuSales'?",
+    "options": {
+      "A": "\"AuSales\" = Dim variableName As String",
+      "B": "Dim variableName = String \"AuSales\"",
+      "C": "Dim String As \"AuSales\"",
+      "D": "Dim variableName As String = \"AuSales\""
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: the correct VB.NET variable declaration format is Dim uniqueVariableName As DataType = Value. Since the variable is declared as a string, the value is enclosed in double quotes. A is incorrect — the order is reversed and the assignment precedes Dim, which is invalid. B is incorrect — String is placed before the value without the As keyword in the correct position, making this invalid syntax. C is incorrect — Dim String As puts the data type where the variable name should be, which is invalid."
+  },
+  {
+    "id": "FC_009",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — API and BRAPI",
+    "source_screenshot": 11,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "What is the purpose of API functions in OneStream business rules?",
+    "options": {
+      "A": "To run functions outside of the engine currently being worked in.",
+      "B": "To provide downloadable calculation examples from the Solution Exchange.",
+      "C": "To interact with and access objects within the engine being used.",
+      "D": "To define arguments available based on the current engine."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: API functions allow you to interact with and access objects within the engine. For example, Finance APIs are available when working with Member Formulas and Finance business rules and can retrieve the Member name from the Finance Engine. A is incorrect — running functions outside the current engine describes BRAPI functions. B is incorrect — downloadable calculation examples are called Snippets. D is incorrect — Args (arguments) is a separate section in the rule editor showing available arguments based on the engine, distinct from API functions."
+  },
+  {
+    "id": "FC_010",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — API and BRAPI",
+    "source_screenshot": 12,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "Which statement about BRAPI functions in OneStream is accurate?",
+    "options": {
+      "A": "BRAPI functions interact with objects within the current engine only.",
+      "B": "BRAPI functions allow you to run functions outside the engine you are working in.",
+      "C": "BRAPI functions are required for all Finance business rules.",
+      "D": "BRAPI functions replace API functions when working with Member Formulas."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: BRAPI functions allow you to run functions outside the engine you are working in — for example, running a Parser function from within a Finance business rule. A is incorrect — interacting with objects within the current engine describes API functions, not BRAPI. C is incorrect — BRAPI functions are generally not recommended for Finance business rules; using the API equivalent typically performs better. D is incorrect — API functions are preferred over BRAPI for performance reasons; BRAPI does not replace API."
+  },
+  {
+    "id": "FC_011",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — API and BRAPI",
+    "source_screenshot": 14,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "What are API functions in OneStream?",
+    "options": {
+      "A": "Functions and examples downloaded from the OneStream Solution Exchange.",
+      "B": "Arguments available based on the engine being used.",
+      "C": "Functions that run operations outside the engine you are working in.",
+      "D": "Functions that interact with and access objects within the engine."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: API functions interact with and access objects within the engine. Finance API functions are available when working with Member Formulas and Finance business rules. A is incorrect — downloadable function examples from the Solution Exchange are called Snippets. B is incorrect — that describes the Args section of the rule editor. C is incorrect — that describes BRAPI functions, which cross engine boundaries."
+  },
+  {
+    "id": "FC_012",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — VB.NET Fundamentals",
+    "source_screenshot": 17,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "What is the correct VB.NET syntax for a single-line comment?",
+    "options": {
+      "A": "'comment",
+      "B": "'comment'",
+      "C": "\"comment",
+      "D": "\"comment\""
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: in VB.NET, comments begin with a single apostrophe. Everything after the apostrophe on that line is treated as a comment and ignored by the compiler. B is incorrect — wrapping text in single quotes is not valid VB.NET comment syntax. C is incorrect — a leading double quote begins a string value, not a comment. D is incorrect — double quotes are used for string literals, not for comments."
+  },
+  {
+    "id": "FC_013",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — VB.NET Fundamentals",
+    "source_screenshot": 18,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "Which two practices improve the readability of code in OneStream business rules? (Select 2.)",
+    "options": {
+      "A": "Indenting lines appropriately.",
+      "B": "Splitting long lines of code using an underscore preceded by a space.",
+      "C": "Encapsulating active calculation code within comments.",
+      "D": "Manually changing the color of code."
+    },
+    "correct_answer": ["A", "B"],
+    "explanation": "A and B are correct: indenting lines appropriately improves visual structure, and splitting long lines using a space followed by an underscore is the VB.NET line continuation character that breaks lengthy code into readable segments. C is incorrect — encapsulating active code in comments disables it from running; this is used to disable code, not improve readability. D is incorrect — the OneStream business rule editor applies syntax highlighting automatically; manually changing code colors is not supported."
+  },
+  {
+    "id": "FC_014",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Business Rules",
+    "source_screenshot": 19,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "What are two ways to run a Finance business rule in OneStream? (Select 2.)",
+    "options": {
+      "A": "By calling the rule in a Member Formula and running the Member Formula from the Dimension Library.",
+      "B": "By assigning the rule to a data management step and running the step.",
+      "C": "By calling the rule in a Cube View and running the Cube View.",
+      "D": "By running the business rule directly from the Business Rules page."
+    },
+    "correct_answer": ["B", "D"],
+    "explanation": "B and D are correct: a Finance business rule can be run by assigning it to a data management step and executing that step, or by running it directly from the Business Rules page. A is incorrect — Member Formulas do not call or invoke business rules. C is incorrect — Cube Views display data and run dynamic calculations; they do not directly execute Finance business rules."
+  },
+  {
+    "id": "FC_015",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Business Rules",
+    "source_screenshot": 20,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "What Engine type is assigned to Member Formulas in OneStream?",
+    "options": {
+      "A": "Parser",
+      "B": "Finance",
+      "C": "Conditional Rule",
+      "D": "Connector"
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: Member Formulas use the Finance Engine type in OneStream. This engine provides access to Finance API functions used for financial calculations such as consolidations and Member Formula passes. A is incorrect — the Parser engine is used for transformation rules in data integration. C is incorrect — Conditional Rule is not a standard Engine type for Member Formulas. D is incorrect — the Connector engine type is used for data integration connectors, not for Member Formulas."
+  },
+  {
+    "id": "FC_016",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Business Rules",
+    "source_screenshot": 25,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "How are business rules organized on the Business Rules page in OneStream?",
+    "options": {
+      "A": "By Engine type.",
+      "B": "Alphabetically by business rule name.",
+      "C": "By the date they were last modified.",
+      "D": "By language: VB.NET or C#."
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: on the Business Rules page, rules are organized by Engine type (Finance, Data Management, Extensibility, etc.), making it straightforward to locate rules by their functional category. B is incorrect — the primary organizational structure is by Engine type, not alphabetically across all rules. C is incorrect — modification date is not the organizing principle. D is incorrect — the programming language is a property of individual rules but is not the primary organizing structure."
+  },
+  {
+    "id": "FC_017",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Snippets",
+    "source_screenshot": 27,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "What are Snippets in OneStream?",
+    "options": {
+      "A": "Functions that interact with and access objects within the current engine.",
+      "B": "Arguments available based on the engine being used.",
+      "C": "Common calculation examples downloaded from the OneStream Solution Exchange.",
+      "D": "Functions that run operations outside the engine you are working in."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: Snippets are common calculation examples downloaded from the OneStream Solution Exchange via the Snippet Editor and loaded into the server instance. They can be copied and used within Member Formulas and business rules. A is incorrect — that describes API functions. B is incorrect — that describes the Args section of the rule editor. D is incorrect — that describes BRAPI functions."
+  },
+  {
+    "id": "FC_018",
+    "topic": "Financial Calculations",
+    "subtopic": "Introduction to Rules — Member Formulas vs. Business Rules",
+    "source_screenshot": 28,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "According to the Member Formula vs. Business Rule decision tree, when is a business rule the preferred choice over a Member Formula?",
+    "options": {
+      "A": "When the calculation applies to only one account member.",
+      "B": "When you want to organize calculations using the dimension member hierarchy.",
+      "C": "When the calculation spans multiple members or requires shared variables across calculations.",
+      "D": "When the calculation uses the DynamicCalc function type."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: the decision tree directs consultants to use a business rule when a calculation spans multiple members, requires shared variables across calculations, or when organizing multiple calculations in a single location for ease of maintenance. A is incorrect — a single-account calculation is well-suited for a Member Formula. B is incorrect — organizing calculations using the dimension member hierarchy is a reason to use Member Formulas, not business rules. D is incorrect — DynamicCalc is a formula type assignable to Member Formulas; it is not a reason to choose a business rule."
+  },
+  {
+    "id": "FC_019",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Dynamic Calculations",
+    "source_screenshot": 29,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "How does a user run a dynamic calculation in OneStream?",
+    "options": {
+      "A": "By executing a Data Export through a Data Management step for a data intersection that includes the member with the dynamic calculation.",
+      "B": "By running a consolidation for a data intersection that includes the member with the dynamic calculation.",
+      "C": "By running a Quick View or Cube View that references a member with a dynamic calculation.",
+      "D": "By executing a Force Calculate for a data intersection that includes the member with the dynamic calculation."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: dynamic calculations are triggered by running a report — such as a Quick View or Cube View — that references a member with a dynamic calculation. The calculation executes on demand at report run-time, not during a consolidation. A is incorrect — Data Export steps retrieve data; they do not trigger dynamic calculations. B is incorrect — dynamic calculations do not run during consolidation; they run on demand when a report references the member. D is incorrect — Force Calculate triggers the DUCS for stored calculations, not dynamic calculations."
+  },
+  {
+    "id": "FC_020",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Dynamic Calculations",
+    "source_screenshot": 30,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Where should a dynamic calculation formula be stored to ensure it applies universally across different accounts in a Cube View without repeating the formula on each account member?",
+    "options": {
+      "A": "In each individual account member.",
+      "B": "In the Time dimension member properties.",
+      "C": "Directly in a Cube View row using the GetDataCell function.",
+      "D": "In the View dimension member properties."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: to apply a dynamic calculation universally across different accounts in a Cube View without repeating the formula on each member, the formula is written directly in a Cube View row using the GetDataCell function. The calculation executes when the Cube View is run. A is incorrect — placing the formula on each individual account member would require separate maintenance for every account. B is incorrect — the Time dimension does not store calculation formulas. D is incorrect — the View dimension holds data view types, not calculation formulas."
+  },
+  {
+    "id": "FC_021",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Dynamic Calculations",
+    "source_screenshot": 31,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "Which statement accurately describes a characteristic unique to dynamic calculations compared to stored calculations?",
+    "options": {
+      "A": "Dynamic calculations aggregate naturally just like stored calculations.",
+      "B": "Dynamic calculations can only use other dynamic calculations as a source.",
+      "C": "Dynamic calculations must be assigned a Formula Pass 1 through 16.",
+      "D": "Dynamic calculations are generated on demand at report run-time and can impact report performance."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: dynamic calculations are computed on demand when a report is run, which means they do not impact Data Units but do impact report run-time by generating values dynamically each time the report executes. A is incorrect — dynamic calculations do not aggregate naturally; GetEntityAggregationsDataCell is required for aggregation. B is incorrect — dynamic calculations can use both stored formulas and other dynamic calculations as a source. C is incorrect — Formula Pass 1 through 16 applies to stored Member Formula calculations, not dynamic calculations."
+  },
+  {
+    "id": "FC_022",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Dynamic Calculations",
+    "source_screenshot": 33,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Which two statements are characteristics of dynamic calculations in OneStream? (Select 2.)",
+    "options": {
+      "A": "They aggregate naturally.",
+      "B": "They can use stored or other dynamic calculations as a source.",
+      "C": "They must be assigned a Formula Pass 1 through 16.",
+      "D": "They can impact report run-time."
+    },
+    "correct_answer": ["B", "D"],
+    "explanation": "B and D are correct: dynamic calculations can use both stored formulas and other dynamic calculations as source data; and they impact report run-time because they generate values on demand each time a report referencing them is run. A is incorrect — dynamic calculations do not aggregate naturally; GetEntityAggregationsDataCell is required. C is incorrect — Formula Pass 1 through 16 applies to stored Member Formula calculations; dynamic calculations use the DynamicCalc formula type, which does not involve a Formula Pass."
+  },
+  {
+    "id": "FC_023",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Dynamic Calculations",
+    "source_screenshot": 37,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "How does a OneStream user trigger a dynamic calculation?",
+    "options": {
+      "A": "By running a Calculation with Logging.",
+      "B": "By running a Force Consolidation.",
+      "C": "By running a Cube View that references a member with a dynamic calculation.",
+      "D": "By running a Force Translation."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: dynamic calculations are triggered when a user runs a Cube View (or Quick View) that references a member assigned a dynamic calculation. The calculation executes on demand at report run-time. A is incorrect — Calculate with Logging runs the DUCS for stored calculations; it does not trigger dynamic calculations. B is incorrect — Force Consolidation processes stored consolidation calculations. D is incorrect — Force Translation processes currency translations for stored data."
+  },
+  {
+    "id": "FC_024",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Dynamic Calculations",
+    "source_screenshot": 40,
+    "source_type": "REF",
+    "difficulty": "medium",
+    "question": "In which three locations can dynamic calculations be stored in OneStream? (Select 3.)",
+    "options": {
+      "A": "Member Formulas on dimension members using the DynamicCalc Account Type.",
+      "B": "Finance business rules using the DataCell Finance Function Type.",
+      "C": "Cube View rows using the GetDataCell function inline.",
+      "D": "Transformation Rules in the Data Integration module."
+    },
+    "correct_answer": ["A", "B", "C"],
+    "explanation": "A, B, and C are correct: dynamic calculations can be written in Member Formulas (using DynamicCalc Account Type with api.Data.GetDataCell), in Finance business rules (using the DataCell FinanceFunctionType), and directly in Cube View rows (using GetDataCell inline). In all three cases the calculation executes when a report referencing the member or row is run. D is incorrect — Transformation Rules are used for data integration mapping and loading logic, not for financial dynamic calculations."
+  },
+  {
+    "id": "FC_025",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Fundamentals",
+    "source_screenshot": 41,
+    "source_type": "REF",
+    "difficulty": "easy",
+    "question": "Which statement best describes a 'data buffer' in OneStream?",
+    "options": {
+      "A": "A data buffer is a collection of multiple Data Units.",
+      "B": "A data buffer always encompasses the entirety of a Data Unit.",
+      "C": "A data buffer is a segment or portion of data within a Data Unit.",
+      "D": "A data buffer is a separate database table used for staging calculations."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: a data buffer is a segment of data within a Data Unit — also described as a data chunk, block, or slice. It could be a specific section of a Data Unit, though sometimes it may encompass the entirety of a Data Unit. A is incorrect — a data buffer is a subset within a single Data Unit, not a collection of multiple Data Units. B is incorrect — while a data buffer might sometimes encompass an entire Data Unit, it is usually just a part of one. D is incorrect — data buffers are in-memory structures, not separate database staging tables."
+  },
+  {
+    "id": "FC_026",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Fundamentals",
+    "source_screenshot": 42,
+    "source_type": "KC",
+    "difficulty": "easy",
+    "question": "Which statement correctly describes the relationship between a Data Unit and a data buffer?",
+    "options": {
+      "A": "A data buffer is a collection of multiple Data Units.",
+      "B": "A Data Unit encompasses only a portion of a data buffer.",
+      "C": "A data buffer is always the entirety of a Data Unit.",
+      "D": "A data buffer is a segment or portion of a Data Unit."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: a data buffer is a segment of data within a Data Unit, often described as a chunk, block, or slice. The Data Unit is the larger partition; the data buffer is a subset within it. A is incorrect — data buffers are subdivisions of a single Data Unit, not collections of multiple Data Units. B is incorrect — a Data Unit is the parent structure that contains data buffers. C is incorrect — while a data buffer can sometimes equal the full Data Unit, it is typically just a portion of one."
+  },
+  {
+    "id": "FC_027",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Fundamentals",
+    "source_screenshot": 43,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which method is used to write the result of a data buffer query to the Error Log in OneStream?",
+    "options": {
+      "A": "api.Data.GetDataBuffer",
+      "B": "api.Data.Calculate",
+      "C": "DataBufferWriteLog",
+      "D": "api.Data.LogDataBuffer"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: the LogDataBuffer method writes the contents of a data buffer result to the Error Log, useful for troubleshooting calculations by inspecting dimensional detail and values. A is incorrect — api.Data.GetDataBuffer retrieves a data buffer but does not write it to the Error Log. B is incorrect — api.Data.Calculate performs stored calculations and writes results to the cube. C is incorrect — DataBufferWriteLog is not a valid OneStream method name."
+  },
+  {
+    "id": "FC_028",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Fundamentals",
+    "source_screenshot": 44,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which statement regarding data storage in OneStream is accurate?",
+    "options": {
+      "A": "Derived data is considered real data and occupies physical space within the database.",
+      "B": "Numerical data is stored at the Periodic member in the View dimension.",
+      "C": "DurableCalculated data is not automatically cleared during the calculation or consolidation step.",
+      "D": "Cells without stored data are labeled as derived data."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: DurableCalculated data is a special storage type that is not cleared when a calculation or consolidation step runs, making it useful for custom calculations where data must persist between DUCS executions. A is incorrect — derived data is not stored as real data; it is calculated on demand and does not occupy physical database space. B is incorrect — numerical data is stored at the YTD View member, not Periodic; Periodic is derived from YTD. D is incorrect — cells without stored data are categorized as NoData cells, not derived data."
+  },
+  {
+    "id": "FC_029",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Fundamentals",
+    "source_screenshot": 46,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which statement about data buffers in OneStream is correct?",
+    "options": {
+      "A": "The data buffer includes only the Data Unit dimensions for each data cell.",
+      "B": "A data buffer cell contains a unique identifier called a Member Script.",
+      "C": "Data buffers operate across multiple Data Units during the execution of a single calculation.",
+      "D": "The Common Member header line in a data buffer represents all Data Unit dimensions."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: each cell within a data buffer contains a unique identifier called a Member Script (also known as a Primary Key), which identifies the full dimensional intersection for that cell. A is incorrect — data buffers include both Data Unit dimensions and Account-Type dimensions, not only Data Unit dimensions. C is incorrect — a data buffer operates within a single Data Unit at a time. D is incorrect — the Common Member header line shows dimension members shared (common) for all rows in the buffer, not all Data Unit dimensions."
+  },
+  {
+    "id": "FC_030",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 47,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "What does the Common Member header line in a data buffer represent?",
+    "options": {
+      "A": "All the Data Unit dimensions within the data buffer.",
+      "B": "A unique identifier for each data cell in the data buffer.",
+      "C": "Dimension members that are shared for all rows in the data buffer.",
+      "D": "The calculation status for each data cell in the data buffer."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: the Common Member header line shows dimension members that are common (shared) across all rows — dimensions whose values do not vary from cell to cell within the buffer. A is incorrect — the header does not list all Data Unit dimensions; it shows only those with a single consistent value across all rows. B is incorrect — unique identifiers for each data cell are Member Scripts stored per cell, not in a common header. D is incorrect — calculation status is tracked via the CalcStatus View member, not in the data buffer header."
+  },
+  {
+    "id": "FC_031",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Fundamentals",
+    "source_screenshot": 49,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "What is the primary function of a Data Unit in OneStream?",
+    "options": {
+      "A": "To store all data at the parent entity level only.",
+      "B": "To divide the cube into smaller, manageable parts for processing.",
+      "C": "To create a separate database for each dimension member.",
+      "D": "To handle only real (imported or entered) data within the cube."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: a Data Unit's primary function is to divide the cube into smaller, manageable partitions based on a combination of Entity, Parent, Scenario, Time, and Consolidation dimensions, enabling more efficient data storage and parallel processing. A is incorrect — data is stored at multiple levels including base entities. C is incorrect — OneStream uses a shared database structure; Data Units are logical partitions. D is incorrect — Data Units contain both real (stored) and calculated/derived data."
+  },
+  {
+    "id": "FC_032",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Fundamentals",
+    "source_screenshot": 51,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "How is derived data treated in OneStream compared to real data?",
+    "options": {
+      "A": "Derived data is considered real data and occupies physical space within the database.",
+      "B": "Derived data is stored at the Periodic View member.",
+      "C": "Derived data is calculated on demand and does not occupy physical database space the way real data does.",
+      "D": "Derived data is never considered stored data under any circumstances."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: derived data in OneStream is calculated dynamically and does not occupy physical database space the way real data (imported or entered) does. A is incorrect — derived data is not considered real data and does not physically occupy database space. B is incorrect — data is stored at the YTD View member; Periodic is derived from YTD. D is incorrect — DurableCalculated data is a form of stored calculated data, so 'never' is too absolute."
+  },
+  {
+    "id": "FC_033",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 52,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which option shows the correct syntax for calculating Profit as Sales minus Cost using api.Data.Calculate?",
+    "options": {
+      "A": "api.Data.Calculate(\"A#Sales - A#Cost = A#Profit\")",
+      "B": "api.DataCalculate(\"Profit = Sales - Cost\")",
+      "C": "\"A#Profit\" = api.Data.Calculate(\"A#Sales - A#Cost\")",
+      "D": "api.Data.Calculate(\"A#Profit = A#Sales - A#Cost\")"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: the api.Data.Calculate syntax places the destination data buffer on the left side of the equals sign and the source data buffers on the right, using dimension tokens (A# for Account) before member names. The formula is a string enclosed in double quotes. A is incorrect — the destination (A#Profit) must be on the left side. B is incorrect — the method is api.Data.Calculate (not api.DataCalculate) and dimension tokens are required. C is incorrect — the destination data buffer must be inside the formula string, not outside the function call."
+  },
+  {
+    "id": "FC_034",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 57,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "In the following calculation, which part is the destination data buffer?\napi.Data.Calculate(\"A#Profit = A#Revenue - A#Cost\",,,,,\"U1#CC_200.Base\")",
+    "options": {
+      "A": "A#Profit",
+      "B": "A#Revenue",
+      "C": "A#Cost",
+      "D": "U1#CC_200.Base"
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: in an api.Data.Calculate formula, the destination data buffer is the member on the left side of the equals sign — A#Profit. This is where the calculated result is written to the cube. B is incorrect — A#Revenue is a source data buffer providing input for the calculation. C is incorrect — A#Cost is also a source data buffer. D is incorrect — U1#CC_200.Base is a Member Filter (sixth positional argument) restricting which UD1 members the calculation runs for; it is not the destination."
+  },
+  {
+    "id": "FC_035",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 58,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "Which statement correctly describes stored calculations in OneStream?",
+    "options": {
+      "A": "Used to calculate and store a single data cell in a cube.",
+      "B": "Used to calculate and store multiple cells in a cube using data buffers.",
+      "C": "Used to calculate a single data cell dynamically when a report is run.",
+      "D": "Used to calculate multiple data cells dynamically when a report is run."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: stored calculations use data buffers to calculate and write (store) results for multiple data cells into a cube. The api.Data.Calculate function is the primary method. A is incorrect — stored calculations process multiple cells via data buffers, not just a single cell. C and D are incorrect — calculating values on demand when a report is run describes dynamic calculations using DynamicCalc or GetDataCell."
+  },
+  {
+    "id": "FC_036",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 59,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Which calculation will impact Data Units by storing data to a cube and has correct syntax?",
+    "options": {
+      "A": "api.Data.Calculate(\"A#Profit = A#Sales - A#Cost\")",
+      "B": "api.Data.Calculate(\"A#Sales - A#Cost\")",
+      "C": "Return api.Data.GetDataCell(\"A#Sales - A#Cost\")",
+      "D": "Return api.Data.Calculate(\"A#Profit = A#Sales - A#Cost\")"
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: api.Data.Calculate with a properly formatted formula string (destination = source) stores the calculated result to the cube, impacting the Data Unit. B is incorrect — the formula is missing a destination data buffer; without a destination, no data is written. C is incorrect — api.Data.GetDataCell is for dynamic calculations that return a value at run-time; it does not store data. D is incorrect — api.Data.Calculate is a Sub procedure and does not use a Return statement."
+  },
+  {
+    "id": "FC_037",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — DUCS",
+    "source_screenshot": 60,
+    "source_type": "REF",
+    "difficulty": "hard",
+    "question": "During the Data Unit Calculation Sequence (DUCS), what is the correct order of the first three steps?",
+    "options": {
+      "A": "Run Scenario Member Formula → Clear calculated data → Run Business Rules 1 and 2.",
+      "B": "Clear calculated data (except durable) → Run Scenario Member Formula → Perform reverse translations.",
+      "C": "Perform reverse translations → Clear calculated data → Run Business Rules 1 and 2.",
+      "D": "Run Business Rules 1 and 2 → Run Scenario Member Formula → Clear calculated data."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: the DUCS begins by (1) clearing calculated data — except for durable data — when default Scenario properties are used, then (2) running the Scenario Member Formula, then (3) performing reverse translations. A is incorrect — the Scenario Member Formula runs after the clear step, not before. C is incorrect — reverse translations occur as step 3, after the clear step and Scenario Member Formula. D is incorrect — business rules do not run before the Scenario Member Formula and clear steps."
+  },
+  {
+    "id": "FC_038",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — DUCS",
+    "source_screenshot": 64,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which Finance Function Type can run for multiple Consolidation members in the DUCS?",
+    "options": {
+      "A": "ConsolidateElimination",
+      "B": "ConsolidateShare",
+      "C": "Translate",
+      "D": "Calculate"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: the Calculate Finance Function Type is the most flexible and can run for multiple Consolidation members (C#Local, C#Translated, C#Share, C#OwnerPreAdj, C#OwnerPostAdj, C#Elimination, and C#Top). A is incorrect — ConsolidateElimination runs specifically for the C#Elimination Consolidation member. B is incorrect — ConsolidateShare runs specifically for the C#Share Consolidation member. C is incorrect — Translate runs specifically for the C#Translated Consolidation member."
+  },
+  {
+    "id": "FC_039",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Calculation Status",
+    "source_screenshot": 68,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "If data remains unchanged but a Member Formula is modified, what will the CalcStatus View member show?",
+    "options": {
+      "A": "OK",
+      "B": "OK,NA",
+      "C": "OK,MC",
+      "D": "CA"
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: OK,MC (Metadata Changed) indicates that data has not changed since the last calculation but metadata — such as a Member Formula, business rule, or FX rate — has been modified, signaling that running the calculation again may produce different results. A is incorrect — OK indicates no data or metadata changes. B is incorrect — OK,NA means a calculation is not required because there is no data at that intersection. D is incorrect — CA (Calculate) indicates that data was imported or entered, not a metadata change."
+  },
+  {
+    "id": "FC_040",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — DUCS",
+    "source_screenshot": 74,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "What occurs during the Data Unit Calculation Sequence (DUCS)?",
+    "options": {
+      "A": "Calculated data is cleared and business rules and Member Formulas assigned to the cube are run in a specific order.",
+      "B": "Data aggregates from C#Local to C#Top only.",
+      "C": "Data is calculated, translated, and consolidated in any order chosen by the administrator.",
+      "D": "Durable data is cleared and only Member Formulas assigned to the cube are run."
+    },
+    "correct_answer": "A",
+    "explanation": "A is correct: the DUCS begins by clearing previously calculated data (except durable data), then runs business rules and Member Formulas assigned to the cube in a specific, predefined order. B is incorrect — C#Local to C#Top aggregation is part of consolidation but not a complete description of the DUCS. C is incorrect — the DUCS runs in a fixed, defined order. D is incorrect — durable data is specifically NOT cleared during the DUCS; and both business rules and Member Formulas run."
+  },
+  {
+    "id": "FC_041",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Calculation Status",
+    "source_screenshot": 75,
+    "source_type": "EOU",
+    "difficulty": "easy",
+    "question": "A user entered Budget data for 12 periods into a form. What will the CalcStatus be for the affected Data Units?",
+    "options": {
+      "A": "OK",
+      "B": "OK,NA",
+      "C": "OK,MC",
+      "D": "CA"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: CA (Calculate) indicates that data was imported or entered through a form, meaning a calculation is now needed for those Data Units. A is incorrect — OK means no changes have occurred since the last calculation; data entry has changed the data. B is incorrect — OK,NA means no data exists at the intersection; since data was just entered, this does not apply. C is incorrect — OK,MC indicates a metadata change such as a modified business rule, not a data entry event."
+  },
+  {
+    "id": "FC_042",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — DUCS",
+    "source_screenshot": 76,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "Where can a user configure the Consolidation Algorithm Type for a cube in OneStream?",
+    "options": {
+      "A": "Application > Cube > Cubes > Integration",
+      "B": "Application > Cube > Cubes > Cube Dimensions",
+      "C": "Application > Cube > Cubes > Cube References",
+      "D": "Application > Cube > Cubes > Cube Properties"
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: the Consolidation Algorithm Type for a cube is configured within the Cube Properties section at Application > Cube > Cubes. This property controls how data rolls up through the entity hierarchy. A is incorrect — the Integration section handles data integration settings. B is incorrect — Cube Dimensions is where dimensions are assigned to the cube. C is incorrect — Cube References is used for cube-to-cube references."
+  },
+  {
+    "id": "FC_043",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Calculation Status",
+    "source_screenshot": 78,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "A user needs to consolidate Actuals for the current month. The previous periods have a CalcStatus of OK. What should the user run?",
+    "options": {
+      "A": "Calculate",
+      "B": "Force Calculate",
+      "C": "Consolidate",
+      "D": "Force Consolidate"
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: since the task is to consolidate (not just calculate) and previous periods already have a CalcStatus of OK, a standard Consolidate step is appropriate for the current month. A is incorrect — Calculate runs calculation steps but does not perform entity-to-entity consolidation. B is incorrect — Force Calculate forces recalculation of everything; unnecessary when previous periods are already OK. D is incorrect — Force Consolidate forces all processing regardless of CalcStatus; unnecessary here."
+  },
+  {
+    "id": "FC_044",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — DUCS",
+    "source_screenshot": 81,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "During a consolidation, in what order are sibling entities calculated and consolidated?",
+    "options": {
+      "A": "The first sibling listed in the hierarchy runs first.",
+      "B": "The siblings run at the same time as their parent.",
+      "C": "The siblings are processed simultaneously in parallel.",
+      "D": "The siblings are processed sequentially from top to bottom in the hierarchy."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: during a consolidation in OneStream, sibling entities (entities at the same level under a common parent) are processed simultaneously in parallel. This parallel processing is a key performance feature of OneStream's consolidation engine. A is incorrect — siblings do not process in a strict first-listed order; they run in parallel. B is incorrect — siblings must be processed before their parent; a parent cannot be consolidated until all its children have been processed. D is incorrect — sequential processing would be slower and is not how OneStream handles sibling entities."
+  },
+  {
+    "id": "FC_045",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 82,
+    "source_type": "EOU",
+    "difficulty": "medium",
+    "question": "For which Data Units should stored calculations be designed to run?",
+    "options": {
+      "A": "All Data Units in a cube.",
+      "B": "Only the specific Data Units that are required for the calculation.",
+      "C": "Only Data Units with the Local Consolidation member.",
+      "D": "Only Data Units specified in the Cube Properties."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: stored calculations should be targeted to run only on the specific Data Units required, using conditional statements, Member Filters, and dimension specifications. Broad calculations across all Data Units waste resources and negatively impact performance. A is incorrect — running calculations on all Data Units is inefficient and causes performance degradation. C is incorrect — while many calculations target the Local Consolidation member, some calculations need to run for other Consolidation members as well. D is incorrect — required Data Units are specified within the calculation logic, not globally in Cube Properties."
+  },
+  {
+    "id": "FC_046",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — Data Unit Size",
+    "source_screenshot": 85,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What primarily affects the actual size of a Data Unit and consolidation performance in OneStream?",
+    "options": {
+      "A": "The total number of possible data intersections.",
+      "B": "The volume of populated data intersections.",
+      "C": "The number of Account-Type dimensions in the cube.",
+      "D": "The number of Data Unit dimensions assigned to the cube."
+    },
+    "correct_answer": "B",
+    "explanation": "B is correct: the actual size of a Data Unit — and therefore consolidation performance — is determined by the volume of populated data intersections, not the theoretical maximum. A is incorrect — possible intersections represent the theoretical maximum, but actual size depends on how many are populated. C is incorrect — Account-Type dimensions contribute to potential size estimation, but actual performance is driven by populated intersections. D is incorrect — Data Unit dimensions define partition boundaries, not data density."
+  },
+  {
+    "id": "FC_047",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 86,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "What is the purpose of Conditional statements in api.Data.Calculate formulas?",
+    "options": {
+      "A": "Removing zero values from the result data buffer.",
+      "B": "Leaving the dimensionality open for all Data Units.",
+      "C": "Filtering the result data buffer dimensions.",
+      "D": "Limiting the Data Units on which a calculation runs."
+    },
+    "correct_answer": "D",
+    "explanation": "D is correct: Conditional statements (such as If/Then blocks using api.Entity.HasChildren() or api.Cons.IsLocalCurrencyForEntity()) limit which Data Units a calculation processes, improving performance by preventing unnecessary processing on irrelevant Data Units. A is incorrect — removing zeros uses the RemoveZeros() function wrapped around the source script. B is incorrect — leaving dimensionality open means not specifying Member Filters, a different technique. C is incorrect — filtering the result data buffer uses Member Filters (positional arguments in api.Data.Calculate)."
+  },
+  {
+    "id": "FC_048",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 87,
+    "source_type": "KC",
+    "difficulty": "hard",
+    "question": "When collapsing dimensional detail in an api.Data.Calculate formula, what must a consultant do to ensure the formula is balanced?",
+    "options": {
+      "A": "Include Data Unit members outside the current Data Unit in the destination script.",
+      "B": "Leave the source data buffer dimensions completely open.",
+      "C": "Match the dimensional detail between the source and destination data buffers.",
+      "D": "Add Member Expansions only to the destination data buffer."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: when collapsing dimensional detail in api.Data.Calculate formulas, matching dimensional detail for both source and destination data buffers ensures the formula is balanced and prevents data explosion or incorrect results. A is incorrect — including Data Unit members outside the current Data Unit in the destination can cause errors. B is incorrect — leaving all source dimensions open can cause data to write across unintended intersections. D is incorrect — applying Member Expansions only to the destination without matching the source can unbalance the formula."
+  },
+  {
+    "id": "FC_049",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 90,
+    "source_type": "KC",
+    "difficulty": "medium",
+    "question": "Which option shows the correct method to write an api.Data.Calculate function that uses the RemoveZeros function?",
+    "options": {
+      "A": "api.Data.Calculate(RemoveZeros(\"A#SalesCalc = A#Price * A#Volume\"))",
+      "B": "RemoveZeros(api.Data.Calculate(\"A#SalesCalc = A#Price * A#Volume\"))",
+      "C": "api.Data.Calculate(\"A#SalesCalc = RemoveZeros(A#Price * A#Volume)\")",
+      "D": "api.Data.Calculate(\"A#SalesCalc = A#Price * A#Volume\", RemoveZeros)"
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: the RemoveZeros function is embedded inside the formula string and wrapped around the source script only. This instructs OneStream to exclude zero results from the source calculation before writing to the destination. A is incorrect — wrapping the formula string in RemoveZeros outside the quotes is not valid syntax. B is incorrect — wrapping the entire api.Data.Calculate call in RemoveZeros is not valid. D is incorrect — RemoveZeros cannot be passed as a separate argument; it must be embedded within the source portion of the formula string."
+  },
+  {
+    "id": "FC_050",
+    "topic": "Financial Calculations",
+    "subtopic": "Write Stored Calculations — api.Data.Calculate",
+    "source_screenshot": 92,
+    "source_type": "KC",
+    "difficulty": "hard",
+    "question": "When should a consultant use api.Pov in a OneStream financial calculation?",
+    "options": {
+      "A": "To reference only Data Unit dimensions in dynamic calculations.",
+      "B": "To reference only non-Data Unit dimensions in a stored calculation.",
+      "C": "To reference dimensions of any dimension type in dynamic calculations.",
+      "D": "To reference dimensions of any dimension type in stored Calculate functions."
+    },
+    "correct_answer": "C",
+    "explanation": "C is correct: api.Pov is used in dynamic calculations (DynamicCalc/GetDataCell) to reference dimensions of any type — including both Data Unit and non-Data Unit (Account-Type) dimensions — from within the Point of View. A is incorrect — api.Pov is not limited to Data Unit dimensions; it accesses any dimension type. B is incorrect — in stored calculations, the Data Unit context is already defined by the running Data Unit; api.Pov is designed for dynamic calculations. D is incorrect — in stored Calculate functions, members are specified via tokens and Member Filters within the formula string, not via api.Pov."
+  }
+]

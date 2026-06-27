@@ -1,0 +1,445 @@
+{
+  "metadata": {
+    "file": "os_admin_questions_1.json",
+    "topic": "OS Administration",
+    "question_range": "OA_001–OA_025",
+    "source_file": "OS_Administration_Assessments_OCR.md",
+    "source_screenshots": "1–75",
+    "sections_covered": [
+      "Getting Started as a OneStream Administrator (screenshots 1–23)",
+      "Application Properties and Dimensions (screenshots 24–48)",
+      "Cubes and Extensibility — partial (screenshots 49–75)"
+    ],
+    "question_count": 25,
+    "generated": "2026-06-23",
+    "note_on_EOU": "EOU answer markings in source represent unconfirmed guesses. Correct answers here are determined independently from platform knowledge and source content.",
+    "note_on_HYBRID": "Screenshots 13, 19, 33, 35, 42, 43 are image-dependent and have been excluded from this batch."
+  },
+  "questions": [
+    {
+      "id": "OA_001",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — OneStream Platform Purpose",
+      "source_screenshot": 4,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "What is the primary goal of the OneStream platform?",
+      "options": {
+        "A": "To calculate data",
+        "B": "To consolidate data",
+        "C": "To turn data into actionable information",
+        "D": "To store and archive financial data"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the primary goal of the OneStream platform is to turn data into actionable information that is used to make business decisions — this is the foundational purpose stated in the training. A is incorrect — calculating data is one function of the platform, not its primary goal. B is incorrect — consolidation is also a function, not the overarching goal. D is incorrect — storage and archiving is not the primary purpose; transformation of data into usable information is."
+    },
+    {
+      "id": "OA_002",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — Standard Application Reports",
+      "source_screenshot": 5,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "What is included in the Standard Application Reports in OneStream?",
+      "options": {
+        "A": "Data Volumes and User Task Analysis reports only",
+        "B": "Email and File Distribution Report only",
+        "C": "Application Analysis, Intercompany Matching, Journal Detail, Metadata Changes, Transformation Rules, Change, and Workflow reports",
+        "D": "Cube Views, Dashboard reports, and Workflow Status reports"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the Standard Application Reports include Application Analysis, Intercompany Matching, Journal Detail, Metadata Changes, Transformation Rules, Change, and Workflow reports — predefined reports that can be imported into any OneStream application for basic application reporting. A is incorrect — Data Volumes and User Task Analysis is not what is included. B is incorrect — Email and File Distribution is not what is included. D is incorrect — Cube Views and Dashboard reports are separate reporting tools, not part of the Standard Application Reports package."
+    },
+    {
+      "id": "OA_003",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — Solution Exchange",
+      "source_screenshot": 6,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "If approved by OneStream, which area of the Solution Exchange will a custom community solution be made available in?",
+      "options": {
+        "A": "OneStream Solutions",
+        "B": "Ideal Solutions",
+        "C": "Community Solutions",
+        "D": "Partner Solutions"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Community Solutions is the section of Solution Exchange that hosts solutions developed by the community and approved by OneStream. A is incorrect — OneStream Solutions is where solutions created and owned by OneStream are found, not community-developed ones. B is incorrect — Ideal Solutions is not a valid section name in Solution Exchange. D is incorrect — Partner Solutions is not the correct designation for community-approved content."
+    },
+    {
+      "id": "OA_004",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — ServiceNow Support",
+      "source_screenshot": 7,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "Why would an administrator open a new support ticket in ServiceNow (SNOW)?",
+      "options": {
+        "A": "To get in contact with Customer Support requesting to deactivate a user",
+        "B": "To get help with resolving an issue that could not be resolved with a Knowledge Base (KB) article",
+        "C": "To get help from Customer Support with creating a new application",
+        "D": "To access OneStream release notes and documentation"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the purpose of opening a support ticket in ServiceNow is to work with OneStream support when a Knowledge Base (KB) article cannot resolve the issue — the KB article search should come first. A is incorrect — user deactivation is done directly in the OneStream security administration, not by contacting Customer Support via a ticket. C is incorrect — creating a new application does not require a support ticket; this is handled through the application administration tools. D is incorrect — release notes and documentation are accessed through Navigator and Solution Exchange, not via support tickets."
+    },
+    {
+      "id": "OA_005",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — Browse Knowledge in SNOW",
+      "source_screenshot": 8,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "What is the purpose of the Browse Knowledge section of ServiceNow (SNOW)?",
+      "options": {
+        "A": "A forum to post questions to other OneStream professionals",
+        "B": "Access to OneStream documentation guides",
+        "C": "The ability to search published KB articles by category",
+        "D": "A live chat feature to communicate with OneStream support agents"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Browse Knowledge provides access to KB (Knowledge Base) articles where users can search by category to find solutions without needing to contact support — self-service resolution is the key purpose. A is incorrect — posting questions to other professionals describes the Community Forums, not Browse Knowledge. B is incorrect — while documentation is available in OneStream Navigator, Browse Knowledge specifically provides searchable KB articles by category, not general documentation guides. D is incorrect — live chat is not the purpose of Browse Knowledge; it enables self-service article searching."
+    },
+    {
+      "id": "OA_006",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — OneStream Community",
+      "source_screenshot": 9,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "Where can an administrator find OneStream Tech Talks within the OneStream Community page?",
+      "options": {
+        "A": "Forums",
+        "B": "Groups",
+        "C": "Resources",
+        "D": "Announcements"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Community Announcements, Community Blog, Technical Documents, OneStream Tech Talks, and the OneStream podcast are all available under the Resources section of the OneStream Community page. A is incorrect — Forums contain community discussion posts organized by topic, not Tech Talks. B is incorrect — Groups is an organizational feature for community members, not where Tech Talks are hosted. D is incorrect — Announcements is a subsection within Resources, not the top-level location for Tech Talks."
+    },
+    {
+      "id": "OA_007",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — Security Structure Foundation",
+      "source_screenshot": 10,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "Which statement correctly describes the foundation of OneStream's security structure?",
+      "options": {
+        "A": "Users can only be assigned to security roles and objects directly",
+        "B": "It is not possible to assign security groups to other security groups",
+        "C": "Users and groups can belong to groups, and these groups can be assigned to security roles and objects",
+        "D": "Users must be assigned to roles before they can be added to groups"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: in OneStream, both users and groups can be assigned to groups, and those groups can then be assigned to security roles and objects — this nesting capability is the foundation of OneStream's security model. A is incorrect — users are not assigned directly to roles and objects; they are assigned to Groups, which are then assigned to roles and objects. B is incorrect — assigning groups to other groups (nested security groups) is explicitly supported and a key feature. D is incorrect — the sequence is groups first; users are assigned to groups, not roles directly."
+    },
+    {
+      "id": "OA_008",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — Application Extract",
+      "source_screenshot": 12,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "What is contained in an extracted application zip file in OneStream?",
+      "options": {
+        "A": "FX Rates and Data",
+        "B": "Application Artifacts such as Cube Views, Form Templates, and Metadata",
+        "C": "User security settings and workflow configurations only",
+        "D": "Raw database tables and stored procedures"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: when an application is extracted, the zip file contains Application Artifacts — these include Cube Views, Form Templates, Metadata, and similar configuration items. A is incorrect — FX Rates and Data are explicitly excluded from the extracted application zip; the zip contains artifacts, not transactional data. C is incorrect — while security and workflow configs may be part of artifacts, they are not the exclusive contents; the broader category is Application Artifacts. D is incorrect — raw database tables and stored procedures are not included in an application extract."
+    },
+    {
+      "id": "OA_009",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — Community Forums",
+      "source_screenshot": 14,
+      "source_type": "EOU",
+      "difficulty": "easy",
+      "question": "What is contained in the OneStream Community Forums section?",
+      "options": {
+        "A": "BluePrint Bulletins, Accepted Code Samples, and Office Hours where users can ask questions and get answers from consultants",
+        "B": "User posts that are organized by topic",
+        "C": "Shared ideas and enhancement requests that can be voted or commented on",
+        "D": "Published Knowledge Base articles searchable by category"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the Community Forums section contains user posts that are organized by topic — it is the discussion area of the OneStream Community where practitioners share questions and solutions by subject area. A is incorrect — BluePrint Bulletins, Code Samples, and Office Hours describe different community resources (Resources section and specific programs), not the Forums. C is incorrect — shared ideas and enhancement requests that can be voted on describe the Ideastream section, not Forums. D is incorrect — searchable KB articles are found in the Browse Knowledge section of ServiceNow, not in Community Forums."
+    },
+    {
+      "id": "OA_010",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — Design & Reference Guide",
+      "source_screenshot": 15,
+      "source_type": "EOU",
+      "difficulty": "easy",
+      "question": "What is the purpose of the Design & Reference Guide in OneStream?",
+      "options": {
+        "A": "Provide information related to OneStream support, such as the support portal, the Solution Exchange, and Cloud Monitor",
+        "B": "Explain new features or enhancements to existing features of the platform or OneStream Solutions",
+        "C": "Provide best practices, tips, in-depth explanations of key capabilities, and configurations for implementers, administrators, and end users",
+        "D": "Provide step-by-step workflows for completing month-end close procedures"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the Design & Reference Guide provides best practices, tips, in-depth explanations of key capabilities, and configurations for implementers, administrators, and end users — it is the comprehensive technical reference for understanding OneStream application functions. A is incorrect — support portal information, Solution Exchange, and Cloud Monitor are covered in the Support section resources, not the Design & Reference Guide. B is incorrect — explaining new features and enhancements describes Release Notes, not the Design & Reference Guide. D is incorrect — month-end close procedures are process-specific and not the scope of the Design & Reference Guide."
+    },
+    {
+      "id": "OA_011",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — Application Extract Process",
+      "source_screenshot": 16,
+      "source_type": "EOU",
+      "difficulty": "medium",
+      "question": "How should an administrator extract a copy of a OneStream application?",
+      "options": {
+        "A": "Go to the OnePlace tab → Select Load/Extract → Select the Extract tab → Select Application Zip File → Click Extract",
+        "B": "Go to the System tab → Select Load/Extract → Select the Extract tab → Select Application Zip File → Click Extract",
+        "C": "Go to the Application tab → Select Load/Extract → Select the Extract tab → Select Application Zip File → Click Extract",
+        "D": "Go to the Application tab → Select Tools → Select Export → Select Application Zip File → Click Export"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: to extract an application, the administrator navigates to the Application tab, selects Load/Extract, chooses the Extract tab, selects Application Zip File, and clicks Extract. A is incorrect — the extract is not performed from the OnePlace tab; OnePlace is the end-user-facing navigation area, not the administrative extract location. B is incorrect — the System tab is used for system-level administration settings, not application extraction. D is incorrect — Tools > Export is not the correct navigation path; Load/Extract under the Application tab is the correct route."
+    },
+    {
+      "id": "OA_012",
+      "topic": "OS Administration",
+      "subtopic": "Getting Started — User Deactivation",
+      "source_screenshot": 23,
+      "source_type": "EOU",
+      "difficulty": "medium",
+      "question": "Which two statements accurately describe user deactivation in OneStream? (Select 2.)",
+      "options": {
+        "A": "Deactivating a user is preferred to deleting one for auditing purposes",
+        "B": "Deactivating a user removes a user's access, but the user ID and user history will remain",
+        "C": "Deactivating a user removes them entirely from OneStream",
+        "D": "Deactivating a user ID will make it difficult to tie user actions back to the user during auditing"
+      },
+      "correct_answer": ["A", "B"],
+      "explanation": "A and B are correct: deactivation is the preferred approach over deletion because it preserves the user ID and audit history while revoking access — this is essential for audit trails that trace actions back to specific individuals. C is incorrect — deactivation does not remove the user from OneStream; the user record and history are retained, only access is revoked. D is incorrect — this is the opposite of the truth; deactivating (rather than deleting) preserves the audit trail and makes it easier, not harder, to tie actions to a user."
+    },
+    {
+      "id": "OA_013",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — System-Defined Dimensions",
+      "source_screenshot": 25,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "Which two dimensions are system-defined dimension types in OneStream? (Select 2.)",
+      "options": {
+        "A": "Account",
+        "B": "Time",
+        "C": "Origin",
+        "D": "View"
+      },
+      "correct_answer": ["C", "D"],
+      "explanation": "C and D are correct: Origin and View are the system-defined dimension types in OneStream — they are fixed by the platform and not editable by administrators. A is incorrect — Account is an editable dimension type, not a system-defined one; administrators can configure its members and hierarchy. B is incorrect — Time is a key dimension but it is not classified as a system-defined dimension type in this context; Origin and View are the system-defined pair."
+    },
+    {
+      "id": "OA_014",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Hierarchy Terminology",
+      "source_screenshot": 26,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "What is a bottom-level member called where data is loaded in OneStream?",
+      "options": {
+        "A": "Parent member",
+        "B": "Alternate hierarchy member",
+        "C": "Base-level member",
+        "D": "Ancestor member"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: base-level members are the bottom-level members in a dimension hierarchy where actual data is loaded — they have no children beneath them. A is incorrect — parent members are upper-level members that have child members below them; data is rolled up to parents, not loaded there. B is incorrect — alternate hierarchy members are members that appear in multiple hierarchies; this term describes position, not data loading behavior. D is incorrect — ancestors are all members above a selected member in the hierarchy; they are not the bottom-level members where data loads."
+    },
+    {
+      "id": "OA_015",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Member Properties",
+      "source_screenshot": 27,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "What does each member property in OneStream vary by?",
+      "options": {
+        "A": "Scenario Type",
+        "B": "Time period",
+        "C": "Dimension type",
+        "D": "Cube assignment"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: member properties vary by dimension type — the specific properties available on a member depend on which dimension type that member belongs to (Account, Entity, Time, etc.). A is incorrect — Scenario Type is one factor that can influence certain settings in the application, but it is not what member properties vary by as a fundamental rule. B is incorrect — time period affects data but not the structure of member properties themselves. D is incorrect — cube assignment affects which data a member is relevant to, not the properties available on the member itself."
+    },
+    {
+      "id": "OA_016",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Alternate Hierarchies",
+      "source_screenshot": 28,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "What happens if edits are made to the properties of a member that appears in an alternate hierarchy?",
+      "options": {
+        "A": "Updates to the member properties apply only in the hierarchy where the edit was made",
+        "B": "Updates to the member properties apply to the member in all hierarchies",
+        "C": "The member properties cannot be updated if the member is in an alternate hierarchy",
+        "D": "The member must be removed from the alternate hierarchy before properties can be edited"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: member properties are attributes of the member itself, not of its position in a hierarchy — so any property edits apply to the member as it appears in all hierarchies, not just the one where the edit was made. A is incorrect — properties are not hierarchy-specific; they are global to the member regardless of which hierarchy it appears in. C is incorrect — members in alternate hierarchies can be updated; there is no restriction on editing them. D is incorrect — removing a member from an alternate hierarchy is not required before editing its properties."
+    },
+    {
+      "id": "OA_017",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Dimension Loading Methods",
+      "source_screenshot": 29,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "What tool is used to create XML Load files in OneStream?",
+      "options": {
+        "A": "Grid View",
+        "B": "Cube Views",
+        "C": "Metadata Builder",
+        "D": "Workflow Profiles"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the Metadata Builder can be used to create XML load files for loading dimension hierarchies into OneStream. A is incorrect — Grid View is used to edit member properties for multiple members at once within an existing hierarchy, not to create XML load files. B is incorrect — Cube Views are reporting tools for querying and displaying cube data, not for creating XML dimension files. D is incorrect — Workflow Profiles manage the data collection and processing workflow, not dimension file creation."
+    },
+    {
+      "id": "OA_018",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Dimension Loading Methods",
+      "source_screenshot": 30,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "What is the fastest way to add dimensions if an administrator only needs to make a few additions to an existing dimension hierarchy?",
+      "options": {
+        "A": "XML Load File",
+        "B": "Metadata Builder",
+        "C": "Grid View",
+        "D": "Manually"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: when only a few additions need to be made to an existing dimension hierarchy, manually adding them directly in the Dimension Library is the quickest approach. A is incorrect — XML Load Files are best suited for large-scale dimension loads or entire hierarchy replacements; the overhead of creating and loading a file makes it slower for small additions. B is incorrect — the Metadata Builder is used to generate XML load files, which again is more overhead than needed for a few additions. C is incorrect — Grid View is the fastest method for editing multiple member properties, not for adding members."
+    },
+    {
+      "id": "OA_019",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Dimension Loading Methods",
+      "source_screenshot": 31,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "Which method is quickest if an administrator needs to edit member properties for multiple members in a dimension hierarchy?",
+      "options": {
+        "A": "Manually editing each member one at a time",
+        "B": "Using a Metadata Builder to create an XML Load File",
+        "C": "Grid View",
+        "D": "Cube Views"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Grid View allows the administrator to quickly edit member properties for multiple members in a dimension hierarchy or a branch within a hierarchy — it displays members in a spreadsheet-like grid making bulk edits efficient. A is incorrect — manually editing each member individually is the slowest approach when multiple members need changes. B is incorrect — creating an XML load file via Metadata Builder is more appropriate for large-scale hierarchy loads, not targeted property edits across multiple members. D is incorrect — Cube Views are for querying and reporting on cube data, not for editing dimension member properties."
+    },
+    {
+      "id": "OA_020",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Dimension Loading Methods",
+      "source_screenshot": 32,
+      "source_type": "KC",
+      "difficulty": "easy",
+      "question": "Which method is quickest if an administrator needs to edit the properties of just one member in a dimension hierarchy?",
+      "options": {
+        "A": "Grid View",
+        "B": "XML Load File",
+        "C": "Metadata Builder",
+        "D": "Manually"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: when only one member needs its properties edited, manually opening that member and updating its properties directly is the quickest method — no file creation or bulk tool is needed. A is incorrect — Grid View is optimized for editing properties across multiple members simultaneously; for a single member it adds unnecessary navigation overhead. B is incorrect — creating an XML load file is a heavier-weight process suited for large loads, not single-member edits. C is incorrect — the Metadata Builder is for creating XML files, which is overkill for one member change."
+    },
+    {
+      "id": "OA_021",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Hierarchy Terminology",
+      "source_screenshot": 36,
+      "source_type": "EOU",
+      "difficulty": "easy",
+      "question": "What are parent members in a OneStream hierarchy?",
+      "options": {
+        "A": "Upper-level members that have children below them",
+        "B": "Bottom-level members where data is loaded",
+        "C": "Members that share the same parent member",
+        "D": "Members up the chain from the selected member"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: parent members are upper-level members in the hierarchy that have one or more child members below them — data rolls up through the hierarchy to parent members from their children. B is incorrect — bottom-level members where data is loaded are called base-level members, not parent members. C is incorrect — members sharing the same parent are called siblings, not parent members. D is incorrect — members up the chain from a selected member are called ancestors, not parent members."
+    },
+    {
+      "id": "OA_022",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Hierarchy Terminology",
+      "source_screenshot": 39,
+      "source_type": "EOU",
+      "difficulty": "easy",
+      "question": "What are descendants in a OneStream hierarchy?",
+      "options": {
+        "A": "Members that share the same parent member",
+        "B": "All members below a parent member",
+        "C": "Members up the chain from the selected member",
+        "D": "Bottom-level members where data is loaded"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: descendants are all members below a given parent member in the hierarchy — this includes children, grandchildren, and all lower-level members in that branch. A is incorrect — members that share the same parent are called siblings, not descendants. C is incorrect — members up the chain from a selected member are called ancestors, which is the opposite direction from descendants. D is incorrect — bottom-level members where data is loaded are base-level members; while base members are descendants of their parents, not all descendants are base members."
+    },
+    {
+      "id": "OA_023",
+      "topic": "OS Administration",
+      "subtopic": "Application Properties — Hierarchy Terminology",
+      "source_screenshot": 45,
+      "source_type": "EOU",
+      "difficulty": "easy",
+      "question": "What are siblings in a OneStream hierarchy?",
+      "options": {
+        "A": "Upper-level members with children below them",
+        "B": "Members that share the same parent member",
+        "C": "Members up the chain from the selected member",
+        "D": "Bottom-level members where data is loaded"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: siblings are members that share the same parent member — they exist at the same level within a branch of the hierarchy. A is incorrect — upper-level members with children below them are parent members, not siblings. C is incorrect — members up the chain from a selected member are ancestors, not siblings. D is incorrect — bottom-level members where data is loaded are base-level members; while base members may be siblings of each other, the definition of siblings is members sharing the same parent, which is broader."
+    },
+    {
+      "id": "OA_024",
+      "topic": "OS Administration",
+      "subtopic": "Cubes and Extensibility — Data Units",
+      "source_screenshot": 49,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "Which dimensions define a Data Unit in OneStream?",
+      "options": {
+        "A": "Entity/Parent, Scenario, Time, and Account",
+        "B": "Account, User Defined, Flow, and Origin",
+        "C": "Entity/Parent, Scenario, Time, and Consolidation",
+        "D": "Cube, Account, Scenario, and View"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: a Data Unit is defined by the Entity/Parent, Scenario, Time, and Consolidation dimensions — these four dimension combinations determine a unique unit of data storage in a cube. A is incorrect — Account is not a Level 1 Data Unit dimension; Account is an Account-Type dimension that defines what is stored within a Data Unit, not the Data Unit itself. B is incorrect — Account, User Defined, Flow, and Origin are Account-Type dimensions used for data classification within a Data Unit, not the dimensions that define the Data Unit. D is incorrect — View is not a Data Unit dimension; it is a separate display dimension."
+    },
+    {
+      "id": "OA_025",
+      "topic": "OS Administration",
+      "subtopic": "Cubes and Extensibility — Data Units",
+      "source_screenshot": 50,
+      "source_type": "KC",
+      "difficulty": "medium",
+      "question": "A report contains an Actual Scenario column, a Budget Scenario column, and a variance calculation. Rows contain income statement accounts with all other dimensions in the POV. How many Data Units are being used in the report?",
+      "options": {
+        "A": "One",
+        "B": "Two",
+        "C": "Three",
+        "D": "Four"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: each unique Scenario represents a separate Data Unit — Actual is one Data Unit and Budget is a second Data Unit, totaling two. The variance calculation column is computed from the two Data Units, not a Data Unit itself. A is incorrect — one Data Unit would only apply if both columns referenced the same Scenario; they do not. C is incorrect — the variance column does not represent a third Data Unit; it is a derived calculation, not a stored data intersection. D is incorrect — four Data Units would require four distinct Scenario/Entity/Time/Consolidation combinations, which this report does not have."
+    }
+  ]
+}
