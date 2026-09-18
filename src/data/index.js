@@ -5,6 +5,8 @@
 
 import fc1 from './financial_calc_questions_1.json'
 import fc2 from './financial_calc_questions_2.json'
+import fc3 from './financial_calc_questions_3.json'
+import fc4 from './financial_calc_questions_4.json'
 import bbr1 from './bbr_questions_1.json'
 import bbr2 from './bbr_questions_2.json'
 import sec1 from './security_questions_1.json'
@@ -28,6 +30,8 @@ function extractQuestions(data) {
 export const allQuestions = [
   ...extractQuestions(fc1),
   ...extractQuestions(fc2),
+  ...extractQuestions(fc3),
+  ...extractQuestions(fc4),
   ...extractQuestions(bbr1),
   ...extractQuestions(bbr2),
   ...extractQuestions(sec1),
