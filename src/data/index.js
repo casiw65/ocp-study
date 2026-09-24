@@ -19,6 +19,9 @@ import oa2 from './os_admin_questions_2.json'
 import oa3 from './os_admin_questions_3.json'
 import impl1 from './impl_questions_1.json'
 import impl2 from './impl_questions_2.json'
+import ca1 from './cube_admin_questions_1.json' 
+import di1 from './data_integration_questions_1.json' 
+import rule1 from './rules_questions_1.json'
 
 // Handle both array format and {metadata, questions} object format
 function extractQuestions(data) {
@@ -44,6 +47,9 @@ export const allQuestions = [
   ...extractQuestions(oa3),
   ...extractQuestions(impl1),
   ...extractQuestions(impl2),
+  ...extractQuestions(ca1), 
+  ...extractQuestions(di1), 
+  ...extractQuestions(rule1),
 ]
 
 // Unique topics with display names and colors
