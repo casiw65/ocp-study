@@ -1,0 +1,1381 @@
+{
+  "metadata": {
+    "file": "retake_guide_gaps_questions_1.json",
+    "topic": "Retake Prep — sections from the Design and Reference Guide 9.0 PDF",
+    "question_range": "RG_W01–RG_BB08",
+    "source_file": "Design_and_Reference_Guide_9.0.pdf; each question lists source_page",
+    "question_count": 72,
+    "generated": "2026-10-07",
+    "note": "Fills gaps from the online guide: Calculation Definitions, data units, import methods, Workflow Channels (201.2.x); Excel templates/XFD (201.3.2); Report Books (201.4.3); Task Scheduler and Excel Add-in (201.5.2, 201.5.4, 201.5.5); Error Log, Task Activity, system security load/extract (201.7.x); Data Cell Access action cases (201.6.x). Topics match the existing Retake Prep sections. Guide is 9.0; exam is based on 8.x. Added Table Views (Excel Add-in pp. 1920–1923) and BI Blend (pp. 93–94, 749, 758–759, BI Blend Adapter pp. 1309–1310)."
+  },
+  "questions": [
+    {
+      "id": "RG_W01",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions — Dependent Entities",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 731",
+      "source_page": 731,
+      "difficulty": "hard",
+      "question": "A Review profile's Calculation Definition must calculate every entity assigned to the Workflow Profiles that depend on it, including Named Dependent profiles. Which entity placeholder is used?",
+      "options": {
+        "A": "Assigned Entities",
+        "B": "Dependent Entities",
+        "C": "Loaded Entities",
+        "D": "User Cell Input Entities"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: for Review profiles, Dependent Entities “defines a calculation for all Entities that assigned to the dependent Workflow Profiles of the Review Profile,” including Named Dependent profiles. A is incorrect — Assigned Entities is for Input Parent/Child profiles and covers entities assigned directly. C is incorrect — it covers entities imported by Import children. D is incorrect — it covers entities touched by the current user's data entry."
+    },
+    {
+      "id": "RG_W02",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions — Loaded Entities",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 731",
+      "source_page": 731,
+      "difficulty": "medium",
+      "question": "An Input Parent has 40 assigned entities, but a given month's file only contains 6 of them. Process Cube should calculate only those 6. Which placeholder fits?",
+      "options": {
+        "A": "Loaded Entities",
+        "B": "Assigned Entities",
+        "C": "Dependent Entities",
+        "D": "Named Dependent Filter"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Loaded Entities “defines a calculation for all Entities imported by the Import Child Workflow Profiles.” B is incorrect — it calculates all 40 assigned entities. C and D are incorrect — both are Review profile placeholders."
+    },
+    {
+      "id": "RG_W03",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions — User Cell Input",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 732",
+      "source_page": 732,
+      "difficulty": "hard",
+      "question": "Corporate users update select accounts in entities owned by other Input Parent profiles (a Central Input design). The Workflow has no assigned entities. Which placeholder calculates the entities each user actually changed?",
+      "options": {
+        "A": "Journal Input Entities",
+        "B": "Assigned Entities",
+        "C": "Dependent Entities",
+        "D": "User Cell Input Entities"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: User Cell Input Entities covers entities affected by the executing user's data entry, returns a different list per user, and is typically used in Central Input designs. A is incorrect — it covers entities adjusted by journals. B is incorrect — the profile has no assigned entities. C is incorrect — it is for Review profiles."
+    },
+    {
+      "id": "RG_W04",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions — Input Child",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 732",
+      "source_page": 732,
+      "difficulty": "medium",
+      "question": "An Import Child profile has no Calculation Definitions of its own. What happens when Process Cube runs?",
+      "options": {
+        "A": "Nothing is calculated",
+        "B": "It uses the Cube Root profile's definitions",
+        "C": "It uses the Calculation Definitions of its Input Parent",
+        "D": "It calculates every entity in the cube"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Input Child profiles are extensions of their Input Parent; without an explicit Calculation Definition, an Import Child defaults to those of its Input Parent. A, B and D are incorrect — none is the documented behavior; Cube Root profiles can't have Calculation Definitions at all."
+    },
+    {
+      "id": "RG_W05",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions — Profile Types",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 730",
+      "source_page": 730,
+      "difficulty": "medium",
+      "question": "Which Workflow Profile type cannot have Calculation Definitions?",
+      "options": {
+        "A": "Review",
+        "B": "Cube Root",
+        "C": "Base Input",
+        "D": "Parent Input"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: “All Workflow Profile types, except Cube Root, can create a set of Calculation Definitions.” A is incorrect — Review profiles can, to run calculations during sign-off. C and D are incorrect — Input Parent types can."
+    },
+    {
+      "id": "RG_W06",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions — Filter Value",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 732",
+      "source_page": 732,
+      "difficulty": "hard",
+      "question": "A Data Management sequence must run when a user clicks Process Cube. How is it configured?",
+      "options": {
+        "A": "Put the sequence name in Filter Value, set Calc Type to No Calculate, and use a DataQualityEventHandler rule to run it",
+        "B": "Add the sequence to the Workflow Name",
+        "C": "Set the Confirmed switch to True",
+        "D": "Schedule the sequence in Task Scheduler"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: put the sequence name in the Filter Value with Calc Type = No Calculate, and a DataQualityEventHandler Extensibility rule reads it and runs the sequence during Process Cube. B is incorrect — Workflow Names are fixed step lists. C is incorrect — Confirmed controls which entities face confirmation rules. D is incorrect — that runs on a schedule, not at Process Cube."
+    },
+    {
+      "id": "RG_W07",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Workflow Entity Member Filters",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 710",
+      "source_page": 710,
+      "difficulty": "hard",
+      "question": "Which member filter returns only the entities in the Calculation Definitions whose Confirmed switch is True for the selected Workflow Unit?",
+      "options": {
+        "A": "E#Root.WFProfileEntities",
+        "B": "E#Root.WFCalculationEntities",
+        "C": "E#Root.Base",
+        "D": "E#Root.WFConfirmationEntities"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: WFConfirmationEntities returns the Calculation Definition entities with the Confirmed switch set to True. A is incorrect — it returns all entities associated with the Workflow Unit. B is incorrect — it returns all Calculation Definition entities, confirmed or not. C is incorrect — it returns every base entity."
+    },
+    {
+      "id": "RG_W08",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Data Units — Workflow Data Unit",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 735",
+      "source_page": 735,
+      "difficulty": "hard",
+      "question": "Two Import profiles that are not siblings load the same entity, scenario and time but different accounts. What happens?",
+      "options": {
+        "A": "The second load clears the first entirely",
+        "B": "The second load fails",
+        "C": "Data loads for both, because the workflow data unit clears and loads at the account level",
+        "D": "Only the profile that loaded first keeps its data"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the workflow data unit adds the Account dimension to the cube data unit, so data loads and clears at the account level; different accounts load for both, and if the same accounts load, the last profile to load is used. A, B and D are incorrect — they assume clearing at the entity level."
+    },
+    {
+      "id": "RG_W09",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Data Units — Workflow Channel Data Unit",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 736",
+      "source_page": 736,
+      "difficulty": "hard",
+      "question": "Which statement about the workflow channel data unit (Level 3) is true?",
+      "options": {
+        "A": "It adds every UD dimension to the workflow data unit",
+        "B": "It adds one UD dimension, chosen once per application in Application Properties",
+        "C": "It is set separately on each cube",
+        "D": "It replaces the Account dimension"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the workflow channel data unit adds a single user-defined dimension, and only one UD per application can be used, selected in Application Properties. A is incorrect — only one UD. C is incorrect — the choice applies to all Scenario Types and cubes. D is incorrect — it builds on the account-level workflow data unit."
+    },
+    {
+      "id": "RG_W10",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Workflow Channels — Defaults",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 764",
+      "source_page": 764,
+      "difficulty": "hard",
+      "question": "What is the default Workflow Channel for a new UD member, and for a new Account member?",
+      "options": {
+        "A": "NoDataLock for UD members; Standard for Account members",
+        "B": "Standard for both",
+        "C": "AllChannelInput for both",
+        "D": "NoDataLock for both"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: NoDataLock “is the default value for any UDx Member,” while Standard is the default channel for Account members and Workflow Profile Input Children. B and D are incorrect — each is right for only one type. C is incorrect — AllChannelInput applies only to Input Children and is not assigned by default."
+    },
+    {
+      "id": "RG_W11",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Stage Import Methods — Direct",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 753",
+      "source_page": 753,
+      "difficulty": "hard",
+      "question": "Which requirement rules out a Direct Load Workflow?",
+      "options": {
+        "A": "High-volume nightly loads",
+        "B": "Data that is only valid for a few days",
+        "C": "Mirrored metadata with * to * mapping",
+        "D": "Drill-Down from the Finance Engine to Stage records"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Direct Load stores no source or target records in Stage, so Drill-Down won't work; it also doesn't support Retransform or Append. A, B and C are incorrect — the guide lists all three as Direct Load use cases."
+    },
+    {
+      "id": "RG_W12",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Stage Import Methods — Blend",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 749",
+      "source_page": 749,
+      "difficulty": "medium",
+      "question": "Where does the Blend import type write data?",
+      "options": {
+        "A": "To a Finance Engine cube",
+        "B": "To the Stage tables only",
+        "C": "To external relational database tables used by BI Blend",
+        "D": "To the File Share"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the Blend type is in-memory and writes to external relational tables, not to a Finance Engine cube. A is incorrect — that is Standard or Direct. B is incorrect — Blend stores no Stage record details. D is incorrect — not a Blend target."
+    },
+    {
+      "id": "RG_W13",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Stage Import Methods — Standard",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 748",
+      "source_page": 748,
+      "difficulty": "medium",
+      "question": "A consolidation application needs every import to be durable and auditable, with drill-down to source records. Which import method fits?",
+      "options": {
+        "A": "Direct",
+        "B": "Standard",
+        "C": "Blend",
+        "D": "Any of them"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Standard stores source and target records in Stage tables, supporting audit, history and drill-down; it is ideal for book-of-record consolidation. A is incorrect — Direct skips storage. C is incorrect — Blend targets relational tables. D is incorrect — only Standard meets the requirement."
+    },
+    {
+      "id": "RG_W14",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Import Volumes",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 750",
+      "source_page": 750,
+      "difficulty": "hard",
+      "question": "What are the documented row limit per Workflow and the best-practice recommendation for summarized records?",
+      "options": {
+        "A": "24 million limit; 1 million best practice",
+        "B": "1 million limit; 100,000 best practice",
+        "C": "10 million limit; 1 million best practice",
+        "D": "No limit; 24 million best practice"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the row limit is 24 million summarized records per Workflow, and the best-practice recommendation is 1 million, achieved by partitioning loads across Workflows. B, C and D are incorrect — wrong figures."
+    },
+    {
+      "id": "RG_W15",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Parent Input Profiles",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 706",
+      "source_page": 706,
+      "difficulty": "hard",
+      "question": "How can data in a Parent Input profile's entities be changed?",
+      "options": {
+        "A": "Through Import, Forms or AdjInput",
+        "B": "Only through Import",
+        "C": "Parent entities can't be adjusted",
+        "D": "Only through Forms or AdjInput; its Import child is forced inactive"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: adjustments to a Parent entity are allowed only through Forms or AdjInput, and the Import child created for a Parent Input profile is forced inactive (Profile Active = False). A and B are incorrect — imports aren't allowed. C is incorrect — that is the purpose of Parent Input."
+    },
+    {
+      "id": "RG_W16",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Default Input Profiles",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 706",
+      "source_page": 706,
+      "difficulty": "medium",
+      "question": "An entity isn't explicitly assigned to any Parent Input or Base Input profile. Which profile controls it?",
+      "options": {
+        "A": "The Cube Root profile",
+        "B": "A Review profile",
+        "C": "The Default Input profile, which is created automatically with the Cube Root",
+        "D": "No profile"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: entities not explicitly assigned are implicitly assigned to the Default Input profile, which can't be created directly and is created automatically with a Cube Root profile. A, B and D are incorrect — none takes unassigned entities."
+    },
+    {
+      "id": "RG_W17",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Named Dependents",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 704",
+      "source_page": 704,
+      "difficulty": "hard",
+      "question": "A shared services Input Parent loads data for entities whose sign-off belongs to several different regions. How can a regional Review profile depend on it, even though it isn't a descendant?",
+      "options": {
+        "A": "Workflow Channel",
+        "B": "Named Dependent",
+        "C": "Central Import",
+        "D": "Calculation Definition Filter Value"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: a Named Dependent lets a Review profile depend on the status of an Input Parent that isn't its descendant, a common shared services pattern. A is incorrect — channels separate data ownership. C is incorrect — it is a Workflow Name. D is incorrect — it passes a value to calculations."
+    },
+    {
+      "id": "RG_W18",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Forms Channel and XFSetCell",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 818",
+      "source_page": 818,
+      "difficulty": "hard",
+      "question": "A user submits data from Excel with XFSetCell to an entity whose Parent Workflow is certified. What happens?",
+      "options": {
+        "A": "The cells are not updated",
+        "B": "The cells update and the parent is uncertified",
+        "C": "The cells update but Process Cube isn't flagged",
+        "D": "The update goes to the Import origin"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: if the Workflow is locked or the Parent Workflow is certified, cells are not updated. Excel updates follow the Forms Input Type, not a specific Form. B, C and D are incorrect — the engine blocks the update."
+    },
+    {
+      "id": "RG_D01",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Excel Templates — Named Range",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 861",
+      "source_page": 861,
+      "difficulty": "medium",
+      "question": "What must an Excel import template contain for OneStream to read it into Stage?",
+      "options": {
+        "A": "A worksheet named Import",
+        "B": "A Cube View connection",
+        "C": "An XFSetCell formula in every row",
+        "D": "A named range beginning with xfd, with dimension tokens in its first row"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: create a named range beginning with xfd, and the dimension tokens (E#, A#, etc.) must be its first row; a workbook can have several xfd ranges across tabs. A is incorrect — tab names don't matter. B and C are incorrect — those are Excel Add-in features, not Stage import."
+    },
+    {
+      "id": "RG_D02",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Allow Dynamic Excel Loads",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 781",
+      "source_page": 781,
+      "difficulty": "medium",
+      "question": "Which Data Source setting lets users load an Excel template as well as the file type the Data Source was built for?",
+      "options": {
+        "A": "Data Structure Type = Matrix",
+        "B": "Zero Suppression = True",
+        "C": "Allow Dynamic Excel Loads = True",
+        "D": "Type = Connector"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: with Allow Dynamic Excel Loads set to True, users can load Excel templates as well as the data file the Data Source was built for. A is incorrect — it describes the file layout. B is incorrect — it skips zero values. D is incorrect — Connectors pull from external systems."
+    },
+    {
+      "id": "RG_D03",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Excel Templates — Zero Suppression",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 862",
+      "source_page": 862,
+      "difficulty": "medium",
+      "question": "Which amount header automatically applies zero suppression in an Excel import template?",
+      "options": {
+        "A": "AMT#",
+        "B": "AMT.ZS#",
+        "C": "AMT#:[ZS]",
+        "D": "ZS#"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: using the AMT.ZS# header applies zero suppression, and the same .ZS extension works for Matrix-style templates. A is incorrect — plain AMT# doesn't suppress. C and D are incorrect — not valid syntax."
+    },
+    {
+      "id": "RG_D04",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Excel Templates — Static Value",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 864",
+      "source_page": 864,
+      "difficulty": "medium",
+      "question": "Every row in a template's named range should load to the None Flow member without a Flow column of values. Which header does this?",
+      "options": {
+        "A": "F#:[None]",
+        "B": "F#None",
+        "C": "F#=None",
+        "D": "F#[None]:[]"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: :[] fixes a static value for the whole column, so F#:[None] imports None for every row. B, C and D are incorrect — not the documented static-value syntax."
+    },
+    {
+      "id": "RG_D05",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Excel Templates — Current vs. Global",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 864",
+      "source_page": 864,
+      "difficulty": "hard",
+      "question": "In an Excel import template, which header returns the current Workflow Time, rather than the application's Global Time?",
+      "options": {
+        "A": "T.G#",
+        "B": "T#:[Current]",
+        "C": "T.W#",
+        "D": "T.C#"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: T.C# and S.C# return the current Workflow Time and Scenario; T.G# and S.G# return the Global Time and Scenario. A is incorrect — it returns Global Time. B and C are incorrect — not valid syntax."
+    },
+    {
+      "id": "RG_D06",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Excel Templates — Tokens",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 863",
+      "source_page": 863,
+      "difficulty": "hard",
+      "question": "Which template token holds a description for reference only and is not stored in the cube?",
+      "options": {
+        "A": "TV#",
+        "B": "SI#",
+        "C": "LB#",
+        "D": "A1#"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: LB# (Label) holds an account description for reference and isn't stored in the cube. A is incorrect — TV# stores large text values. B is incorrect — SI# is the Source ID key. D is incorrect — A1# is an attribute dimension that stores up to 100 characters."
+    },
+    {
+      "id": "RG_D07",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Excel Templates — Source ID",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 863",
+      "source_page": 863,
+      "difficulty": "medium",
+      "question": "What is the best practice for the SI# (Source ID) token in an Excel template?",
+      "options": {
+        "A": "One Source ID per row",
+        "B": "Only one Source ID per named range",
+        "C": "Leave it blank",
+        "D": "Use the same Source ID for every application"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the guide recommends only one Source ID per named range; IDs can be the same or different across ranges in one workbook. A, C and D are incorrect — not the documented best practice."
+    },
+    {
+      "id": "RG_D08",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Excel Templates — UD Tokens",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 863",
+      "source_page": 863,
+      "difficulty": "medium",
+      "question": "An application doesn't use UD5. How should the UD5# column be handled in an Excel template?",
+      "options": {
+        "A": "Give every row a value, using a static None, e.g. UD5#:[None]",
+        "B": "Omit it",
+        "C": "Enter zero",
+        "D": "Use UD5#:[Blank]"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: each row must have a value for UD1#–UD8# even when a UD isn't used; create a static value of None, e.g. UD5#:[None]. B, C and D are incorrect — not the documented approach."
+    },
+    {
+      "id": "RG_D09",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Data Structure Type",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 781",
+      "source_page": 781,
+      "difficulty": "easy",
+      "question": "A source file has twelve monthly amounts on each line. Which Data Structure Type fits?",
+      "options": {
+        "A": "Tabular",
+        "B": "Fixed",
+        "C": "Connector",
+        "D": "Matrix"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Matrix has multiple amounts on a line, using rows and columns to determine each amount's intersection. A is incorrect — Tabular has one amount per intersection. B and C are incorrect — they are Data Source Types, not structure types."
+    },
+    {
+      "id": "RG_P01",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Book Types",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 931",
+      "source_page": 931,
+      "difficulty": "medium",
+      "question": "Which file name creates an Excel book?",
+      "options": {
+        "A": "Financials.xfDoc.pdfBook",
+        "B": "Financials.xfDoc.zipBook",
+        "C": "Financials.xfDoc.xlBook",
+        "D": "Financials.xlsx"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Excel books use .xfDoc.xlBook. A is incorrect — PDF book. B is incorrect — Zip book. D is incorrect — not a book format."
+    },
+    {
+      "id": "RG_P02",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Excel Export Item",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 933",
+      "source_page": 933,
+      "difficulty": "hard",
+      "question": "A Report item and a File item are added to an Excel book. What happens to them?",
+      "options": {
+        "A": "They become separate tabs",
+        "B": "They are ignored; Excel books support Excel Export Items",
+        "C": "They are converted to PDF",
+        "D": "The book fails to save"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Report and File items are not supported by Excel books and are ignored; Excel books use Excel Export Items, one cube view per worksheet. A, C and D are incorrect — not the documented behavior."
+    },
+    {
+      "id": "RG_P03",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Loop Types",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 934",
+      "source_page": 934,
+      "difficulty": "medium",
+      "question": "Which are the three loop types in a report book?",
+      "options": {
+        "A": "Comma Separated List, Dashboard Parameter, Member Filter",
+        "B": "For Each, While, Until",
+        "C": "Entity, Scenario, Time",
+        "D": "Parameter, Variable, Index"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the loop types are Comma Separated List, Dashboard Parameter and Member Filter. B, C and D are incorrect — not book loop types."
+    },
+    {
+      "id": "RG_P04",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Loop Variables",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 936",
+      "source_page": 936,
+      "difficulty": "hard",
+      "question": "In a report book, how do items inside a loop refer to the current loop value, and how many nested loop variables are available?",
+      "options": {
+        "A": "|LoopValue|; unlimited",
+        "B": "{Loop1}; two",
+        "C": "@Loop1; four",
+        "D": "|Loop1Variable| through |Loop4Variable|, enclosed in pipes"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: |Loop1Variable| through |Loop4Variable| (in pipes) reference loop values, allowing up to four nested loops; |Loop1Display| and |Loop1Index| give the description and position. A, B and C are incorrect — wrong syntax or count."
+    },
+    {
+      "id": "RG_P05",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Item to Change Parameters",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 932",
+      "source_page": 932,
+      "difficulty": "hard",
+      "question": "A Cube View in a book normally prompts for Time, but the book should run for the Workflow time without prompting and without changing the Cube View. What is added?",
+      "options": {
+        "A": "An If Statement",
+        "B": "An Excel Export Item",
+        "C": "An Item to Change Parameters",
+        "D": "A second copy of the Cube View"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: an Item to Change Parameters turns off the prompt and supplies the value, such as the Workflow time, without altering the Cube View. A is incorrect — it adds conditional logic. B is incorrect — it exports to Excel. D is incorrect — the guide's point is to avoid copying."
+    },
+    {
+      "id": "RG_P06",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Book Properties — Performance",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 931",
+      "source_page": 931,
+      "difficulty": "hard",
+      "question": "A large report book runs slowly. Which book setting change does the guide recommend for a performance gain?",
+      "options": {
+        "A": "Set Determine Parameters from Content to True",
+        "B": "Set Determine Parameters from Content to False and list the parameters in Required Input Parameters",
+        "C": "Convert it to a Zip book",
+        "D": "Remove all loops"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: for large books, setting Determine Parameters from Content to False and specifying the required parameters manually improves performance. A is incorrect — that is the slower automatic option. C and D are incorrect — not the documented recommendation."
+    },
+    {
+      "id": "RG_P07",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Create a Report Book",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 944",
+      "source_page": 944,
+      "difficulty": "easy",
+      "question": "Where is the Book Designer opened?",
+      "options": {
+        "A": "Application > Presentation > Books",
+        "B": "System > Tools > File Explorer",
+        "C": "Application > Tools > Data Management",
+        "D": "OnePlace > Cube Views"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Application tab, under Presentation, click Books to open the Book Designer. B, C and D are incorrect — they store, export or display books but aren't where books are designed."
+    },
+    {
+      "id": "RG_P08",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Book If Statements",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 942",
+      "source_page": 942,
+      "difficulty": "medium",
+      "question": "Which If Statement includes book items only when the person running the book is the Administrator?",
+      "options": {
+        "A": "(|Loop1Variable| = Administrator)",
+        "B": "(|UserName| == Administrator)",
+        "C": "If User = Administrator",
+        "D": "(|!UserName!| = Administrator)"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the guide's example is (|!UserName!| = Administrator). A is incorrect — it tests a loop value. B and C are incorrect — not the documented syntax."
+    },
+    {
+      "id": "RG_T01",
+      "topic": "Tools",
+      "objective": "201.5.4",
+      "subtopic": "Task Scheduler — Time Zone",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1591",
+      "source_page": 1591,
+      "difficulty": "medium",
+      "question": "In Task Scheduler, what time zone is the Start Date/Time?",
+      "options": {
+        "A": "UTC",
+        "B": "The server's time zone",
+        "C": "The user's local time",
+        "D": "The application's Global Time"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: “The Start Date/Time are your local time.” A, B and D are incorrect — not what the guide states."
+    },
+    {
+      "id": "RG_T02",
+      "topic": "Tools",
+      "objective": "201.5.4",
+      "subtopic": "Task Scheduler — Editing",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1590",
+      "source_page": 1590,
+      "difficulty": "medium",
+      "question": "When editing an existing scheduled task, which field cannot be changed?",
+      "options": {
+        "A": "Schedule",
+        "B": "Name",
+        "C": "Sequence",
+        "D": "Expire Date/Time"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: “The only option that you can not change is the Name in the Task tab.” A, C and D are incorrect — they can be edited."
+    },
+    {
+      "id": "RG_T03",
+      "topic": "Tools",
+      "objective": "201.5.4",
+      "subtopic": "Task Scheduler — Monitoring",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1597",
+      "source_page": 1597,
+      "difficulty": "hard",
+      "question": "After a scheduled task runs, how does it appear in Task Activity?",
+      "options": {
+        "A": "Task Type: Data Management Scheduled Task; Description: task name, hyphen, sequence",
+        "B": "Task Type: Process Cube",
+        "C": "Task Type: Consolidate",
+        "D": "It does not appear in Task Activity"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the Task Type is Data Management Scheduled Task, and the Description is the task name followed by a hyphen and the sequence. B and C are incorrect — those are Workflow and calculation tasks. D is incorrect — it does appear."
+    },
+    {
+      "id": "RG_T04",
+      "topic": "Tools",
+      "objective": "201.5.4",
+      "subtopic": "Task Scheduler — Logon Activity",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1598",
+      "source_page": 1598,
+      "difficulty": "hard",
+      "question": "In Logon Activity, how can an administrator tell a session was started by a scheduled task?",
+      "options": {
+        "A": "Client IP Address is 0.0.0.0",
+        "B": "User is blank",
+        "C": "Application shows System",
+        "D": "Client Module shows Scheduler"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the Client Module column shows the login was through Scheduler. A, B and C are incorrect — not documented indicators."
+    },
+    {
+      "id": "RG_T05",
+      "topic": "Tools",
+      "objective": "201.5.5",
+      "subtopic": "Task Scheduler — Load/Extract",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1601",
+      "source_page": 1601,
+      "difficulty": "hard",
+      "question": "How are scheduled tasks moved between environments, and which role allows it?",
+      "options": {
+        "A": "System Load/Extract; TaskSchedulerPage",
+        "B": "They can't be moved",
+        "C": "Application Load/Extract with File Type Task Scheduler; ManageTaskScheduler",
+        "D": "Data Management Export File; TaskScheduler"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: tasks are extracted from Application > Tools > Load/Extract with File Type Task Scheduler; ManageTaskScheduler can load and extract, while TaskScheduler cannot. A is incorrect — wrong tool and a UI role. B is incorrect — they can be moved. D is incorrect — not the documented method."
+    },
+    {
+      "id": "RG_T06",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — Refresh",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1871",
+      "source_page": 1871,
+      "difficulty": "hard",
+      "question": "A user has unsubmitted changes on two tabs and clicks Refresh Workbook while on tab 1. What happens to the changes?",
+      "options": {
+        "A": "Only tab 1's changes are cleared",
+        "B": "Dirty cells are cleared on all tabs",
+        "C": "Changes are submitted first",
+        "D": "Nothing; refresh never clears changes"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Refresh Workbook clears all dirty cells on all tabs, regardless of the selected tab; Refresh Sheet clears only the selected tab. A is incorrect — that describes Refresh Sheet. C and D are incorrect — refresh doesn't submit or preserve edits."
+    },
+    {
+      "id": "RG_T07",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — Submit Sheet",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1872",
+      "source_page": 1872,
+      "difficulty": "medium",
+      "question": "What does Submit Sheet send back to OneStream?",
+      "options": {
+        "A": "Changes for Cube Views, Quick Views, XFSetCells and Table Views on the active sheet",
+        "B": "Only Cube View changes",
+        "C": "Changes on every tab",
+        "D": "Only XFSetCell changes"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Submit Sheet sends edits for Cube Views, Quick Views, XFSetCells and Table Views on the active sheet. B and D are incorrect — too narrow. C is incorrect — that is Submit Workbook."
+    },
+    {
+      "id": "RG_T08",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — Convert to XFGetCells",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1871",
+      "source_page": 1871,
+      "difficulty": "hard",
+      "question": "What happens to a Quick View when Convert to XFGetCells is used?",
+      "options": {
+        "A": "It stays and formulas are added beside it",
+        "B": "It becomes a Cube View",
+        "C": "It is saved to the File Share",
+        "D": "Its definition is deleted and its data becomes XFGetCell formulas"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: after confirming, the Quick View definition is deleted and converted to XFGetCells. A, B and C are incorrect — not the documented behavior."
+    },
+    {
+      "id": "RG_T09",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — Spreading",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1873",
+      "source_page": 1873,
+      "difficulty": "medium",
+      "question": "Which spreading type distributes an amount with weights of 4, 4 and 5 across three selected cells?",
+      "options": {
+        "A": "Even Distribution",
+        "B": "Factor",
+        "C": "445 Distribution",
+        "D": "Accumulate"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: 445 Distribution weights the first two cells by 4 and the third by 5. A is incorrect — it splits evenly. B is incorrect — it multiplies by a rate. D is incorrect — it compounds a rate cell by cell."
+    },
+    {
+      "id": "RG_T10",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — Copy POV",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1870",
+      "source_page": 1870,
+      "difficulty": "medium",
+      "question": "A user wants an XFGetCell formula for a Cube View cell in Excel without typing it. What is the sequence?",
+      "options": {
+        "A": "Convert to XFGetCells",
+        "B": "Copy POV From Data Cell, then Paste POV As XFGetCell",
+        "C": "Create Quick View Using POV from Selected Cell",
+        "D": "Submit Sheet"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Copy POV From Data Cell captures the POV, and Paste POV As XFGetCell writes the formula. A is incorrect — it converts a whole Quick View and deletes it. C is incorrect — it builds a Quick View. D is incorrect — it sends data back."
+    },
+    {
+      "id": "RG_A01",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Error Log — Tier",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1725",
+      "source_page": 1725,
+      "difficulty": "medium",
+      "question": "Which Error Log column shows whether an error occurred on the App Server, Web Server or Client?",
+      "options": {
+        "A": "Tier",
+        "B": "Error Level",
+        "C": "App Server",
+        "D": "Application"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Tier displays the application tier, such as App Server, Web Server or Client. B is incorrect — it shows the type (Unknown, Fatal, Warning). C is incorrect — it names the specific server. D is incorrect — it identifies the application."
+    },
+    {
+      "id": "RG_A02",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Error Log — Error Level",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1725",
+      "source_page": 1725,
+      "difficulty": "easy",
+      "question": "What does the Error Level column in the Error Log show?",
+      "options": {
+        "A": "The user's security level",
+        "B": "How many times it occurred",
+        "C": "The tier",
+        "D": "The error type, such as Unknown, Fatal or Warning"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Error Level displays the error type, such as Unknown, Fatal or Warning. A, B and C are incorrect — not what the column shows."
+    },
+    {
+      "id": "RG_A03",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "System Security — Load/Extract",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1688",
+      "source_page": 1688,
+      "difficulty": "hard",
+      "question": "What does a non-administrator need to load and extract system Security?",
+      "options": {
+        "A": "SystemLoadExtractPage only",
+        "B": "ManageApplicationProperties",
+        "C": "All three Manage System Security roles plus the SystemLoadExtractPage UI role",
+        "D": "AdministerApplication"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Security load and extract requires all three Manage System Security roles (Users, Groups, Roles) plus SystemLoadExtractPage. A is incorrect — that role opens the page but can't load or extract. B and D are incorrect — application roles, not system roles."
+    },
+    {
+      "id": "RG_A04",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "System Security — New Environment",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1689",
+      "source_page": 1689,
+      "difficulty": "hard",
+      "question": "A Manage System Security user tries to load a security XML into a brand-new environment with no users or groups. What happens?",
+      "options": {
+        "A": "It loads normally",
+        "B": "An Administrator must perform the load, because validation compares against existing security",
+        "C": "Only groups load",
+        "D": "The file is converted automatically"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: validation compares the file to existing security; in an empty environment, an Administrator must perform the load. A, C and D are incorrect — not the documented behavior."
+    },
+    {
+      "id": "RG_A05",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Task Activity — CPU",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1704",
+      "source_page": 1704,
+      "difficulty": "hard",
+      "question": "In Task Activity, what is the difference between Queued CPU and Start CPU?",
+      "options": {
+        "A": "Queued CPU is % CPU when the task was initiated; Start CPU is % CPU when it began from the queue",
+        "B": "They are the same",
+        "C": "Queued CPU is total; Start CPU is average",
+        "D": "Start CPU is when it ended"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Queued CPU is % CPU utilization when the task was initiated; Start CPU is % CPU when the job began from the queue. B, C and D are incorrect — they misdescribe the columns."
+    },
+    {
+      "id": "RG_A06",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "Task Activity — Running Task Progress",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1703",
+      "source_page": 1703,
+      "difficulty": "medium",
+      "question": "Which Task Activity option shows the progress of other users' activities?",
+      "options": {
+        "A": "Selected task information",
+        "B": "Clear task activity for all users",
+        "C": "Refresh",
+        "D": "Running task progress"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Running task progress shows the progress of other users' activities. A is incorrect — it drills into the steps of one activity. B is incorrect — it clears history. C is incorrect — it only refreshes the grid."
+    },
+    {
+      "id": "RG_S01",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "Data Cell Access — Three Actions",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 579",
+      "source_page": 579,
+      "difficulty": "hard",
+      "question": "Each Data Cell Access item defines a Behavior and Access Level for three Action cases. Which three?",
+      "options": {
+        "A": "Read, Write, No Access",
+        "B": "Entity, Scenario, Time",
+        "C": "User in Group and cell in Filter; User in Group and cell not in Filter; User not in Group and cell in Filter",
+        "D": "Apply, Increase, Decrease"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the three Actions are user in Group/cell in Filter, user in Group/cell not in Filter, and user not in Group/cell in Filter. A is incorrect — those are access levels. B is incorrect — data unit dimensions. D is incorrect — those are behaviors."
+    },
+    {
+      "id": "RG_S02",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "Data Cell Access — Action Defaults",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 579",
+      "source_page": 579,
+      "difficulty": "hard",
+      "question": "What are the default Behaviors for the three Action cases?",
+      "options": {
+        "A": "Apply Access and Continue for all three",
+        "B": "Apply Access and Continue for in Group/in Filter; Skip Item and Continue for the other two",
+        "C": "Skip Item and Stop for all three",
+        "D": "Apply Access and Stop for in Group/in Filter; Skip Item and Continue for the others"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Apply Access and Continue is the default when the user is in the group and the cell is in the filter; Skip Item and Continue is the default for the other two cases. A, C and D are incorrect — they misstate the defaults; Stop is never a default."
+    },
+    {
+      "id": "RG_S03",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "Data Cell Access — What It Is",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 577",
+      "source_page": 577,
+      "difficulty": "easy",
+      "question": "What does the guide also call Data Cell Access Security?",
+      "options": {
+        "A": "Slice Security",
+        "B": "Relationship Security",
+        "C": "Conditional Input",
+        "D": "Workflow Security"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: “This section is also considered ‘Slice Security.’” B is incorrect — that follows parent entity rights. C is incorrect — Data Cell Conditional Input is a separate section of the Data Access tab. D is incorrect — Workflow profile groups."
+    },
+    {
+      "id": "RG_S04",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Data Cell Access — Order of Operations",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 580",
+      "source_page": 580,
+      "difficulty": "hard",
+      "question": "In the security order of operations, when is Data Cell Access Security evaluated?",
+      "options": {
+        "A": "Before Application access",
+        "B": "Instead of Entity security",
+        "C": "Only during consolidation",
+        "D": "After access to Application > Cube > Entity > Scenario"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Data Cell Access Security is performed after access to Application > Cube > Entity > Scenario; users need entity Read or Read Write access first. A and B are incorrect — it refines access, it doesn't come first or replace it. C is incorrect — it applies to all data access."
+    },
+    {
+      "id": "RG_S05",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "Data Access Tab — Sections",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 576",
+      "source_page": 576,
+      "difficulty": "medium",
+      "question": "Which three sections are on a cube's Data Access tab?",
+      "options": {
+        "A": "Read, Write, Admin",
+        "B": "Entity, Account, UD",
+        "C": "Data Cell Access Security, Data Cell Conditional Input, Data Management Access Security",
+        "D": "Security, Workflow, Calculation"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the Data Access tab contains Data Cell Access Security, Data Cell Conditional Input and Data Management Access Security. A, B and D are incorrect — not tab sections."
+    },
+    {
+      "id": "RG_TV01",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Table Views — Definition",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1920",
+      "source_page": 1920,
+      "difficulty": "medium",
+      "question": "Where is a Table View's content (its rows, columns and source data) defined?",
+      "options": {
+        "A": "In a Cube View",
+        "B": "In a Business Rule",
+        "C": "In a Data Adapter",
+        "D": "In an xfd named range"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: “A Table View definition for the Windows Application Spreadsheet Tool is defined in a Business Rule,” where the administrator defines the rows and columns returned. A is incorrect — Cube Views present cube data, not Table Views. C is incorrect — Data Adapters feed dashboards. D is incorrect — xfd ranges are for Excel import templates; Table Views use XFTV_ ranges."
+    },
+    {
+      "id": "RG_TV02",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Table Views — Rule Type",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1921",
+      "source_page": 1921,
+      "difficulty": "hard",
+      "question": "When browsing for a Table View Business Rule, which rule type appears in the Object Lookup dialog?",
+      "options": {
+        "A": "Finance",
+        "B": "Extender",
+        "C": "Dashboard DataSet",
+        "D": "Spreadsheet"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: “When browsing for Table Views Business Rule, only Spreadsheet Type Rules will be displayed.” A, B and C are incorrect — they are other rule types and aren't listed for Table Views."
+    },
+    {
+      "id": "RG_TV03",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Table Views — Multiple Views per Rule",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1921",
+      "source_page": 1921,
+      "difficulty": "hard",
+      "question": "How can a single Business Rule file define several different Table Views?",
+      "options": {
+        "A": "By using the TableViewName argument",
+        "B": "By creating one rule per worksheet",
+        "C": "By using one Data Management step per view",
+        "D": "It can't; each Table View needs its own rule"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: one Business Rule file can define multiple Table Views by calling the Business Rule argument TableViewName. B and C are incorrect — not required. D is incorrect — the guide says one rule can serve many views."
+    },
+    {
+      "id": "RG_TV04",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Table Views — Named Ranges",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1921",
+      "source_page": 1921,
+      "difficulty": "medium",
+      "question": "Which user-defined named range prefix manages Table View data cells in a spreadsheet?",
+      "options": {
+        "A": "xfd",
+        "B": "XFGetCell",
+        "C": "XFTV_",
+        "D": "XFSetCell"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: table data cells can be managed with user-defined named ranges (XFTV_*). A is incorrect — xfd is for Excel import templates. B and D are incorrect — those are cell formulas, not named ranges."
+    },
+    {
+      "id": "RG_TV05",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Table Views — Inserts vs Updates",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1923",
+      "source_page": 1923,
+      "difficulty": "hard",
+      "question": "A designer wants users to add brand-new records to a relational table through a Table View. What does the guide say?",
+      "options": {
+        "A": "Inserts work if the rule allows them",
+        "B": "Inserts require the Preserve Excel Format option",
+        "C": "Inserts are supported only in the Excel Add-in",
+        "D": "Table Views update existing records only and do not perform inserts"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the design considerations say Table Views update records in target tables and do not perform inserts to create new records. A, B and C are incorrect — no setting or client enables inserts."
+    },
+    {
+      "id": "RG_TV06",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Table Views — Security",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1920",
+      "source_page": 1920,
+      "difficulty": "hard",
+      "question": "How is access to view or modify Table View data controlled?",
+      "options": {
+        "A": "Through BRAPI Authorization functions designed into the Table View Business Rule, for the whole table or specific cells",
+        "B": "Through Data Cell Access Security on the cube",
+        "C": "Through Workflow Channels",
+        "D": "Through the Preserve Excel Format option"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the administrator controls write-back through the Business Rule, and BRAPI Authorization functions should be built in to control viewing or modifying, either for the entire table or for specific cells. B is incorrect — Table Views read relational tables, not cube cells. C is incorrect — channels lock cube data. D is incorrect — it only keeps formatting."
+    },
+    {
+      "id": "RG_TV07",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Table Views — Size",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1923",
+      "source_page": 1923,
+      "difficulty": "hard",
+      "question": "Why must Table View result sets be kept small, and what is the approximate design target?",
+      "options": {
+        "A": "Paging splits large tables; 1 million rows",
+        "B": "The control doesn't support paging, so all rows must be returned; about 8000 KB per Table View",
+        "C": "Excel limits each sheet to 1,000 rows",
+        "D": "Only 100 columns are allowed"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the Spreadsheet Control does not support paging, so all rows and content must be returned; design expectations are about 8000 KB of data per Table View. A is incorrect — there is no paging. C and D are incorrect — not documented limits."
+    },
+    {
+      "id": "RG_TV08",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Table Views — Purpose",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1922",
+      "source_page": 1922,
+      "difficulty": "medium",
+      "question": "What is the primary purpose of the Table Views spreadsheet control?",
+      "options": {
+        "A": "To replace the SQL Table Editor and Grid Viewer",
+        "B": "To load data into Stage",
+        "C": "To make it easier to create Dashboards and forms where relational data is required",
+        "D": "To export Cube Views to Excel"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the primary purpose is to provide an easier method of creating Dashboards where relational data is required, giving designers a flexible way to build a form or data collection tool. A is incorrect — the guide says Table Views are not an alternative to the SQL Table Editor or Grid Viewer. B and D are incorrect — not their purpose."
+    },
+    {
+      "id": "RG_BB01",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "BI Blend — When to Use",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 93",
+      "source_page": 93,
+      "difficulty": "medium",
+      "question": "Which data is the best fit for BI Blend rather than a cube?",
+      "options": {
+        "A": "Large-volume, frequently changing transactional data such as ERP invoices",
+        "B": "Monthly consolidated actuals that need audit controls",
+        "C": "Budget data entered through forms",
+        "D": "Exchange rates"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: BI Blend is a read-only aggregate storage model for large-volume, often transactional data (such as invoices) that isn't appropriate to store in a cube. B is incorrect — consolidation needs the cube's audit controls. C and D are incorrect — standard cube data."
+    },
+    {
+      "id": "RG_BB02",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "BI Blend — Storage",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 94",
+      "source_page": 94,
+      "difficulty": "hard",
+      "question": "Where are BI Blend results stored?",
+      "options": {
+        "A": "In a Finance Engine cube as stored parents",
+        "B": "In Stage source and target tables",
+        "C": "In relational tables using a column store index",
+        "D": "In the File Share"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: BI Blend is non-cube and writes to a relational table optimized for large data sets by storing results in a column store index. A is incorrect — it doesn't write to a cube. B is incorrect — the Blend type doesn't store Stage record details. D is incorrect — not a storage target."
+    },
+    {
+      "id": "RG_BB03",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "BI Blend — Key Elements",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 94",
+      "source_page": 94,
+      "difficulty": "hard",
+      "question": "Which is a documented key element of BI Blend?",
+      "options": {
+        "A": "Full multi-currency translation",
+        "B": "Single Reporting Currency translation",
+        "C": "Calculation status tracking",
+        "D": "Journal adjustments"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: key elements include Single Reporting Currency translation, fast stored relational aggregation and flexibility for change. A is incorrect — only a single reporting currency. C is incorrect — BI Blend is free of cube audit controls such as calculation status. D is incorrect — not a BI Blend feature."
+    },
+    {
+      "id": "RG_BB04",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "BI Blend Settings",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 758",
+      "source_page": 758,
+      "difficulty": "hard",
+      "question": "The BI Blend Settings used by a Blend Workflow vary by what, and which are their three property groups?",
+      "options": {
+        "A": "By Cube; Source, Target, Mapping",
+        "B": "By Workflow Profile; Import, Validate, Load",
+        "C": "By Entity; Read, Write, Admin",
+        "D": "By Scenario Type; Data Controls, Aggregation Controls, Performance Controls"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: BI Blend Settings vary by Scenario Type and are grouped into Data Controls, Aggregation Controls and Performance Controls. A, B and C are incorrect — wrong scope and groups."
+    },
+    {
+      "id": "RG_BB05",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "BI Blend — Use Cases",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 759",
+      "source_page": 759,
+      "difficulty": "hard",
+      "question": "Which statement about BI Blend use cases is true?",
+      "options": {
+        "A": "It can aggregate on a few dimensions while keeping transaction details such as invoice number",
+        "B": "It is meant to replicate an entire cube",
+        "C": "It replaces Calc-On-Fly for every report",
+        "D": "It requires a cube member for every invoice"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: BI Blend can aggregate on a few dimensions (e.g., Entity or Account) while including transaction information like invoice number that isn't in a cube. B is incorrect — it is “not intended to replicate an entire cube.” C is incorrect — it targets specific reports with many parent intersections. D is incorrect — that is exactly what it avoids."
+    },
+    {
+      "id": "RG_BB06",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "BI Blend Adapter — Where Clause",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1309",
+      "source_page": 1309,
+      "difficulty": "hard",
+      "question": "A dashboard built on the BI Blend Adapter runs slowly because the BI Blend table is huge. What does the guide recommend?",
+      "options": {
+        "A": "Add more Group By columns",
+        "B": "Switch to Calc-On-Fly",
+        "C": "Define a Where Clause to return a slice of the table",
+        "D": "Convert the table to a cube"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the designer should manage the returned dataset with a Where Clause (standard SQL syntax) to retrieve a slice of the BI Blend table; the adapter returns all results to the client. A is incorrect — more columns return more data. B and D are incorrect — not the documented fix."
+    },
+    {
+      "id": "RG_BB07",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "BI Blend Adapter — Aggregation Types",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1310",
+      "source_page": 1310,
+      "difficulty": "medium",
+      "question": "Which aggregation types does the BI Blend Adapter support for measure fields?",
+      "options": {
+        "A": "Sum and Average only",
+        "B": "Sum, Min, Max, Avg and Count",
+        "C": "Sum, Median and Mode",
+        "D": "Count only"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the supported Data Field Aggregation Types are Sum, Min, Max, Avg and Count, and multiple measures can each use a different type. A, C and D are incorrect — incomplete or not supported."
+    },
+    {
+      "id": "RG_BB08",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "BI Blend Adapter — Group By",
+      "source_type": "GUIDE",
+      "source_section": "Design and Reference Guide 9.0 (PDF), p. 1310",
+      "source_page": 1310,
+      "difficulty": "hard",
+      "question": "In the BI Blend Adapter, a field must be pivoted in a Pivot Grid. What is required?",
+      "options": {
+        "A": "It must be in the Where Clause",
+        "B": "It must be a Data Field Aggregation Type",
+        "C": "It must be the Results Table Name",
+        "D": "It must be in the Group By list"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: “Any field to be pivoted must be in the Group by list,” and those labels must match the database column names. A is incorrect — the Where Clause filters. B is incorrect — that defines measures. C is incorrect — it names the output table."
+    }
+  ]
+}

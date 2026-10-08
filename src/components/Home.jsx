@@ -1,4 +1,4 @@
-import { getTopicColor } from '../data/index.js'
+import { getTopicColor, TOPIC_GROUPS } from '../data/index.js'
 
 export default function Home({ progress, topics, allQuestions, onGoSetup, onResetProgress }) {
   const totalAnswered = progress.totalAnswered || 0
@@ -11,7 +11,7 @@ export default function Home({ progress, topics, allQuestions, onGoSetup, onRese
       <div className="section-header">
         <div>
           <h1 className="page-title">OneStream OCP Exam Prep</h1>
-          <p className="page-subtitle">518 questions across 7 topics — track your progress toward passing on the first attempt</p>
+          <p className="page-subtitle">{allQuestions.length} questions — track your progress toward passing</p>
         </div>
         <div style={{ display: 'flex', gap: '10px' }}>
           <button className="btn btn-primary btn-lg" onClick={onGoSetup}>Start Quiz</button>
@@ -39,14 +39,16 @@ export default function Home({ progress, topics, allQuestions, onGoSetup, onRese
         </div>
       </div>
 
-      {/* Topic grid */}
+      {/* Topic grids — one section per group */}
+      {TOPIC_GROUPS.map(group => (
+        <div key={group.id}>
       <div className="section-header">
-        <span className="section-title">Study by Topic</span>
+        <span className="section-title">{group.label}</span>
         <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Click a topic to start a focused quiz</span>
       </div>
 
       <div className="topic-grid">
-        {topics.map(topic => {
+        {topics.filter(t => t.group === group.id).map(topic => {
           const topicProgress = progress.topics?.[topic.id] || {}
           const answered = topicProgress.answered || 0
           const correct = topicProgress.correct || 0
@@ -81,6 +83,9 @@ export default function Home({ progress, topics, allQuestions, onGoSetup, onRese
           )
         })}
       </div>
+
+        </div>
+      ))}
 
       {/* Tips */}
       {totalAnswered === 0 && (

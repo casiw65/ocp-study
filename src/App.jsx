@@ -68,7 +68,7 @@ export default function App() {
     <div className="app-shell">
       <header className="top-bar">
         <span className="top-bar-logo">OCP Exam Prep</span>
-        <span className="top-bar-badge">518 Questions</span>
+        <span className="top-bar-badge">{allQuestions.length} Questions</span>
         <div className="top-bar-spacer" />
         <nav className="top-bar-nav">
           <button className={`nav-btn ${view === 'home' ? 'active' : ''}`} onClick={() => setView('home')}>Dashboard</button>

@@ -1,0 +1,985 @@
+{
+  "metadata": {
+    "file": "retake_wf_tools_admin_questions_1.json",
+    "topic": "Workflow, Tools, Administration (OS-201 retake)",
+    "question_range": "RT_W01–RT_A08",
+    "source_file": "OneStream Design and Reference Guide (online edition); each question lists source_section and source_url",
+    "question_count": 51,
+    "generated": "2026-10-05",
+    "note": "Written from guide text for objectives 201.2.1-201.2.4, 201.5.1-201.5.6, 201.7.1-201.7.2. Not covered (pages not readable online): Designing BI Blend and Table Views Platform Guides, MarketPlace Solution, Loading Data via Excel Templates or CSV, Error Log page. Guide pages are current online versions; exam is based on 8.x."
+  },
+  "questions": [
+    {
+      "id": "RT_W01",
+      "topic": "Workflow",
+      "objective": "201.2.1",
+      "subtopic": "Workflow Names — Forms",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Workflow%20Profile%20Types.html",
+      "difficulty": "medium",
+      "question": "Budget holders enter data through forms. After entry, calculations must run and confirmation rules must pass before they sign off. Which Workflow Name should be assigned?",
+      "options": {
+        "A": "Form Input, Process, Confirm, Certify",
+        "B": "Form Input, Certify",
+        "C": "Import, Validate, Process, Confirm, Certify",
+        "D": "Pre-Process, Form Input"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: (Form Input, Process, Confirm, Certify) is a Forms Workflow Name that runs Process (calculations) and Confirm (confirmation rules) before Certify. B is incorrect — it skips Process and Confirm. C is incorrect — the steps are right but it is an Import Workflow Name, and the input here is forms. D is incorrect — it has no Process, Confirm or Certify step."
+    },
+    {
+      "id": "RT_W02",
+      "topic": "Workflow",
+      "objective": "201.2.1",
+      "subtopic": "Workflow Names — Stage Only",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Workflow%20Profile%20Types.html",
+      "difficulty": "medium",
+      "question": "Analysts want to import a file and review it in Stage without any data reaching the cube. Which Workflow Name supports this?",
+      "options": {
+        "A": "Import, Validate, Load",
+        "B": "Import, Verify Stage Only",
+        "C": "Central Import",
+        "D": "Workspace"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the Stage Only Workflow Names (Import Stage Only; Import, Verify Stage Only; Import, Verify, Certify Stage Only) bring data into Stage without loading the cube. A is incorrect — Load writes the data to the cube. C is incorrect — Central Import is for importing centrally, and still loads the cube. D is incorrect — Workspace presents a dashboard as the workflow step; it is not a Stage-only import."
+    },
+    {
+      "id": "RT_W03",
+      "topic": "Workflow",
+      "objective": "201.2.1",
+      "subtopic": "Workflow Names — Journals",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Workflow%20Profile%20Types.html",
+      "difficulty": "hard",
+      "question": "Which of the following is a valid Workflow Name for a Journals (Adjustment) input child?",
+      "options": {
+        "A": "Pre-Process, Journal Input",
+        "B": "Form Input, Process, Certify",
+        "C": "Journal Input, Process, Confirm, Certify",
+        "D": "Import, Validate, Load, Certify"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: (Journal Input, Process, Confirm, Certify) is listed among the Journal Workflow Names. A is incorrect — Pre-Process options exist only for Forms, not Journals. B is incorrect — that is a Forms Workflow Name. D is incorrect — that is an Import Workflow Name."
+    },
+    {
+      "id": "RT_W04",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Workflow Profile Types",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Workflow%20Profile%20Types.html",
+      "difficulty": "medium",
+      "question": "A Workflow Profile exists only so a regional controller can review, confirm and certify the results of the input profiles beneath it. No data is entered there. Which profile type is it?",
+      "options": {
+        "A": "Base Input",
+        "B": "Parent Adjustment",
+        "C": "Import",
+        "D": "Review"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Review profiles “do not take input, but are meant for reviewing, confirming and certifying results from the lower input Workflow Profiles.” A is incorrect — Base Input is where most data updates happen (Import, Forms, Journals). B is incorrect — Parent Adjustment takes top-side adjustments into AdjInput. C is incorrect — Import is an input channel of a Base Input profile, not a review profile type."
+    },
+    {
+      "id": "RT_W05",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Calculation Definitions",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Calculation%20Definitions.html",
+      "difficulty": "medium",
+      "question": "When a user clicks Process Cube in a Workflow, where is it defined which entities are calculated or consolidated?",
+      "options": {
+        "A": "The Calculation Definitions tab of the Workflow Profile",
+        "B": "A Data Management Calculate step",
+        "C": "Cube Properties — Consolidation Algorithm Type",
+        "D": "The Confirmation Profile Name property"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Calculation Definitions, the second tab of the Workflow Profile, “will determine the type of calculation/consolidation that occurs when a user selects Process Cube during the Workflow.” B is incorrect — a Data Management step runs calculations outside the Workflow's Process step. C is incorrect — the algorithm type controls how consolidation works, not which entities Process runs. D is incorrect — the Confirmation Profile assigns confirmation rules, not calculations."
+    },
+    {
+      "id": "RT_W06",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions — Confirmed",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Calculation Definitions",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Calculation%20Definitions.html",
+      "difficulty": "hard",
+      "question": "In a Workflow Profile's Calculation Definitions, what does the Confirmed check box control?",
+      "options": {
+        "A": "Whether the calculation runs as a Force calculation",
+        "B": "Which entities are tested by the confirmation rules",
+        "C": "Whether the user must confirm before Process Cube runs",
+        "D": "Whether the entity is locked after certification"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the Confirmed check box controls which entities are tested by the confirmation rules. A is incorrect — Force is part of the calculation type, not the Confirmed box. C is incorrect — there is no user confirmation prompt; the name is the trap. D is incorrect — locking after certification is the Lock after Certify setting in Application Properties."
+    },
+    {
+      "id": "RT_W07",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Calculation Definitions — Auto-assign",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Calculation Definitions",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Calculation%20Definitions.html",
+      "difficulty": "medium",
+      "question": "Instead of listing each entity, an administrator wants Calculation Definitions to automatically include the entities assigned to the Workflow Profile. What should be used?",
+      "options": {
+        "A": "E#Root.Base",
+        "B": "(Workflow Entities)",
+        "C": "(Assigned Entities)",
+        "D": "An Entity Filter on a Data Management step"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Calculation Definitions can auto-assign entities using the (Assigned Entities) option. A is incorrect — a member filter on Root would take every base entity, not the profile's assigned entities. B is incorrect — not a real Calculation Definitions option. D is incorrect — a Data Management Entity Filter applies to that step, not to the Workflow's Process Cube."
+    },
+    {
+      "id": "RT_W08",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Profile Security — Execution",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Profile%20Properties.html",
+      "difficulty": "medium",
+      "question": "A user can open a Workflow Profile and see its results but cannot load or process data. Which group is the user most likely missing?",
+      "options": {
+        "A": "Access Group",
+        "B": "Maintenance Group",
+        "C": "Certification SignOff Group",
+        "D": "Workflow Execution Group"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the Workflow Execution Group “is configured for data loaders and allows users to execute Workflow.” A is incorrect — the user already has the Access Group, which only allows viewing results at run time. B is incorrect — the Maintenance Group maintains and administers the profile; it does not run it. C is incorrect — the Certification SignOff Group allows sign-off, not loading."
+    },
+    {
+      "id": "RT_W09",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Profile Security — Maintenance",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Profile%20Properties.html",
+      "difficulty": "medium",
+      "question": "A team lead must be able to maintain and administer a Workflow Profile but should not load data. Which group fits?",
+      "options": {
+        "A": "Maintenance Group",
+        "B": "Workflow Execution Group",
+        "C": "Access Group",
+        "D": "Journal Post Group"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the Maintenance Group “controls the user or users that will have access to maintain and administer.” B is incorrect — that group runs the Workflow (loads data). C is incorrect — the Access Group only views results. D is incorrect — the Journal Post Group posts journals."
+    },
+    {
+      "id": "RT_W10",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Profile Security — Certification",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Profile%20Properties.html",
+      "difficulty": "easy",
+      "question": "Which Workflow Profile group allows users to sign off on the Workflow?",
+      "options": {
+        "A": "Workflow Execution Group",
+        "B": "Certification SignOff Group",
+        "C": "Journal Approval Group",
+        "D": "Access Group"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the Certification SignOff Group “is configured for certifiers and allows users to sign off on the Workflow.” A is incorrect — it is for data loaders. C is incorrect — it approves journals, not the Workflow. D is incorrect — it only views results."
+    },
+    {
+      "id": "RT_W11",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Is Optional Data Load",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Profile%20Properties.html",
+      "difficulty": "medium",
+      "question": "Several entities have no activity in some months, and their users cannot finish the Workflow because nothing was loaded. Which setting addresses this?",
+      "options": {
+        "A": "Can Load Unrelated Entities = True",
+        "B": "Force Balance Accounts to YTD View = True",
+        "C": "Is Optional Data Load = True",
+        "D": "Workflow Channel = NoDataLock"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: when Is Optional Data Load is True, the Workflow provides a “Complete Workflow” option when no data loads that period. A is incorrect — that allows loading entities not assigned to the profile, a different problem. B is incorrect — that changes the View for balance accounts. D is incorrect — NoDataLock applies to metadata members, not to completing a Workflow."
+    },
+    {
+      "id": "RT_W12",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Can Load Unrelated Entities",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Profile%20Properties.html",
+      "difficulty": "medium",
+      "question": "An import fails because the file contains entities that are not assigned to the Workflow Profile. The business wants those rows loaded. Which setting allows it?",
+      "options": {
+        "A": "Is Optional Data Load = True",
+        "B": "Enforce Global POV = False",
+        "C": "Allow Loads After Workflow View Year = True",
+        "D": "Can Load Unrelated Entities = True"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: if Can Load Unrelated Entities is False, the profile “can only load data to assigned entities”; True allows loading to unassigned entities. A is incorrect — it handles periods with no data. B and C are incorrect — both are Application Properties settings about the Workflow View and time periods, not entity assignment."
+    },
+    {
+      "id": "RT_W13",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Journal Settings — Prevent Self-Post",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Profile%20Properties.html",
+      "difficulty": "hard",
+      "question": "Controllers must not be able to post journals they created, and the restriction must also apply to administrators. Which setting meets this?",
+      "options": {
+        "A": "Prevent Self-Post = True (includes Admins)",
+        "B": "Prevent Self-Approval = True",
+        "C": "Prevent Self-Post = True",
+        "D": "Require Journal Template = True"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Prevent Self-Post offers False, True, and “True (includes Admins)”; only the last also covers administrators. B is incorrect — it covers approving, not posting. C is incorrect — plain True does not cover administrators. D is incorrect — it only blocks free-form journals."
+    },
+    {
+      "id": "RT_W14",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Journal Settings — Templates",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Profile%20Properties.html",
+      "difficulty": "medium",
+      "question": "Users must create journals only from approved templates, never free-form. Which Workflow Profile setting does this?",
+      "options": {
+        "A": "Journal Template Profile Name",
+        "B": "Require Journal Template = True",
+        "C": "Prevent Self-Approval = True",
+        "D": "Journal Process Group"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Require Journal Template “restricts users from creating new free-form journals by disabling the Create Journals button.” A is incorrect — it assigns which templates are available but does not block free-form journals. C is incorrect — it is about approving one's own journals. D is incorrect — it controls who can process journals."
+    },
+    {
+      "id": "RT_W15",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Workflow Channels — NoDataLock",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Channels",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/NoDataLockCombo.html",
+      "difficulty": "hard",
+      "question": "An account must not participate in any Workflow Channel grouping, so it can be used with any Workflow Profile. Which channel should be assigned to the account?",
+      "options": {
+        "A": "Standard",
+        "B": "AllChannelInput",
+        "C": "NoDataLock",
+        "D": "Leave the channel blank"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: NoDataLock “only applies to a metadata Member (Account or UDx) that should not participate in a Workflow Channel grouping scheme.” A is incorrect — Standard is the default channel and still participates. B is incorrect — AllChannelInput applies to a Workflow Profile input child, not to a metadata member. D is incorrect — members default to Standard; blank is not the mechanism."
+    },
+    {
+      "id": "RT_W16",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Workflow Channels — AllChannelInput",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Channels",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/NoDataLockCombo.html",
+      "difficulty": "hard",
+      "question": "A forms input child must be able to control data input for every Workflow Channel. Which channel is assigned, and where?",
+      "options": {
+        "A": "NoDataLock, on the account members",
+        "B": "Standard, on the Workflow Profile input child",
+        "C": "AllChannelInput, on the account members",
+        "D": "AllChannelInput, on the Workflow Profile input child"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: AllChannelInput “only applies to a Workflow Profile Input Child (Import, Forms or Adj) and indicates the Workflow Profile can control data input processes for any Workflow Channel.” A is incorrect — NoDataLock is for metadata members. B is incorrect — Standard only covers the Standard channel. C is incorrect — right channel, wrong place; it does not apply to metadata members."
+    },
+    {
+      "id": "RT_W17",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Workflow Channels — Purpose",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Channels",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/NoDataLockCombo.html",
+      "difficulty": "medium",
+      "question": "Two teams load different accounts into the same entity and must load, clear and lock their data independently. What enables this?",
+      "options": {
+        "A": "Workflow Channels assigned to the accounts and the input profiles",
+        "B": "Separate Workflow Names for each team",
+        "C": "Data Cell Access Security on the accounts",
+        "D": "Separate Transformation Profiles"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Workflow Channels control “data clearing, loading, and locking behaviors of the Metadata Members associated with the assigned Workflow Channel,” so each profile writes only to its own intersections. B is incorrect — Workflow Names set the steps, not data ownership. C is incorrect — that controls read/write access, not load and lock behavior. D is incorrect — transformation maps source to target members; it does not separate locking."
+    },
+    {
+      "id": "RT_W18",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Integration Settings — YTD",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workflow > Workflow Profile Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workflow/Profile%20Properties.html",
+      "difficulty": "hard",
+      "question": "A file loads balance accounts on a periodic basis, but the business wants balance accounts always treated as YTD for this profile, regardless of the file. Which setting does this?",
+      "options": {
+        "A": "Flow Type No Data Zero View Override",
+        "B": "Force Balance Accounts to YTD View = True",
+        "C": "Is Optional Data Load = True",
+        "D": "Balance Type No Data Zero View Override"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Force Balance Accounts to YTD View, when True, forces YTD View for balance accounts regardless of the file. A and D are incorrect — the No Data Zero View overrides control how missing data is treated, not the view of loaded balance accounts. C is incorrect — it handles periods with no data."
+    },
+    {
+      "id": "RT_T01",
+      "topic": "Tools",
+      "objective": "201.5.6",
+      "subtopic": "Application vs. System Load/Extract",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > System Tools > Load/Extract System Artifacts",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/System%20Tools/Load%20Extract%20System%20Artifacts.html",
+      "difficulty": "medium",
+      "question": "An auditor needs the Error Log and Task Activity from Production for last quarter. Which tool provides this?",
+      "options": {
+        "A": "Application > Tools > Load/Extract — Application Zip File",
+        "B": "A Data Management Export Data step",
+        "C": "System > Tools > Load/Extract — Error Log and Task Activity, with a time range",
+        "D": "Application > Tools > Load/Extract — Security Roles"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Error Log, Task Activity and Logon Activity are System Load/Extract types, extractable by time range. A is incorrect — logs are not application structures. B is incorrect — Export Data exports cube data. D is incorrect — Security Roles is an application item and contains no logs."
+    },
+    {
+      "id": "RT_T02",
+      "topic": "Tools",
+      "objective": "201.5.5",
+      "subtopic": "Application Zip File — Exclusions",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Load/Extract Application Artifacts",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Application%20Tools/Load%20Extract%20Application%20Artifacts.html",
+      "difficulty": "medium",
+      "question": "Which two items are NOT included when an administrator extracts the Application Zip File? (Select 2.)",
+      "options": {
+        "A": "Cube data",
+        "B": "Cube Views",
+        "C": "FX Rates",
+        "D": "Transformation Rules"
+      },
+      "correct_answer": [
+        "A",
+        "C"
+      ],
+      "explanation": "A and C are correct: the Application Zip File extracts “all the Application structures except for data and the FX rates.” B and D are incorrect — Cube Views and Transformation Rules are application structures and are included. FX rates can be moved separately with the FX Rates or FX Rate CSV extract types."
+    },
+    {
+      "id": "RT_T03",
+      "topic": "Tools",
+      "objective": "201.5.6",
+      "subtopic": "Security vs. Security Roles",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > System Tools > Load/Extract System Artifacts",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/System%20Tools/Load%20Extract%20System%20Artifacts.html",
+      "difficulty": "hard",
+      "question": "Which item is extracted with the System Load/Extract tool rather than the Application Load/Extract tool?",
+      "options": {
+        "A": "Security (System Roles, Users, Security Groups, Exclusion Groups)",
+        "B": "Security Roles",
+        "C": "Workflow Channels",
+        "D": "Application Properties"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: System Load/Extract “Security” includes System Roles, Users, Security Groups and Exclusion Groups. B is incorrect — Security Roles is on the Application Load/Extract list. C and D are incorrect — both are Application Load/Extract items."
+    },
+    {
+      "id": "RT_T04",
+      "topic": "Tools",
+      "objective": "201.5.6",
+      "subtopic": "System Load/Extract — Dashboards",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > System Tools > Load/Extract System Artifacts",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/System%20Tools/Load%20Extract%20System%20Artifacts.html",
+      "difficulty": "medium",
+      "question": "An administrator needs to move System Dashboards (Maintenance Units, Profiles, Components, Adapters and Parameters) to another environment. Which tool is used?",
+      "options": {
+        "A": "Application Load/Extract — Workspaces",
+        "B": "System Load/Extract — System Dashboards",
+        "C": "Application Load/Extract — Application Zip File",
+        "D": "Data Management — Export Report step"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: System Load/Extract has a System Dashboards type covering Maintenance Units, Profiles, Groups, Components, Adapters and Parameters. A and C are incorrect — they move application artifacts, not system dashboards. D is incorrect — Export Report renders dashboards as PDFs; it does not move them."
+    },
+    {
+      "id": "RT_T05",
+      "topic": "Tools",
+      "objective": "201.5.5",
+      "subtopic": "Load/Extract — Access",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Load/Extract Application Artifacts",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Application%20Tools/Load%20Extract%20Application%20Artifacts.html",
+      "difficulty": "medium",
+      "question": "Who can use the Application Load/Extract tool, and who can use the System Load/Extract tool?",
+      "options": {
+        "A": "Anyone with ManageMetadata; anyone with the SystemPane role",
+        "B": "System Administrators for both",
+        "C": "Administrators; System Administrators",
+        "D": "Administrators for both"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: for Application Load/Extract, “Only Administrators have access”; for System Load/Extract, “Only System Administrators have access.” A is incorrect — neither role is the stated requirement. B and D are incorrect — the two tools have different access levels."
+    },
+    {
+      "id": "RT_T06",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Reset Scenario",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "medium",
+      "question": "A planning scenario must be wiped for a new cycle, including Workflow Status and Calculation Status, as quickly as possible. Which Data Management step fits?",
+      "options": {
+        "A": "Clear Data with Clear Forms Data = True",
+        "B": "Custom Calculate",
+        "C": "Copy Data from an empty scenario",
+        "D": "Reset Scenario"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Reset Scenario clears data, audit information, Workflow Status and Calculation Status, and “does not create audit information…therefore will run faster.” A is incorrect — Clear Data does not clear Workflow or Calculation Status. B is incorrect — it runs a calculation. C is incorrect — copying empties is slower and still leaves status behind."
+    },
+    {
+      "id": "RT_T07",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Reset Scenario — Durable Data",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "hard",
+      "question": "Which Data Management step clears data even when it is marked as Durable?",
+      "options": {
+        "A": "Reset Scenario",
+        "B": "Clear Data",
+        "C": "Custom Calculate",
+        "D": "Calculate with Force Consolidate"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: per the guide, “Reset Data will clear even data marked as Durable.” B is incorrect — the guide gives that warning for Reset Scenario, not Clear Data. C is incorrect — Custom Calculate writes data; durable results survive. D is incorrect — it recalculates rather than clears."
+    },
+    {
+      "id": "RT_T08",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Custom Calculate — Security",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "medium",
+      "question": "A Custom Calculate step runs for an administrator but fails for an analyst. What is the most likely cause?",
+      "options": {
+        "A": "The step's Point of View section is blank",
+        "B": "The analyst is not in the Scenario's Manage Data Group",
+        "C": "The analyst lacks the TaskSchedulerPage role",
+        "D": "The analyst is not in the Workflow Execution Group"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: for Custom Calculate, the user “must be a member of the Scenario's Manage Data Group or the Step will fail.” A is incorrect — the Point of View section is optional. C is incorrect — that role only opens the Task Scheduler page. D is incorrect — that group governs running a Workflow, not Data Management steps."
+    },
+    {
+      "id": "RT_T09",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Custom Calculate — Use Case",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "medium",
+      "question": "Why would an architect choose a Custom Calculate step to recalculate a small slice of data during data entry?",
+      "options": {
+        "A": "It creates full audit history for every affected cell",
+        "B": "It is the only step that can consolidate",
+        "C": "It runs a calculation on a slice of data within one or many Data Units and does not create audit information per cell, so it runs faster",
+        "D": "It automatically clears durable data first"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the guide lists speed during data entry and flexibility as the typical use, running a calculation on a slice of one or many Data Units without per-cell audit information. A is incorrect — the opposite; that is why it is fast. B is incorrect — the Calculate step consolidates. D is incorrect — Custom Calculate does not clear durable data."
+    },
+    {
+      "id": "RT_T10",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Export File vs. Export Report",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "hard",
+      "question": "A finance team wants a Report Book generated nightly and saved to the File Share. Which step type does this?",
+      "options": {
+        "A": "Export Data",
+        "B": "Export Report",
+        "C": "Execute Business Rule",
+        "D": "Export File"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Export File exports “an Extensible Document or Report Book to OneStream's File Share.” A is incorrect — Export Data exports cube data. B is incorrect — Export Report exports Dashboards or Dashboard Profiles as PDFs. C is incorrect — possible with custom code, but not the built-in step for this."
+    },
+    {
+      "id": "RT_T11",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Export Report — File Types",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "medium",
+      "question": "An administrator wants several dashboards delivered as a single PDF on a schedule. Which step and setting fit?",
+      "options": {
+        "A": "Export Report with Report File Type = Combined PDF File",
+        "B": "Export File with Process Extensible Document = True",
+        "C": "Export Report with Report File Type = PDFs in Zip File",
+        "D": "Export Data with Include Member Descriptions = True"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Export Report outputs Dashboards as “PDFs in Zip File” or a “Combined PDF File”; one PDF means Combined. B is incorrect — Export File is for Extensible Documents and Report Books. C is incorrect — that produces separate PDFs in a zip. D is incorrect — Export Data exports cube data."
+    },
+    {
+      "id": "RT_T12",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Calculate Step — With Logging",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "medium",
+      "question": "A consolidation run from Data Management is slow, and the administrator needs more detail about where time is spent. What should be changed?",
+      "options": {
+        "A": "Switch to a Force Consolidate",
+        "B": "Use the “with Logging” variant of the calculation type and review Task Activity",
+        "C": "Set Use Detailed Logging on a Clear Data step",
+        "D": "Switch to Custom Calculate"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the “With Logging” variants “trigger additional detailed logging which can be viewed in the Task Activity area.” A is incorrect — Force recalculates every cell and usually makes it slower. C is incorrect — that is a different step type. D is incorrect — it changes what runs, not what is logged."
+    },
+    {
+      "id": "RT_T13",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Calculate Step — Force",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "medium",
+      "question": "What does a Force variant of a Data Management calculation do?",
+      "options": {
+        "A": "Runs only the cells marked as needing calculation",
+        "B": "Bypasses security for the step",
+        "C": "Runs as if every included cell is marked as needing to be calculated, translated or consolidated",
+        "D": "Clears data before calculating"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Force variants “will run as if every cell included is marked as needing to be calculated, translated or consolidated.” A is incorrect — that describes the normal, non-Force run. B and D are incorrect — Force does neither."
+    },
+    {
+      "id": "RT_T14",
+      "topic": "Tools",
+      "objective": "201.5.1",
+      "subtopic": "Copy Data — View Default",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Data Management > Steps",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Steps.html",
+      "difficulty": "hard",
+      "question": "In a Copy Data step, the Source View and Destination View fields are left blank. What happens?",
+      "options": {
+        "A": "The step fails validation",
+        "B": "Data copies to YTD",
+        "C": "Data copies to Periodic",
+        "D": "Data copies to the same View member"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: “If Source and Destination View fields are left blank, the data will copy to the same View Member.” A is incorrect — blank is allowed. B and C are incorrect — no fixed View is forced."
+    },
+    {
+      "id": "RT_T15",
+      "topic": "Tools",
+      "objective": "201.5.4",
+      "subtopic": "Task Scheduler — What It Runs",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Task Scheduler",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Task%20Scheduler.html",
+      "difficulty": "medium",
+      "question": "What does Task Scheduler schedule, and what makes a scheduled job fail immediately?",
+      "options": {
+        "A": "Data Management sequences; a sequence that has no step",
+        "B": "Business rules directly; a missing parameter",
+        "C": "Workflow Process steps; an uncertified Workflow",
+        "D": "Cube Views; a missing POV"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Task Scheduler schedules Data Management sequences, and “if the sequence doesn't have a step, the job will fail.” B, C and D are incorrect — Task Scheduler runs sequences, not rules, Workflow steps or Cube Views directly."
+    },
+    {
+      "id": "RT_T16",
+      "topic": "Tools",
+      "objective": "201.5.4",
+      "subtopic": "Task Scheduler — Security Roles",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Security Roles",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Security%20Roles.html",
+      "difficulty": "medium",
+      "question": "A user can create tasks but cannot edit a colleague's task. Which role allows editing other users' tasks?",
+      "options": {
+        "A": "TaskSchedulerPage",
+        "B": "ManageTaskScheduler",
+        "C": "TaskScheduler",
+        "D": "ModifyData"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: ManageTaskScheduler lets users view every task and edit their own and other users' tasks. A is incorrect — an Application User Interface role that only opens the page. C is incorrect — TaskScheduler edits only the user's own tasks. D is incorrect — unrelated to Task Scheduler."
+    },
+    {
+      "id": "RT_T17",
+      "topic": "Tools",
+      "objective": "201.5.4",
+      "subtopic": "Task Scheduler — UI vs. Security Role",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Security Roles",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Security%20Roles.html",
+      "difficulty": "hard",
+      "question": "A user has the TaskScheduler security role but cannot open the Task Scheduler page. What is missing?",
+      "options": {
+        "A": "ManageTaskScheduler",
+        "B": "AdministerApplication",
+        "C": "TaskSchedulerPage (an Application User Interface role)",
+        "D": "The Workflow Execution Group"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: TaskSchedulerPage is the Application User Interface role required to access the page. A is incorrect — a security role grants actions, not page access. B is incorrect — broader than needed and not the specific requirement. D is incorrect — unrelated to Task Scheduler."
+    },
+    {
+      "id": "RT_T18",
+      "topic": "Tools",
+      "objective": "201.5.3",
+      "subtopic": "Application Properties — Global POV",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Properties > General",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/General%20Properties.html",
+      "difficulty": "hard",
+      "question": "What does the Global Point of View in Application Properties consist of?",
+      "options": {
+        "A": "Company Name, Logo and Number Format",
+        "B": "Default Currency and FX Rate Type",
+        "C": "Global Entity and Global Account",
+        "D": "Global Scenario and Global Time"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the Global POV is Global Scenario and Global Time, the defaults users see when looking at Workflow. A is incorrect — those are separate Application Properties sections (Company Information, Formatting). B is incorrect — default currency is a cube setting. C is incorrect — neither is part of the Global POV."
+    },
+    {
+      "id": "RT_T19",
+      "topic": "Tools",
+      "objective": "201.5.3",
+      "subtopic": "Application Properties — Enforce Global POV",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Properties > General",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/General%20Properties.html",
+      "difficulty": "medium",
+      "question": "Users keep changing the Workflow View to the wrong year. Which Application Properties setting prevents this?",
+      "options": {
+        "A": "Enforce Global POV",
+        "B": "Global Time",
+        "C": "Lock after Certify",
+        "D": "Allow Loads Before Workflow View Year"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Enforce Global POV restricts users from changing Workflow View settings. B is incorrect — Global Time only sets the default. C is incorrect — it locks after certification. D is incorrect — it allows imports to prior periods."
+    },
+    {
+      "id": "RT_T20",
+      "topic": "Tools",
+      "objective": "201.5.3",
+      "subtopic": "Application Properties — Currencies",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Properties > General",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/General%20Properties.html",
+      "difficulty": "medium",
+      "question": "A new entity uses Singapore dollars, but SGD is not available when setting the entity's currency. What must happen first?",
+      "options": {
+        "A": "Load SGD rates with the FX Rates extract type",
+        "B": "Add SGD to the Currencies list in Application Properties",
+        "C": "Add SGD as a member of a UD dimension",
+        "D": "Set SGD as a cube's default currency"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: “All currencies used in the application must be listed here” for entity setup, translation and rate entry. A is incorrect — rates come after the currency exists. C is incorrect — currency is not a UD member. D is incorrect — the currency must exist in the application first."
+    },
+    {
+      "id": "RT_T21",
+      "topic": "Tools",
+      "objective": "201.5.3",
+      "subtopic": "Application Properties — Channels",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Properties > General",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/General%20Properties.html",
+      "difficulty": "hard",
+      "question": "Where is the UD dimension that Workflow Channels can use (in addition to Account) designated?",
+      "options": {
+        "A": "Workflow Profile — Workflow Channel property",
+        "B": "Cube Properties — Integration tab",
+        "C": "Application Properties — UD Dimension Type for Workflow Channels",
+        "D": "Application > Workflow > Workflow Channels"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: UD Dimension Type for Workflow Channels in Application Properties lets channels lock a User Defined dimension in addition to accounts. A is incorrect — that assigns a channel to a profile. B is incorrect — it enables dimensions for import. D is incorrect — that is where channel members are created, not where the UD type is chosen."
+    },
+    {
+      "id": "RT_T22",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — XFSetCell",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Excel Add-In > Retrieve Functions",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Excel%20Add-In/Retrieve%20Functions.html",
+      "difficulty": "medium",
+      "question": "Which Excel Add-in function saves a value from a spreadsheet into the cube?",
+      "options": {
+        "A": "XFGetCell",
+        "B": "XFGetCalculatedFxRate",
+        "C": "XFGetMemberInfo",
+        "D": "XFSetCell"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: XFSetCell “saves data to the amount field based on the Parameters supplied.” A is incorrect — XFGetCell retrieves data. B is incorrect — it retrieves exchange rates. C is incorrect — it retrieves a description."
+    },
+    {
+      "id": "RT_T23",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — Properties",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Excel Add-In > Retrieve Functions",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Excel%20Add-In/Retrieve%20Functions.html",
+      "difficulty": "hard",
+      "question": "A spreadsheet needs a property from the Relationship Properties tab in the Dimension Library. Which function retrieves it?",
+      "options": {
+        "A": "XFGetRelationshipProperty",
+        "B": "XFGetMemberProperty",
+        "C": "XFGetHierarchyProperty",
+        "D": "XFGetMemberInfo"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: XFGetRelationshipProperty retrieves properties from the Relationship Properties tab. B is incorrect — it retrieves from the Member Properties tab. C is incorrect — it returns True/False for whether a member has children. D is incorrect — it retrieves the description."
+    },
+    {
+      "id": "RT_T24",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — Function Syntax",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Excel Add-In > Retrieve Functions",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Excel%20Add-In/Retrieve%20Functions.html",
+      "difficulty": "medium",
+      "question": "In an XF retrieve function, a field is not needed. What should be entered for that field?",
+      "options": {
+        "A": "Leave it out and shift the remaining fields",
+        "B": "A double quote, to ignore it",
+        "C": "The word None",
+        "D": "An asterisk"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: “If a field within the function is not needed, enter a double quote to ignore it.” A is incorrect — fields are positional. C and D are incorrect — not the documented convention."
+    },
+    {
+      "id": "RT_T25",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In — Quick Views",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Excel Add-In > Quick Views",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Excel%20Add-In/Quick%20Views.html",
+      "difficulty": "easy",
+      "question": "Which Excel Add-in feature provides ad hoc reports that let users pivot, drill back and create data sets?",
+      "options": {
+        "A": "Retrieve functions",
+        "B": "Table Views",
+        "C": "Quick Views",
+        "D": "Extensible Documents"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: “Quick views are ad hoc reports that allow you to pivot, drill back, create data sets, and design workbooks to analyze data.” A is incorrect — functions return individual values. B is incorrect — Table Views work with relational table data. D is incorrect — Extensible Documents are formatted reports, not ad hoc analysis."
+    },
+    {
+      "id": "RT_A01",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "System Tab — Tools",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > System Administration > System User Interface Roles",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/System%20Adminstration/System%20User%20Interface%20Roles.html",
+      "difficulty": "medium",
+      "question": "On which part of the System tab are File Explorer, Database, Load/Extract and Time Dimension found?",
+      "options": {
+        "A": "System > Administration",
+        "B": "System > Logging",
+        "C": "Application > Tools",
+        "D": "System > Tools"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the System User Interface Roles place Database, File Explorer, Load/Extract and Time Dimension under System > Tools. A is incorrect — Administration holds security. B is incorrect — Logging holds Error Log, Logon Activity and Task Activity. C is incorrect — that is the Application tab."
+    },
+    {
+      "id": "RT_A02",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "System Tab — Logging",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > System Administration > System User Interface Roles",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/System%20Adminstration/System%20User%20Interface%20Roles.html",
+      "difficulty": "medium",
+      "question": "Which three items are found under System > Logging?",
+      "options": {
+        "A": "Error Log, Logon Activity, Task Activity",
+        "B": "Error Log, File Explorer, Database",
+        "C": "Task Activity, Task Scheduler, Data Management",
+        "D": "Logon Activity, Security, Time Dimension"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Error Log, Logon Activity and Task Activity are under System > Logging. B is incorrect — File Explorer and Database are under System > Tools. C is incorrect — Task Scheduler and Data Management are Application tab tools. D is incorrect — Security is under Administration; Time Dimension is under Tools."
+    },
+    {
+      "id": "RT_A03",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "Logon Activity",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Logging > Logon Activity",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Logging/Logon%20Activity.html",
+      "difficulty": "medium",
+      "question": "A user is stuck in a session and must be logged off. Where does an administrator do this?",
+      "options": {
+        "A": "System > Logging > Task Activity — Cancel",
+        "B": "System > Logging > Logon Activity — Logoff Selected Session",
+        "C": "System > Administration > Security — disable the user",
+        "D": "Application > Tools > Task Scheduler"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Logon Activity lets an administrator use Logoff Selected Session to end any user session. A is incorrect — canceling a task does not end the session. C is incorrect — disabling the user is a security change, not a logoff. D is incorrect — unrelated."
+    },
+    {
+      "id": "RT_A04",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "System UI Roles — Logon Activity",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > System Administration > System User Interface Roles",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/System%20Adminstration/System%20User%20Interface%20Roles.html",
+      "difficulty": "hard",
+      "question": "A user has the LogonActivityPage role. What can they do?",
+      "options": {
+        "A": "View all users in Logon Activity and log them off",
+        "B": "Only view their own logon history",
+        "C": "View all users in Logon Activity but not log them off",
+        "D": "Clear all logon activity"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: with LogonActivityPage, “you can view all users, but cannot log them off.” A is incorrect — logging off requires administrator rights. B is incorrect — the role shows all users. D is incorrect — clearing activity is an administrator action."
+    },
+    {
+      "id": "RT_A05",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "System UI Roles — Load/Extract Page",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > System Administration > System User Interface Roles",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/System%20Adminstration/System%20User%20Interface%20Roles.html",
+      "difficulty": "hard",
+      "question": "A user is granted SystemLoadExtractPage. What can they do?",
+      "options": {
+        "A": "Extract and load system artifacts",
+        "B": "Extract only, not load",
+        "C": "Load only, not extract",
+        "D": "Open the System Load/Extract page but not actually import or extract items"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: SystemLoadExtractPage grants access to the page, but “you cannot actually import or extract items.” A, B and C are incorrect — a UI role grants page access, not the ability to perform the load or extract."
+    },
+    {
+      "id": "RT_A06",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Task Activity — Troubleshooting",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Logging > Task Activity",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Logging/Task%20Activity.html",
+      "difficulty": "medium",
+      "question": "A consolidation seems stuck. Where can an administrator see its status, duration and application server, and cancel it?",
+      "options": {
+        "A": "System > Logging > Task Activity",
+        "B": "System > Logging > Error Log",
+        "C": "System > Tools > Database",
+        "D": "Application > Tools > Data Management"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Task Activity shows Task Type, Duration, Task Status, User, Application and Server, and running tasks can be canceled there. B is incorrect — the Error Log records errors but does not cancel tasks. C is incorrect — Database is for viewing database tables. D is incorrect — that is where steps are defined, not monitored."
+    },
+    {
+      "id": "RT_A07",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Task Activity — Drill-Down",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Logging > Task Activity",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Logging/Task%20Activity.html",
+      "difficulty": "medium",
+      "question": "In Task Activity, how does an administrator find which part of a multi-step task failed?",
+      "options": {
+        "A": "Re-run the task with Force",
+        "B": "Use the icons on the left of the row to view child steps and error details",
+        "C": "Extract the Error Log with System Load/Extract",
+        "D": "Check Logon Activity for the user"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Task Activity provides drill-down to child steps and error details through icons on the left of each row. A is incorrect — re-running doesn't diagnose. C is incorrect — extracting moves logs; it is not the first troubleshooting step. D is incorrect — Logon Activity shows sessions, not task steps."
+    },
+    {
+      "id": "RT_A08",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "System UI Roles — System Tab",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > System Administration > System User Interface Roles",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/System%20Adminstration/System%20User%20Interface%20Roles.html",
+      "difficulty": "medium",
+      "question": "Which System User Interface role grants access to the System tab itself?",
+      "options": {
+        "A": "ApplicationAdminPage",
+        "B": "SecurityAdminPage",
+        "C": "SystemPane",
+        "D": "SystemAdministrationLogon"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: SystemPane grants access to the System tab. A is incorrect — it grants the Application tab. B is incorrect — it allows viewing security settings under System > Administration. D is incorrect — it applies to logging on to the System Administration application."
+    }
+  ]
+}

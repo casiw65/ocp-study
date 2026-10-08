@@ -1,0 +1,1210 @@
+{
+  "metadata": {
+    "file": "retake_other_sections_questions_1.json",
+    "topic": "Cube, Data Collection, Presentation, Security, Rules (OS-201 retake)",
+    "question_range": "RO_C01–RO_R14",
+    "source_file": "OneStream Design and Reference Guide (online edition); each question lists source_section and source_url",
+    "question_count": 63,
+    "generated": "2026-10-05",
+    "note": "Written from guide text for objectives 201.1.1-201.1.5, 201.3.1, 201.3.3, 201.3.4, 201.4.1-201.4.3, 201.6.1-201.6.3, 201.8.1-201.8.2. Not covered (pages not readable online): 201.3.2 XFD data source configuration, full Report Book creation steps, Foundation Handbook chapters. Guide pages are current online versions; exam is based on 8.x."
+  },
+  "questions": [
+    {
+      "id": "RO_C01",
+      "topic": "Cube",
+      "objective": "201.1.1",
+      "subtopic": "Cube Properties — Workflow",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Cube Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Cube%20Properties.html",
+      "difficulty": "medium",
+      "question": "In a multi-cube design, which cube property must be True on the cube that owns the Workflow structure?",
+      "options": {
+        "A": "Is Top Level Cube for Workflow",
+        "B": "Suffix for Varying Workflow by Scenario Type",
+        "C": "Use Parent Security for Relationship Consolidation",
+        "D": "Cube Type = Standard"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Is Top Level Cube for Workflow defaults to False; when True, the cube can have a Workflow structure built from it. B is incorrect — the suffix groups Scenario Types for Workflow and only becomes active once A is True. C is incorrect — a security setting for consolidation members. D is incorrect — Cube Type is an optional grouping tag."
+    },
+    {
+      "id": "RO_C02",
+      "topic": "Cube",
+      "objective": "201.1.1",
+      "subtopic": "Cube Properties — Suffix",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Cube Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Cube%20Properties.html",
+      "difficulty": "hard",
+      "question": "On a cube, the Suffix for Varying Workflow by Scenario Type settings have no effect. What is the most likely reason?",
+      "options": {
+        "A": "The cube's Cube Type is not Standard",
+        "B": "The cube's Is Top Level Cube for Workflow is False",
+        "C": "No FX rate type is set",
+        "D": "The cube's Access Group is Everyone"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the suffix setting is only active when Is Top Level Cube for Workflow is True. A is incorrect — Cube Type is just a grouping tag. C is incorrect — FX settings are unrelated to Workflow. D is incorrect — Everyone is the default Access Group and doesn't disable Workflow settings."
+    },
+    {
+      "id": "RO_C03",
+      "topic": "Cube",
+      "objective": "201.1.1",
+      "subtopic": "Cube Properties — Name",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Cube Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Cube%20Properties.html",
+      "difficulty": "medium",
+      "question": "An administrator wants to change a cube's Name and Description after the cube is in use. What applies?",
+      "options": {
+        "A": "Both can be changed at any time",
+        "B": "The Description cannot be changed; the Name can",
+        "C": "The Name cannot be changed after creation; the Description can be changed at any time",
+        "D": "Neither can be changed without extracting the application"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the cube Name (limit 100 characters) cannot be changed after creation, while the Description (limit 200 characters) can be changed at any time. A, B and D are incorrect — they misstate which property is locked."
+    },
+    {
+      "id": "RO_C04",
+      "topic": "Cube",
+      "objective": "201.1.1",
+      "subtopic": "Consolidation Algorithm Type",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Cube Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Cube%20Properties.html",
+      "difficulty": "hard",
+      "question": "A cube's consolidation must store the Share member results instead of calculating Share on the fly. Which Consolidation Algorithm Type fits?",
+      "options": {
+        "A": "Standard",
+        "B": "Org-By-Period Elimination",
+        "C": "Custom",
+        "D": "Stored Share"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Stored Share stores the Share calculation. A is incorrect — Standard calculates Share on the fly. B is incorrect — it changes elimination behavior by period, not Share storage. C is incorrect — Custom requires rule-driven logic and is not the built-in way to store Share."
+    },
+    {
+      "id": "RO_C05",
+      "topic": "Cube",
+      "objective": "201.1.1",
+      "subtopic": "Cube Type",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Cube Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Cube%20Properties.html",
+      "difficulty": "medium",
+      "question": "What is the purpose of the Cube Type property (Standard, Tax, Treasury, Supplemental, What If, Cube Type 1–8)?",
+      "options": {
+        "A": "It is an optional tag for grouping cubes by characteristics",
+        "B": "It changes how the cube consolidates",
+        "C": "It sets the cube's default currency",
+        "D": "It controls which Scenario Types are available"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Cube Type is an optional tag that groups cubes by characteristics; Standard is the default. B is incorrect — consolidation is set by the Consolidation Algorithm Type. C is incorrect — default currency is in the FX Rates section. D is incorrect — Scenario Type dimension assignment is on the Cube Dimensions tab."
+    },
+    {
+      "id": "RO_C06",
+      "topic": "Cube",
+      "objective": "201.1.2",
+      "subtopic": "Data Unit Statistics",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Using OnePlace Cube Views",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/OnePlace%20Cube%20Views/OnePlace%20Cube%20Views.html",
+      "difficulty": "medium",
+      "question": "A calculation runs much longer for one entity than for others. What is the best first step to find the root cause in a Cube View?",
+      "options": {
+        "A": "Right-click and open Cell POV Information",
+        "B": "Right-click a cell for that entity and open Data Unit Statistics to review cell counts",
+        "C": "Drill Down on the parent entity",
+        "D": "Check Logon Activity"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Data Unit Statistics breaks the data unit into counts of zero, real, derived, NoData, calculated, consolidated, translated, journal and input cells, which reveals oversized or zero-heavy data units. A is incorrect — Cell POV Information describes one cell. C is incorrect — Drill Down shows the components of a value, not data unit size. D is incorrect — it shows sessions, not data."
+    },
+    {
+      "id": "RO_C07",
+      "topic": "Cube",
+      "objective": "201.1.2",
+      "subtopic": "Data Unit Statistics — Reading It",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Using OnePlace Cube Views",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/OnePlace%20Cube%20Views/OnePlace%20Cube%20Views.html",
+      "difficulty": "hard",
+      "question": "Data Unit Statistics for a slow entity shows a very large count of zero calculated cells. What does this most likely indicate?",
+      "options": {
+        "A": "Too many journals were posted",
+        "B": "The entity uses the wrong currency",
+        "C": "A stored calculation is writing zeros, inflating the data unit",
+        "D": "Relationship security is enabled"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: a high count of calculated zero cells points to a stored calculation writing zeros, which enlarges the data unit and slows calculation; filtering with RemoveZeros is the usual fix. A is incorrect — journals appear as journal cells. B is incorrect — currency affects translation, not zero counts. D is incorrect — security doesn't create cells."
+    },
+    {
+      "id": "RO_C08",
+      "topic": "Cube",
+      "objective": "201.1.3",
+      "subtopic": "FX Rates — Rule Type Defaults",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Cube Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Cube%20Properties.html",
+      "difficulty": "hard",
+      "question": "In the cube's FX Rates section, what are the default Rule Types?",
+      "options": {
+        "A": "Revenues/Expenses: Direct; Assets/Liabilities: Periodic",
+        "B": "Both Direct",
+        "C": "Both Periodic",
+        "D": "Revenues/Expenses: Periodic; Assets/Liabilities: Direct"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Revenues/Expenses default to Periodic and Assets/Liabilities default to Direct. A is incorrect — it reverses them. B and C are incorrect — the two account groups have different defaults."
+    },
+    {
+      "id": "RO_C09",
+      "topic": "Cube",
+      "objective": "201.1.3",
+      "subtopic": "FX Rates — Scenario Level",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Cube Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Cube%20Properties.html",
+      "difficulty": "hard",
+      "question": "A Budget scenario must translate using a different rate type than the rest of the cube. What is the right approach?",
+      "options": {
+        "A": "Set the Rate Type at the Scenario level for the Budget scenario",
+        "B": "Create a separate cube for Budget",
+        "C": "Change the Currencies list in Application Properties",
+        "D": "Set the Translation Algorithm Type to Custom"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Rate Types for Revenues/Expenses and Assets/Liabilities can be configured at the Cube or the Scenario level. B is incorrect — far heavier than needed. C is incorrect — that list defines available currencies, not rate types. D is incorrect — Custom translation needs rules and isn't required to change a rate type."
+    },
+    {
+      "id": "RO_C10",
+      "topic": "Cube",
+      "objective": "201.1.3",
+      "subtopic": "FX Rates — Security Role",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Security Roles",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Application%20Security%20Roles.html",
+      "difficulty": "medium",
+      "question": "Which Application Security Role allows a user to update FX rates?",
+      "options": {
+        "A": "Manage Application Properties",
+        "B": "Manage FX Rates",
+        "C": "Modify Data",
+        "D": "Manage Metadata"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Manage FX Rates “allows a user to update FX Rates.” A is incorrect — it updates application properties. C is incorrect — it allows modifying data, not rates. D is incorrect — it allows editing metadata in the Dimension Library."
+    },
+    {
+      "id": "RO_C11",
+      "topic": "Cube",
+      "objective": "201.1.4",
+      "subtopic": "Account Type — NonFinancial",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Account Dimension",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Cube/Account%20Dimension.html",
+      "difficulty": "easy",
+      "question": "Which Account Type should be used for headcount or square footage?",
+      "options": {
+        "A": "Balance",
+        "B": "Flow",
+        "C": "NonFinancial",
+        "D": "Group"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: NonFinancial is for informational accounts such as headcount or square footage. A is incorrect — Balance is for balance sheet values at a point in time. B is incorrect — Flow is for income statement accounts with periodic and YTD values. D is incorrect — Group is organizational only and doesn't aggregate."
+    },
+    {
+      "id": "RO_C12",
+      "topic": "Cube",
+      "objective": "201.1.4",
+      "subtopic": "Account Type — Group",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Account Dimension",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Cube/Account%20Dimension.html",
+      "difficulty": "medium",
+      "question": "An account exists only to organize the hierarchy and should not aggregate data. Which Account Type fits?",
+      "options": {
+        "A": "DynamicCalc",
+        "B": "BalanceRecurring",
+        "C": "Expense",
+        "D": "Group"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Group is “used to make the account organizational-only and will not aggregate data.” A is incorrect — DynamicCalc calculates on the fly. B is incorrect — it is for balance sheet accounts that don't change over time. C is incorrect — it tags expense accounts."
+    },
+    {
+      "id": "RO_C13",
+      "topic": "Cube",
+      "objective": "201.1.4",
+      "subtopic": "Account Type — BalanceRecurring",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Account Dimension",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Cube/Account%20Dimension.html",
+      "difficulty": "hard",
+      "question": "A balance sheet account holds a value that does not change over time unless updated. Which Account Type fits?",
+      "options": {
+        "A": "BalanceRecurring",
+        "B": "Balance",
+        "C": "Flow",
+        "D": "Liability"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: BalanceRecurring is for balance sheet accounts that don't change over time. B is incorrect — Balance holds a value at a particular point in time each period. C is incorrect — Flow is for income statement accounts. D is incorrect — Liability tags the account type but doesn't carry the value forward."
+    },
+    {
+      "id": "RO_C14",
+      "topic": "Cube",
+      "objective": "201.1.4",
+      "subtopic": "Member Settings — In Use",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Account Dimension",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Cube/Account%20Dimension.html",
+      "difficulty": "medium",
+      "question": "An account is being retired but its history must stay reportable, without writing No Input rules. Which setting is used?",
+      "options": {
+        "A": "Allow Input = False",
+        "B": "In Use = False",
+        "C": "Is Consolidated = False",
+        "D": "Account Type = Group"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: In Use (default True) lets you close accounts while keeping historical data, without No Input rules. A is incorrect — it makes the member read-only but doesn't mark it closed. C is incorrect — it removes the account from consolidation. D is incorrect — Group stops aggregation and would break history."
+    },
+    {
+      "id": "RO_C15",
+      "topic": "Cube",
+      "objective": "201.1.4",
+      "subtopic": "Member Settings — Is Consolidated",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Account Dimension",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Cube/Account%20Dimension.html",
+      "difficulty": "hard",
+      "question": "A base-level account has a stored formula, and its results must roll up to parent entities. How should Is Consolidated be set?",
+      "options": {
+        "A": "Conditional (default)",
+        "B": "False",
+        "C": "True",
+        "D": "It cannot consolidate because it has a formula"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: True consolidates the account regardless of Formula Type. A is incorrect — under the default Conditional, a member with a formula is not consolidated; the formula recalculates at the parent instead. B is incorrect — it excludes the account from consolidation. D is incorrect — True makes it possible."
+    },
+    {
+      "id": "RO_C16",
+      "topic": "Cube",
+      "objective": "201.1.5",
+      "subtopic": "Stored vs. Dynamic — Ratios",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Financial Model Guides > Formula Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Financial%20Model%20Guides/Formula%20Types.html",
+      "difficulty": "medium",
+      "question": "A gross margin percentage must be correct at every level of the hierarchy. Which calculation approach fits?",
+      "options": {
+        "A": "A stored calculation in Formula Pass 1",
+        "B": "Is Consolidated = True on the account",
+        "C": "Account Type = BalanceRecurring",
+        "D": "A Dynamic Calc formula"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Dynamic Calc runs on demand when the cell is displayed and is best for ratio or percentage calculations, so it is correct at parents. A is incorrect — a stored ratio would be summed by parent aggregation. B is incorrect — that would sum the percentages. C is incorrect — an account type, not a calculation method."
+    },
+    {
+      "id": "RO_C17",
+      "topic": "Cube",
+      "objective": "201.1.5",
+      "subtopic": "Stored vs. Dynamic — Characteristics",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Financial Model Guides > Formula Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Financial%20Model%20Guides/Formula%20Types.html",
+      "difficulty": "medium",
+      "question": "Which statement describes a stored calculation?",
+      "options": {
+        "A": "Runs during the Data Unit Calculation Sequence (DUCS), is written to the database, and parents aggregate it automatically",
+        "B": "Runs on demand when the cell is displayed and is not persisted",
+        "C": "Requires parent formulas to aggregate",
+        "D": "Has no impact on consolidation time"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: a stored calculation runs as part of the DUCS, is persisted, and parent members naturally aggregate it. B and C are incorrect — they describe Dynamic Calc. D is incorrect — stored calcs add to consolidation time; volume and complexity matter."
+    },
+    {
+      "id": "RO_D01",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "Data Source Types",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Data Collection > Data Sources",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Data%20Collection/Data%20Sources.html",
+      "difficulty": "medium",
+      "question": "Which of the following is NOT one of the Data Source types?",
+      "options": {
+        "A": "Fixed file",
+        "B": "Cube View",
+        "C": "Delimited file",
+        "D": "Connector"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the Data Source types are Fixed file, Delimited file, Connector and Data Management Export Sequence; a Cube View is not a Data Source type. A, C and D are incorrect — each is a valid type."
+    },
+    {
+      "id": "RO_D02",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "Data Source — Connector",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Data Collection > Data Sources",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Data%20Collection/Data%20Sources.html",
+      "difficulty": "medium",
+      "question": "Data must be pulled directly from an external system's database, with drill back to the source. Which Data Source type is used?",
+      "options": {
+        "A": "Delimited file",
+        "B": "Data Management Export Sequence",
+        "C": "Connector, paired with a Connector business rule",
+        "D": "Fixed file"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Connector Data Sources use Connector business rules, which “communicate with, collect data from, and drill back to external systems.” A and D are incorrect — both parse files. B is incorrect — it sources data from OneStream itself."
+    },
+    {
+      "id": "RO_D03",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "Data Source — DM Export Sequence",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Data Collection > Data Sources",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Data%20Collection/Data%20Sources.html",
+      "difficulty": "hard",
+      "question": "Data already in one OneStream cube and scenario must be brought into another through a Workflow import. Which Data Source type fits?",
+      "options": {
+        "A": "Connector",
+        "B": "Delimited file exported to the File Share",
+        "C": "Fixed file",
+        "D": "Data Management Export Sequence"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: a Data Management Export Sequence Data Source imports the output of a Data Management export through Workflow. A is incorrect — Connectors target external systems. B and C are incorrect — possible manually, but not the built-in Data Source type for this."
+    },
+    {
+      "id": "RO_D04",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "Data Source — Reuse",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Data Collection > Data Sources",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Data%20Collection/Data%20Sources.html",
+      "difficulty": "easy",
+      "question": "Several Workflow Profiles import files with the same layout. How many Data Sources are needed?",
+      "options": {
+        "A": "One, assigned to all profiles that share the file format",
+        "B": "One per Workflow Profile",
+        "C": "One per entity",
+        "D": "One per period"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: a Data Source can be assigned “to one workflow profile or to many workflow profiles sharing a common file format.” B, C and D are incorrect — they duplicate work the design avoids."
+    },
+    {
+      "id": "RO_D05",
+      "topic": "Data Collection",
+      "objective": "201.3.3",
+      "subtopic": "Import Process Log",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Using OnePlace Workflow",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/OnePlace%20Workflow/OnePlace%20Workflow.html",
+      "difficulty": "medium",
+      "question": "A user needs to see when and how the last source file was imported for the current Workflow Profile. Where?",
+      "options": {
+        "A": "System > Logging > Task Activity",
+        "B": "The Import step's View Last Log File Processed icon",
+        "C": "System > Logging > Error Log",
+        "D": "The Validate step"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the Import step's “View Last Log File Processed for Current Workflow Profile” opens the processing log for that import. A is incorrect — it lists tasks across the system. C is incorrect — it records errors, not import details. D is incorrect — Validate shows mapping and intersection errors."
+    },
+    {
+      "id": "RO_D06",
+      "topic": "Data Collection",
+      "objective": "201.3.3",
+      "subtopic": "Load Method — Append",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Using OnePlace Workflow",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/OnePlace%20Workflow/OnePlace%20Workflow.html",
+      "difficulty": "medium",
+      "question": "A second file must add rows to a Workflow without changing the rows already loaded. Which Load Method?",
+      "options": {
+        "A": "Replace",
+        "B": "Replace (All Time)",
+        "C": "Append",
+        "D": "Replace Background (All Time, All Source IDs)"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Append adds new rows without changing existing data. A is incorrect — Replace clears previous data for the specific Source ID. B and D are incorrect — both replace data across all time."
+    },
+    {
+      "id": "RO_D07",
+      "topic": "Data Collection",
+      "objective": "201.3.3",
+      "subtopic": "Validate — Transformation Errors",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Using OnePlace Workflow",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/OnePlace%20Workflow/OnePlace%20Workflow.html",
+      "difficulty": "medium",
+      "question": "During Validate, a new source account appears with a Target Value of (Unassigned). What type of error is this?",
+      "options": {
+        "A": "Intersection error",
+        "B": "Load error",
+        "C": "Confirmation error",
+        "D": "Transformation error"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: transformation errors are listed by dimension, e.g., a new account that was added but not mapped, showing the source value and an (Unassigned) target. A is incorrect — intersection errors are about invalid combinations. B and C are incorrect — they happen at later steps."
+    },
+    {
+      "id": "RO_D08",
+      "topic": "Data Collection",
+      "objective": "201.3.3",
+      "subtopic": "Validate — Intersection Errors",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Using OnePlace Workflow",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/OnePlace%20Workflow/OnePlace%20Workflow.html",
+      "difficulty": "hard",
+      "question": "Every member maps successfully, but Validate still fails because a customer member was mapped to an account type that cannot hold it. What error is this?",
+      "options": {
+        "A": "Intersection error",
+        "B": "Transformation error",
+        "C": "Parser error",
+        "D": "Security error"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: intersection errors occur “when something is not correct with the entire intersection of data,” such as mapping a Customer to an inappropriate account. B is incorrect — each member mapped. C is incorrect — parsing happens at Import. D is incorrect — not a Validate category."
+    },
+    {
+      "id": "RO_D09",
+      "topic": "Data Collection",
+      "objective": "201.3.3",
+      "subtopic": "Validate — Retransform",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Using OnePlace Workflow",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/OnePlace%20Workflow/OnePlace%20Workflow.html",
+      "difficulty": "easy",
+      "question": "After fixing the transformation rules for unmapped members, what should the user do?",
+      "options": {
+        "A": "Re-import the file",
+        "B": "Click Retransform",
+        "C": "Run Load",
+        "D": "Clear Stage"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: after fixing errors, clicking Retransform automatically re-validates the data. A is incorrect — unnecessary; the data is already in Stage. C is incorrect — Load can't run until Validate passes. D is incorrect — it discards the import."
+    },
+    {
+      "id": "RO_D10",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Mapping — One-to-One",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Data Collection > Mapping Types",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Data%20Collection/Mapping%20Types.html",
+      "difficulty": "medium",
+      "question": "Which transformation rule type is the most efficient for explicitly mapping one source member to one target member?",
+      "options": {
+        "A": "Composite",
+        "B": "Mask",
+        "C": "One-to-One",
+        "D": "Range"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: One-to-One maps a source member to a target member explicitly with no wildcards, the most efficient approach for explicit mappings. A and B are incorrect — they evaluate wildcards. D is incorrect — it evaluates a range."
+    },
+    {
+      "id": "RO_D11",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Mapping — Composite vs. Range",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Data Collection > Mapping Types",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Data%20Collection/Mapping%20Types.html",
+      "difficulty": "hard",
+      "question": "Which rule type stops processing as soon as a record meets its criteria, making rule order important?",
+      "options": {
+        "A": "Range",
+        "B": "List",
+        "C": "One-to-One",
+        "D": "Composite"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: “Composite rules stop processing when a record meets the criteria.” A is incorrect — “Range rules do not stop processing”; with overlapping ranges, the last processed rule applies. B and C are incorrect — they map explicit members."
+    },
+    {
+      "id": "RO_D12",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Mapping — Separators",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Data Collection > Mapping Types",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Data%20Collection/Mapping%20Types.html",
+      "difficulty": "medium",
+      "question": "Which pair correctly matches rule type to source syntax?",
+      "options": {
+        "A": "Range: 11202~11209 — List: 41137;41139;41145",
+        "B": "Range: 11202;11209 — List: 41137~41145",
+        "C": "Range: 11202*11209 — List: 41137,41139",
+        "D": "Range: 11202-11209 — List: 41137|41139"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Range uses ~ between lower and upper limits; List uses ; between members. B is incorrect — it swaps them. C is incorrect — * is a wildcard for Mask and Composite. D is incorrect — | causes errors in source and target members."
+    },
+    {
+      "id": "RO_D13",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Mapping — Mask",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Data Collection > Mapping Types",
+      "source_url": "https://documentation.onestream.com/docs/Content/Design%20and%20Reference/Data%20Collection/Mapping%20Types.html",
+      "difficulty": "medium",
+      "question": "Which rule type supports the * and ? wildcards, including double-sided patterns like *000*?",
+      "options": {
+        "A": "List",
+        "B": "Mask",
+        "C": "Range",
+        "D": "One-to-One"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Mask mappings use * and ? wildcards and support double-sided wildcards such as *000*. A, C and D are incorrect — none of them evaluates wildcards."
+    },
+    {
+      "id": "RO_P01",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Cube View — Cell POV Information",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Using OnePlace Cube Views",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/OnePlace%20Cube%20Views/OnePlace%20Cube%20Views.html",
+      "difficulty": "medium",
+      "question": "A user wants the XFGetCell formula for a Cube View cell to paste into Excel. Which right-click option provides it?",
+      "options": {
+        "A": "Data Unit Statistics",
+        "B": "Drill Down",
+        "C": "Cell POV Information",
+        "D": "Cell Status"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Cell POV Information shows the cell's full POV, member properties and formulas, and lets you copy an XFGetCell (Excel) or XFCell (Extensible Document) formula. A is incorrect — it shows data unit cell counts. B is incorrect — it shows component data. D is incorrect — it shows status, not formulas."
+    },
+    {
+      "id": "RO_P02",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Cube View — Suppression",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube Views > Cube View Performance",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube%20Views/Cube%20View%20Performance.html",
+      "difficulty": "medium",
+      "question": "A Cube View should hide rows that contain zeros but still show rows with no data. Which settings?",
+      "options": {
+        "A": "Suppress NoData Rows = True; Suppress Zero Rows = False",
+        "B": "Both True",
+        "C": "Both False",
+        "D": "Suppress NoData Rows = False; Suppress Zero Rows = True"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Suppress Zero Rows hides cells containing zeros; Suppress NoData Rows hides cells without data, so only the zero setting should be True. A is incorrect — it does the opposite. B is incorrect — it hides both. C is incorrect — it hides neither."
+    },
+    {
+      "id": "RO_P03",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Cube View — Sparse Rows",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube Views > Cube View Performance",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube%20Views/Cube%20View%20Performance.html",
+      "difficulty": "hard",
+      "question": "A Cube View nests several dimensions in rows and runs slowly because most combinations have no data. What does the guide recommend?",
+      "options": {
+        "A": "Enable sparse row suppression",
+        "B": "Turn off all suppression",
+        "C": "Move every dimension to the POV",
+        "D": "Use a Dynamic Calc account"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: sparse row suppression is recommended when multiple dimensions are nested in rows and the report would return many records without data. B is incorrect — it makes the report larger. C is incorrect — it changes the report's purpose. D is incorrect — it doesn't address sparsity."
+    },
+    {
+      "id": "RO_P04",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Cube View — Paging",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube Views > Cube View Performance",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube%20Views/Cube%20View%20Performance.html",
+      "difficulty": "hard",
+      "question": "When does Cube View paging activate automatically?",
+      "options": {
+        "A": "When the Cube View exceeds 1,000 columns",
+        "B": "When the Cube View exceeds 10,000 unsuppressed rows",
+        "C": "When suppression is turned off",
+        "D": "When the user opens it in Excel"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: paging activates when a Cube View exceeds 10,000 unsuppressed rows. A, C and D are incorrect — none is the documented trigger."
+    },
+    {
+      "id": "RO_P05",
+      "topic": "Presentation",
+      "objective": "201.4.2",
+      "subtopic": "Workspaces — Shareable",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workspaces > Workspaces Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workspaces/2.1%20Workspaces%20Properties.html",
+      "difficulty": "medium",
+      "question": "Which workspace property allows other workspaces to reference objects in the current workspace?",
+      "options": {
+        "A": "Shared Workspace Names",
+        "B": "Workspace Assembly Service",
+        "C": "Is Shareable Workspace = True",
+        "D": "Access Group"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: “If this property is set to True, other workspaces can reference objects in the current workspace.” A is incorrect — that lists which workspaces this one looks into. B is incorrect — it names the service factory for dynamic dashboards. D is incorrect — it controls user access."
+    },
+    {
+      "id": "RO_P06",
+      "topic": "Presentation",
+      "objective": "201.4.2",
+      "subtopic": "Workspaces — Default Workspace",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workspaces > Workspaces Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workspaces/2.1%20Workspaces%20Properties.html",
+      "difficulty": "hard",
+      "question": "Which statement about the Default workspace is true?",
+      "options": {
+        "A": "It must be listed in Shared Workspace Names to be referenced",
+        "B": "It can only reference its own objects",
+        "C": "It cannot contain dashboards",
+        "D": "It is always shared and accessible by any other workspace"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the Default workspace is “always shared and is accessible by any other workspace, even if not explicitly added,” and behaves as if all other workspaces are on its shared list. A and B are incorrect — they contradict that. C is incorrect — it can contain dashboards."
+    },
+    {
+      "id": "RO_P07",
+      "topic": "Presentation",
+      "objective": "201.4.2",
+      "subtopic": "Workspaces — Search Order",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workspaces > Workspaces Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workspaces/2.1%20Workspaces%20Properties.html",
+      "difficulty": "hard",
+      "question": "A dashboard references a parameter by name. In what order are workspaces searched?",
+      "options": {
+        "A": "Current, then Default, then Shared Workspaces in the order listed",
+        "B": "Default, then current, then Shared Workspaces",
+        "C": "Shared Workspaces, then current, then Default",
+        "D": "Current only"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: resolution goes current workspace, then Default, then the Shared Workspace Names in entry order. B and C are incorrect — wrong order. D is incorrect — other workspaces are searched."
+    },
+    {
+      "id": "RO_P08",
+      "topic": "Presentation",
+      "objective": "201.4.2",
+      "subtopic": "Workspaces — Cross-Reference",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Workspaces > Workspaces Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Workspaces/2.1%20Workspaces%20Properties.html",
+      "difficulty": "hard",
+      "question": "Workspace A must use a parameter from custom Workspace B. What is required?",
+      "options": {
+        "A": "Only that B is listed in A's Shared Workspace Names",
+        "B": "B is listed in A's Shared Workspace Names and B has Is Shareable Workspace = True",
+        "C": "Only that B has Is Shareable Workspace = True",
+        "D": "Both workspaces must have the same Maintenance Group"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: custom workspaces can reference objects only from workspaces listed in their Shared Workspace Names, and only if those have Is Shareable Workspace enabled. A and C are incorrect — each is half the requirement. D is incorrect — security groups don't control referencing."
+    },
+    {
+      "id": "RO_P09",
+      "topic": "Presentation",
+      "objective": "201.4.3",
+      "subtopic": "Report Books — Parameters",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Presentation > Book Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Presentation/Book%20Properties.html",
+      "difficulty": "medium",
+      "question": "A report book should work out which input parameters it needs from its content. Which book property does this?",
+      "options": {
+        "A": "Required Input Parameters",
+        "B": "Change Parameters item",
+        "C": "Determine Parameters from Content = True",
+        "D": "Loop item"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Determine Parameters from Content set to True automatically determines the required input parameters from the book's content items. A is incorrect — that is a manual comma-separated list. B is incorrect — it changes parameter values partway through the book. D is incorrect — it repeats content."
+    },
+    {
+      "id": "RO_S01",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "Data Cell Access — Configuration",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Data Access (Data Cell Access Security)",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Data%20Access.html",
+      "difficulty": "hard",
+      "question": "HR_Comp members need All Access to actual compensation; everyone else with entity access must see no compensation. Both items use S#Actual:A#[Total Compensation].Tree. Which configuration works?",
+      "options": {
+        "A": "Item 1: Everyone, No Access, Apply Access and Stop. Item 2: HR_Comp, All Access, Apply Access and Stop.",
+        "B": "Item 1: HR_Comp, All Access, Apply Access and Continue. Item 2: Everyone, No Access, Apply Access and Stop.",
+        "C": "Item 1: Everyone, No Access, Decrease Access and Stop. Item 2: HR_Comp, All Access, Increase Access and Stop.",
+        "D": "Item 1: HR_Comp, All Access, Apply Access and Stop. Item 2: Everyone, No Access, Apply Access and Stop."
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the specific item comes first with Stop, so HR_Comp members get All Access and evaluation ends; everyone else falls through to No Access. A and C are incorrect — Everyone matches HR users first and Stop ends evaluation, so HR is blocked. B is incorrect — Continue lets HR users reach item 2, which removes their access."
+    },
+    {
+      "id": "RO_S02",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "Data Cell Access — Defaults",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Data Access (Data Cell Access Security)",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Data%20Access.html",
+      "difficulty": "hard",
+      "question": "The user is in the item's group and the cell is in its filter. With no behavior changed, what happens?",
+      "options": {
+        "A": "Apply Access and Continue",
+        "B": "Skip Item and Continue",
+        "C": "Apply Access and Stop",
+        "D": "Increase Access and Stop"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Apply Access and Continue is the default when the user is in the group and the cell is in the filter. B is incorrect — Skip Item and Continue is the default when only one of those is true. C and D are incorrect — Stop is never the default."
+    },
+    {
+      "id": "RO_S03",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "Data Cell Access — Stop",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Data Access (Data Cell Access Security)",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Data%20Access.html",
+      "difficulty": "medium",
+      "question": "In a Data Cell Access item, what does “and Stop” mean?",
+      "options": {
+        "A": "Stop the user's session",
+        "B": "Stop evaluating the remaining Cube Data Access items",
+        "C": "Stop the calculation",
+        "D": "Stop inheriting entity security"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: …and Stop means “stop evaluating the remaining Cube Data Access items.” A, C and D are incorrect — Stop only affects rule evaluation."
+    },
+    {
+      "id": "RO_S04",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Data Cell Access — Layering",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Data Access (Data Cell Access Security)",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Data%20Access.html",
+      "difficulty": "hard",
+      "question": "A user has no Read Data Group or Read Write Data Group access to Entity 200. A Data Cell Access item grants the user's group All Access to a slice of Entity 200. What can the user do?",
+      "options": {
+        "A": "Read and write that slice",
+        "B": "Read that slice only",
+        "C": "Nothing in Entity 200; data cell rules only refine entity-level access",
+        "D": "Read and write all of Entity 200"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: data cell access is a second layer after entity-level access; users need entity Read or Read Write access first. A, B and D are incorrect — they assume cell rules can grant access the entity doesn't."
+    },
+    {
+      "id": "RO_S05",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Relationship Security",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Foundation Guides > Change the Relationship Security",
+      "source_url": "https://documentation.onestream.com/1388457/Content/Design%20and%20Reference/Foundation%20Guides/Change%20the%20Relationship%20Security.html",
+      "difficulty": "hard",
+      "question": "With relationship security on, a user sees NoAccess on the consolidation members for USClubs, though the user can read USClubs. What is the likely cause?",
+      "options": {
+        "A": "The user is not in the Workflow Execution Group",
+        "B": "A Data Cell Access item uses Skip Item and Stop",
+        "C": "USClubs has no Display Member Group",
+        "D": "The user lacks rights to USClubs' immediate parent, NAClubs"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: with relationship security, consolidation members follow the user's rights to the immediate parent; NoAccess usually means no access to the parent, even if it isn't on the report. A is incorrect — Workflow security doesn't govern cube data access. B is incorrect — unrelated to consolidation members. C is incorrect — it controls display, not this access."
+    },
+    {
+      "id": "RO_S06",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Relationship Security — Setting",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Cube > Cube Properties",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Cube/Cube%20Properties.html",
+      "difficulty": "medium",
+      "question": "Which cube property turns on relationship security for consolidation members, and what is its default?",
+      "options": {
+        "A": "Use Parent Security for Relationship Consolidation; default False",
+        "B": "Use Parent Security for Relationship Consolidation; default True",
+        "C": "Is Top Level Cube for Workflow; default False",
+        "D": "Access Group; default Everyone"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Use Parent Security for Relationship Consolidation in the cube's Security section defaults to False. B is incorrect — wrong default. C is incorrect — a Workflow setting. D is incorrect — it controls who can see the cube object."
+    },
+    {
+      "id": "RO_S07",
+      "topic": "Security",
+      "objective": "201.6.2",
+      "subtopic": "Security vs. UI Roles",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Security Roles",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Application%20Security%20Roles.html",
+      "difficulty": "medium",
+      "question": "What is the difference between Application Security Roles and Application User Interface Roles?",
+      "options": {
+        "A": "Security roles control screen access; UI roles control tasks",
+        "B": "Security roles grant permission to perform tasks; UI roles control access to specific screens and pages",
+        "C": "They are the same roles with different names",
+        "D": "UI roles apply only to Excel"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Application Security Roles grant functional permissions (modify data, manage metadata); Application User Interface Roles control access to screens and admin pages. A is incorrect — it reverses them. C and D are incorrect — they are distinct, and UI roles are not Excel-specific."
+    },
+    {
+      "id": "RO_S08",
+      "topic": "Security",
+      "objective": "201.6.2",
+      "subtopic": "Administrator Database Role",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Security Roles",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Application%20Security%20Roles.html",
+      "difficulty": "hard",
+      "question": "An administrator cannot perform a mass deletion of metadata and data. Which role is likely missing, and why?",
+      "options": {
+        "A": "Administer Application; it is not automatic",
+        "B": "Manage Metadata; it is only for Excel",
+        "C": "Administrator Database; administrators are not automatically given access",
+        "D": "Modify Data; it is required for metadata"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Administrator Database permits mass deletion of metadata and data, and “Administrators are not automatically given access.” A is incorrect — the user is already an administrator. B is incorrect — Manage Metadata edits the Dimension Library and isn't Excel-only. D is incorrect — it governs data entry."
+    },
+    {
+      "id": "RO_S09",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Open Application",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Security Roles",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Application%20Security%20Roles.html",
+      "difficulty": "easy",
+      "question": "A user cannot see the application in the list when logging in. Which role is most likely missing?",
+      "options": {
+        "A": "View All Data",
+        "B": "Modify Data",
+        "C": "Manage Data",
+        "D": "Open Application"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Open Application “allows the user to see and open the application.” A, B and C are incorrect — they govern data access after the application is open."
+    },
+    {
+      "id": "RO_S10",
+      "topic": "Security",
+      "objective": "201.6.2",
+      "subtopic": "View All Data",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Application Security Roles",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Application%20Security%20Roles.html",
+      "difficulty": "medium",
+      "question": "An audit group must view all data in the application, regardless of entity security. Which role fits?",
+      "options": {
+        "A": "View All Data",
+        "B": "Modify Data",
+        "C": "Manage Data",
+        "D": "Open Application"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: View All Data “allows a group of users to view all data in the application.” B is incorrect — it allows changing data. C is incorrect — it is an administrator function for managing data. D is incorrect — it only opens the application."
+    },
+    {
+      "id": "RO_R01",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Business Rule Types — Parser",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Business Rule Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Business%20Rule%20Types.html",
+      "difficulty": "medium",
+      "question": "A source file field must be modified while the Stage Parser Engine reads it. Which business rule type?",
+      "options": {
+        "A": "Derivative",
+        "B": "Parser",
+        "C": "Conditional",
+        "D": "Connector"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Parser rules “evaluate and/or modify field values being processed by the Stage Parser Engine.” A is incorrect — Derivative rules derive data before mapping. C is incorrect — Conditional rules evaluate mapping criteria. D is incorrect — Connector rules talk to external systems."
+    },
+    {
+      "id": "RO_R02",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Business Rule Types — Conditional",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Business Rule Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Business%20Rule%20Types.html",
+      "difficulty": "medium",
+      "question": "A mapping must assign a target based on a condition evaluated during transformation. Which business rule type?",
+      "options": {
+        "A": "Parser",
+        "B": "Finance",
+        "C": "Conditional",
+        "D": "Extensibility"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Conditional rules (mapping) “conditionally evaluate mapping criteria during the data transformation process.” A is incorrect — it works during parsing. B is incorrect — it runs cube calculations. D is incorrect — it is a general-purpose rule type."
+    },
+    {
+      "id": "RO_R03",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Business Rule Types — Derivative",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Business Rule Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Business%20Rule%20Types.html",
+      "difficulty": "hard",
+      "question": "Before mapping, new records must be calculated from source values (for example, deriving a total). Which business rule type?",
+      "options": {
+        "A": "Conditional",
+        "B": "Parser",
+        "C": "Dashboard DataSet",
+        "D": "Derivative"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Derivative rules “evaluate and/or calculate values during the data derivation process,” before mapping. A is incorrect — it runs during transformation. B is incorrect — it modifies fields while parsing, not deriving. C is incorrect — it builds query results for dashboards."
+    },
+    {
+      "id": "RO_R04",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Business Rule Types — Cube View Extender",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Business Rule Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Business%20Rule%20Types.html",
+      "difficulty": "medium",
+      "question": "Advanced formatting such as custom headers and conditional cell formatting must be applied to a Cube View in Report view. Which business rule type?",
+      "options": {
+        "A": "Cube View Extender",
+        "B": "Dashboard Extender",
+        "C": "Dashboard XFBR String",
+        "D": "Finance"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Cube View Extender rules “apply advanced Cube View formatting to any Cube View while in Report view.” B is incorrect — for dashboard actions. C is incorrect — for dynamic property values. D is incorrect — for calculations."
+    },
+    {
+      "id": "RO_R05",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Business Rule Types — Dashboard DataSet",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Business Rule Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Business%20Rule%20Types.html",
+      "difficulty": "medium",
+      "question": "A dashboard needs a programmatic query that combines several sources into one result set. Which business rule type?",
+      "options": {
+        "A": "Dashboard Extender",
+        "B": "Dashboard DataSet",
+        "C": "Connector",
+        "D": "Cube View Extender"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Dashboard DataSet rules “create programmatic query results.” A is incorrect — it handles button clicks, uploads and actions. C is incorrect — it connects to external systems for import. D is incorrect — it formats Cube Views."
+    },
+    {
+      "id": "RO_R06",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Business Rule Types — Dashboard Extender",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Business Rule Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Business%20Rule%20Types.html",
+      "difficulty": "medium",
+      "question": "A dashboard button must run custom logic when clicked. Which business rule type?",
+      "options": {
+        "A": "Dashboard DataSet",
+        "B": "Dashboard XFBR String",
+        "C": "Dashboard Extender",
+        "D": "Parser"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Dashboard Extender rules handle tasks such as button clicks, file uploads and workflow automation. A is incorrect — it returns query results. B is incorrect — it returns string values for properties. D is incorrect — it is for import parsing."
+    },
+    {
+      "id": "RO_R07",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Business Rule Types — XFBR String",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Business Rule Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Business%20Rule%20Types.html",
+      "difficulty": "hard",
+      "question": "A dashboard component property must be set dynamically through business rule logic in parameter syntax. Which type?",
+      "options": {
+        "A": "Dashboard Extender",
+        "B": "Extensibility",
+        "C": "Conditional",
+        "D": "Dashboard XFBR String"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Dashboard XFBR String applies rule logic to dashboard component properties through parameter syntax. A is incorrect — it performs actions. B is incorrect — general-purpose, not the property mechanism. C is incorrect — it is for mapping."
+    },
+    {
+      "id": "RO_R08",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Business Rule Types — Extensibility",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Application Tools > Business Rule Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Application%20Tools/Business%20Rule%20Types.html",
+      "difficulty": "medium",
+      "question": "Which business rule type is the most generalized, including extenders for custom tasks and event handlers?",
+      "options": {
+        "A": "Extensibility",
+        "B": "Finance",
+        "C": "Dashboard Extender",
+        "D": "Connector"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Extender (Extensibility) rules “are the most generalized type of Business Rule,” including extenders and event handlers. B, C and D are incorrect — each serves a specific purpose."
+    },
+    {
+      "id": "RO_R09",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Function Types — Conditional Input",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Financial Model Guides > Finance Function Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Financial%20Model%20Guides/Finance%20Function%20Types.html",
+      "difficulty": "medium",
+      "question": "Certain cells must be made read-only based on logic. Which Finance Function Type?",
+      "options": {
+        "A": "Data Cell",
+        "B": "Conditional Input",
+        "C": "Member List",
+        "D": "Confirmation Rule"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: “Conditional Input Rules make data cells read-only.” A is incorrect — it defines reusable GetDataCell calculations. C is incorrect — it builds member lists. D is incorrect — it runs with confirmation rules."
+    },
+    {
+      "id": "RO_R10",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Function Types — Data Cell",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Financial Model Guides > Finance Function Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Financial%20Model%20Guides/Finance%20Function%20Types.html",
+      "difficulty": "hard",
+      "question": "A Better/Worse calculation must be reused across many Cube Views. Which Finance Function Type?",
+      "options": {
+        "A": "Calculate",
+        "B": "Member List",
+        "C": "Data Cell",
+        "D": "Dynamic Calc Account"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: Data Cell provides “named GetDataCell calculations that can be reused,” such as Better/Worse. A is incorrect — it adds logic during calculation and stores results. B is incorrect — it returns lists of members. D is incorrect — it is logic for Dynamic Calc members."
+    },
+    {
+      "id": "RO_R11",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Function Types — Member List",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Financial Model Guides > Finance Function Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Financial%20Model%20Guides/Finance%20Function%20Types.html",
+      "difficulty": "easy",
+      "question": "A Cube View needs a custom list of members built by a rule. Which Finance Function Type?",
+      "options": {
+        "A": "Data Cell",
+        "B": "Calculate",
+        "C": "FXRate",
+        "D": "Member List"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: Member List returns “a custom list of members for use in Cube Views and other areas.” A is incorrect — it returns calculated values. B is incorrect — it runs during calculation. C is incorrect — it determines exchange rates."
+    },
+    {
+      "id": "RO_R12",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Function Types — FXRate",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Financial Model Guides > Finance Function Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Financial%20Model%20Guides/Finance%20Function%20Types.html",
+      "difficulty": "medium",
+      "question": "Custom logic must decide which exchange rate applies at specific intersections. Which Finance Function Type?",
+      "options": {
+        "A": "FXRate",
+        "B": "Translate",
+        "C": "Consolidate Share",
+        "D": "Calculate"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: FXRate provides “custom logic used to determine Foreign Exchange rates for any intersection.” B is incorrect — it adds custom translation logic, not rate selection. C is incorrect — it calculates the Share member. D is incorrect — general calculation logic."
+    },
+    {
+      "id": "RO_R13",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Function Types — Eliminations",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Financial Model Guides > Finance Function Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Financial%20Model%20Guides/Finance%20Function%20Types.html",
+      "difficulty": "hard",
+      "question": "Custom logic is needed for the Elimination member during consolidation. Which Finance Function Type?",
+      "options": {
+        "A": "Consolidate Share",
+        "B": "Consolidate Elimination",
+        "C": "Calculate",
+        "D": "Translate"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Consolidate Elimination adds logic for the custom calculation of the Elimination member. A is incorrect — it is for the Share member. C and D are incorrect — they run at calculation and translation, not elimination."
+    },
+    {
+      "id": "RO_R14",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Function Types — Custom Calculate",
+      "source_type": "GUIDE",
+      "source_section": "D&R Guide > Financial Model Guides > Finance Function Types",
+      "source_url": "https://documentation.onestream.com/1375907/Content/Design%20and%20Reference/Financial%20Model%20Guides/Finance%20Function%20Types.html",
+      "difficulty": "hard",
+      "question": "Which Finance Function Type is designed to be run from a Dashboard Parameter Component server task action, rather than during consolidation?",
+      "options": {
+        "A": "Calculate",
+        "B": "Confirmation Rule",
+        "C": "Custom Calculate",
+        "D": "Ultimate Ownership"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: a CustomCalculate function type can execute a custom calculation via a Dashboard Parameter Component Server Task Action and doesn't run during consolidation. A is incorrect — it runs in the calculation sequence. B is incorrect — it runs with confirmation rules. D is incorrect — it calculates ownership results."
+    }
+  ]
+}

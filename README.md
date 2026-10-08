@@ -1,7 +1,7 @@
 # OCP Exam Prep App
 
 A self-contained exam prep app for the OneStream OCP certification exam.  
-518 questions across 7 topics with explanations, progress tracking, and wrong-answer drills.
+Original bank plus a separate Retake Prep section (8 exam sections), with explanations, progress tracking, and wrong-answer drills.
 
 ---
 
@@ -10,7 +10,7 @@ A self-contained exam prep app for the OneStream OCP certification exam.
 ### Step 1 — Download question bank files from Google Drive
 
 Open your Google Drive Question Bank folder (ID: `1qtJxae1OiOOwZq3NYX1nLLJHnLrY5LLM`)  
-and download all 14 JSON files into the `src/data/` folder of this project:
+and download all 19 JSON files into the `src/data/` folder of this project:
 
 | File | Questions |
 |---|---|
@@ -28,8 +28,13 @@ and download all 14 JSON files into the `src/data/` folder of this project:
 | os_admin_questions_3.json | OA_051–OA_075 |
 | impl_questions_1.json | IOA_001–IOA_025 |
 | impl_questions_2.json | IOA_026–IOA_050 |
+| retake_wf_tools_admin_questions_1.json | RT_W01–RT_A08 (Retake Prep section) |
+| retake_other_sections_questions_1.json | RO_C01–RO_R14 (Retake Prep section) |
+| retake_guide_gaps_questions_1.json | RG_W01–RG_BB08 (Retake Prep section) |
+| retake_handbook_questions_1.json | FH_ questions from the Foundation Handbook (Retake Prep section) |
+| retake_wf_tools_admin_questions_2.json | 684 deep-dive questions for Workflow, Tools, Administration (own "Deep Dive" section) |
 
-All 14 files go in `src/data/` alongside `index.js`.
+All 19 files go in `src/data/` alongside `index.js`.
 
 ### Step 2 — Install and run locally
 

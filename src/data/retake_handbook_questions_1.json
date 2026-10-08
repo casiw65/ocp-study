@@ -1,0 +1,1552 @@
+{
+  "metadata": {
+    "file": "retake_handbook_questions_1.json",
+    "topic": "Retake Prep — OneStream Foundation Handbook (OneStream Press, 2021)",
+    "question_range": "FH_W01–FH_R08",
+    "source_file": "OneStream_Foundation_Handbook.pdf; each question lists source_page (printed page)",
+    "question_count": 81,
+    "generated": "2026-10-07",
+    "note": "Written from Chapters 2–4, 6–12, 14–15 of the Foundation Handbook, focused on gaps in the retake files: Workflow design/partitioning, data units and cube design, security user-type scenarios, Excel/Spreadsheet tools, consolidation/FX, Analytic Blend, rules, reporting, and server/performance administration. The book is from 2021, so a few details may differ in 8.x."
+  },
+  "questions": [
+    {
+      "id": "FH_W01",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Partitioning — Entity vs. Period",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 186",
+      "source_page": 186,
+      "difficulty": "medium",
+      "question": "A client loads a 1-million-row Actual file every close and occasionally has to remap and reload it. IT proposes splitting the file into 12 monthly files to speed up processing. Which response BEST reflects the recommended partitioning approach?",
+      "options": {
+        "A": "Accept the monthly split, because loading Time in parallel is the fastest way to use the 250 Stage partitions",
+        "B": "Keep a single file, because OneStream automatically spreads one Workflow's rows across all 250 Stage tables",
+        "C": "Split the file by Entity or Entity group instead, because it creates more, smaller groups that can load in parallel and be reloaded on their own",
+        "D": "Split the file by Account group, because the Account is the key used to merge and replace data in the Cube"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book says to never partition by months, since dividing by 12 creates larger groups than dividing by 100 Entities; Entity groups run faster, more run in parallel, and a changed Entity can be reloaded without reloading everything. A is incorrect — splitting by Period is exactly what the book warns against, and it recommends loading Time sequentially. B is incorrect — the 250-table spread is per Workflow Cluster (Workflow/Scenario/Time), so one large file is still one large bucket that must be fully reprocessed. D is incorrect — the book says the answer to breaking up a bucket is 'always by Entity'; Entity, not Account, drives merging and replacing data."
+    },
+    {
+      "id": "FH_W02",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Stage Buckets vs. Cube Cells",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 187",
+      "source_page": 187,
+      "difficulty": "hard",
+      "question": "An administrator asks why a single bad record in a large Stage load forces the whole load to be processed again, while a cell in the Cube can be updated by itself. Which statement BEST explains this?",
+      "options": {
+        "A": "The Stage Engine works by bucket and handles each bucket in its entirety, while the Analytic Engine works by individual cell identified by a primary key",
+        "B": "The Stage Engine stores data by Data Unit, which is cleared and recalculated whenever any cell inside it changes",
+        "C": "The Stage Engine stores each record in one of 1,000 yearly tables, and a record cannot be updated without rewriting the table",
+        "D": "The Stage Engine locks the Workflow Channel during import, so all rows sharing the channel must be reloaded together"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book contrasts the 'Bucket – Stage Engine data loading' with the 'Cell – Analytic Engine – distinct cell by a primary key'; buckets are dealt with in their entirety, so one problem means the whole bucket must be emptied and refilled. B is incorrect — the Data Unit is a Cube (Analytic Engine) concept, not how Stage stores its rows. C is incorrect — the book puts Stage in 250 partition tables; the '1,000 tables per year' figure describes the Analytic Engine. D is incorrect — Workflow Channels are a locking/layering tool, not the reason Stage reprocesses whole buckets."
+    },
+    {
+      "id": "FH_W03",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Workflow Clusters",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 186",
+      "source_page": 186,
+      "difficulty": "medium",
+      "question": "Which combination defines the Workflow Cluster (the clustered index that decides how Stage data is grouped and placed into SQL partitions)?",
+      "options": {
+        "A": "Entity, Scenario and Time",
+        "B": "Workflow Profile, Scenario and Time",
+        "C": "Workflow Profile, Entity and Origin",
+        "D": "Cube, Scenario Type and Time"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book's GolfStream example lists the Workflow GUID (Houston), Scenario Id (Actual) and Time Id (2020M1), and says buckets can be broken up by Workflow, Scenario and Time, 'all of which are the WF Cluster Index'. A is incorrect — Entity, Scenario and Time is closer to the Cube's Data Unit; Stage buckets are keyed on the Workflow, not the Entity. C is incorrect — Entity and Origin are not part of the cluster key. D is incorrect — neither the Cube nor the Scenario Type is part of the key; the Workflow GUID is."
+    },
+    {
+      "id": "FH_W04",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Historical Loads — Admin Location",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 191",
+      "source_page": 191,
+      "difficulty": "hard",
+      "question": "During implementation, administrators must load 11 years of history to Entities that End-Users will load going forward through their own Workflows. Loads use the Replace method. What is the BEST design?",
+      "options": {
+        "A": "Let the End-User Workflows load history too, so every Entity has a single owner across all periods",
+        "B": "Use one 'Admin' Workflow for both history and current loads, so that only administrators ever load data",
+        "C": "Load history through a Forms input child, so it sits in a different Origin member from imported data",
+        "D": "Create a separate 'Admin' Workflow location that can load unrelated Entities, and keep its Time periods from overlapping the End-User Workflows"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book recommends two separate Workflow locations loading the same Entities — one for End-Users going forward and one for Administrators for history — using the ability to load unrelated Entities, and warns not to let them load the same Time periods because Replace loads overwrite each other. If they must share periods, Workflow Channels are needed. A is incorrect — mixing history into the End-User Workflows ignores the dedicated Admin location the book recommends. B is incorrect — the book wants End-Users to own current-period loading, not administrators. C is incorrect — loading years of history as form input is not the book's approach and breaks the Import/drill-back audit trail."
+    },
+    {
+      "id": "FH_W05",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Automation (Lights-Out) Workflows",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 185",
+      "source_page": 185,
+      "difficulty": "medium",
+      "question": "A client wants a fully automated, overnight ('lights-out') ERP load. What does the book recommend doing FIRST?",
+      "options": {
+        "A": "Prototype the automated Workflow early, run it manually to work out problems, and plan where load errors and kickouts are stored for next-day review",
+        "B": "Set the Workflow to auto-certify so overnight loads never wait on a user",
+        "C": "Bypass the Stage, because automated loads don't need drill-back or audit detail",
+        "D": "Build one Review Workflow Profile for each source Entity, so every automated load has its own reviewer"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book suggests prototyping an automated Workflow early and first running things manually to iron out the wrinkles, and planning for kickouts and mapping issues, because no one is watching an overnight load. Errors must be stored so the process can continue and be analyzed the next business day. B is incorrect — auto-certify is a batch option, but the book's first step is manual testing and error handling. C is incorrect — the book stresses that lights-out is 'not a secret black box' and keeps the same auditability and drill-down. D is incorrect — the book describes automation as a simple review profile containing the source-system loads, not a reviewer per Entity."
+    },
+    {
+      "id": "FH_W06",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Central Input",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 193",
+      "source_page": 193,
+      "difficulty": "medium",
+      "question": "After sites reach 'pencils down', corporate must post adjustments through Forms to Entities owned by other Workflows. What must be configured so the corporate adjustments and the site data do not overwrite each other?",
+      "options": {
+        "A": "Named dependents on the corporate Review profile",
+        "B": "Workflow Channels",
+        "C": "A second Origin member for corporate Forms",
+        "D": "The Load Overlapped Siblings flag"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says that when using Central Input 'you need to have Channel configured. This will prevent people from overwriting each other's data.' The site owner then sees another Workflow child with a gray checkmark showing who made the adjustment and when. A is incorrect — named dependents let reviewers sign off on Entities they did not load; they do not protect data. C is incorrect — the Origin dimension has fixed members (Import, Forms, Journals); you cannot add another one for corporate Forms. D is incorrect — Load Overlapped Siblings is for parallel sibling imports, not Central Input."
+    },
+    {
+      "id": "FH_W07",
+      "topic": "Workflow",
+      "objective": "201.2.1",
+      "subtopic": "Seeded Scenarios and Certification",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 198",
+      "source_page": 198,
+      "difficulty": "hard",
+      "question": "A Forecast scenario is seeded from Actual by a Data Management job. Users only complete Forms and Journals in the Workflow, but they cannot certify because the Import step it depends on is hidden (not active). What does the book recommend?",
+      "options": {
+        "A": "Remove the Import step from the Workflow Name so certification no longer depends on it",
+        "B": "Give users the Workflow Execution Group on the seeding Data Management job",
+        "C": "Make the import seed process active so users can complete it, or turn it into a central import hidden from users that an administrator completes for all months",
+        "D": "Use a Workflow Business Rule to auto-certify the Workflow after each Data Management run"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book describes this exact snag and gives two fixes — make the import seed process active so the user can Complete it, or make it a central import hidden from the user so the Admin can complete all months. A is incorrect — the book does not suggest rebuilding the Workflow Name; certification still depends on the import. B is incorrect — security on the job does not change the hidden Import step's status. D is incorrect — auto-certifying skips the certification the scenario requires and is not the book's fix."
+    },
+    {
+      "id": "FH_W08",
+      "topic": "Workflow",
+      "objective": "201.2.2",
+      "subtopic": "Workflow Calculations — Performance",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 199",
+      "source_page": 199,
+      "difficulty": "hard",
+      "question": "Many data-load Workflows in a large Consolidations application run Process Cube at the same time during the first days of close. Which practice does the book recommend for these data-load Workflows?",
+      "options": {
+        "A": "Consolidate the top Entity from each data-load Workflow so reviewers always see current totals",
+        "B": "Use Calculate only, never Translate, so FX rate changes are picked up at the top Entity",
+        "C": "Remove Calculation Definitions from data-load Workflows and calculate only from Review profiles",
+        "D": "Run a Force Calculate/Force Translate on the assigned Entities, and avoid consolidating top-of-house Entities from data-load Workflows"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says not to run Consolidations for top-of-the-house Entities from a data-load Workflow without careful thought, and calls a Force Calculate/Force Translate on data-load Workflows good practice — it runs Scenario Copy and prior-period formulas, picks up FX rate changes, and covers assigned Entities. A is incorrect — that is what the book warns against, because users would step on each other's Consolidations. B is incorrect — the book recommends a Force Translate, and picking up FX changes is one of its stated benefits. C is incorrect — the book expects data-load Workflows to calculate their own datasets, with final Consolidations limited to administrators or Super-Users."
+    },
+    {
+      "id": "FH_W09",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "Parallel Workflow Loads",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 200",
+      "source_page": 200,
+      "difficulty": "medium",
+      "question": "An administrator wants to load several Workflows in parallel to shorten the load window. Which approach is consistent with the book's guidance?",
+      "options": {
+        "A": "Load Workflows in parallel only when their Entities don't overlap, and load periods in order (all January in parallel, then February), never overlapping Entities by time",
+        "B": "Load all twelve periods for the same Entities at once, because each period is a separate Data Unit",
+        "C": "Put all Entities under one Parent Workflow Profile, so the parallel engine can balance them automatically",
+        "D": "Increase the parallel count until the Application Servers reach full CPU, because the database server is rarely the limit"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says Workflows can load in parallel if the Entities don't overlap, and multiple periods can be loaded if each period is loaded in turn (Jan in parallel before Feb) — 'DO NOT OVERLAP Entities by time.' B is incorrect — loading different periods to the same Entities at once overlaps Entities by time and caused overwriting in the book's 8-million-record example. C is incorrect — the book suggests giving each Entity its own Parent, rather than one Parent with all Entities under it. D is incorrect — the book says to start low (4), test upward, and pay particular attention to the Database Server."
+    },
+    {
+      "id": "FH_W10",
+      "topic": "Workflow",
+      "objective": "201.2.3",
+      "subtopic": "BI Blend Workflows",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 7, p. 197",
+      "source_page": 197,
+      "difficulty": "easy",
+      "question": "Which statement about Workflow's role in BI Blend is true?",
+      "options": {
+        "A": "BI Blend data bypasses Workflow and is loaded only through Data Management jobs",
+        "B": "Workflow is a conduit to BI Blend, using the same data sources and Transformation Rules, but the data loads to the BI Blend Engine rather than the Stage Engine",
+        "C": "BI Blend Workflows load to the Stage first and then to the Cube, like a standard Import",
+        "D": "BI Blend Workflows can only use Forms input, because BI Blend tables have no mapping"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says 'Workflow is a conduit to BI Blend processing, using the same features as data sources and Transformation Rules. In this case, you're just loading to the BI Blend Engine and not to the Stage Engine.' A is incorrect — the book places BI Blend loading inside Workflow. C is incorrect — BI Blend loads go to the BI Blend Engine, not to the Stage and Cube. D is incorrect — BI Blend uses data sources and Transformation Rules, so mapping applies."
+    },
+    {
+      "id": "FH_W11",
+      "topic": "Workflow",
+      "objective": "201.2.4",
+      "subtopic": "Data Protection — Source ID",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 6, p. 175",
+      "source_page": 175,
+      "difficulty": "medium",
+      "question": "One Import Workflow for Entity 'Plant 10' loads three different files (trial balance, statistics and supplemental detail). Reloading the trial balance must not clear the other two files' imported data. What is the BEST way to do this?",
+      "options": {
+        "A": "Load the statistics and supplemental files through Forms, so they sit in a different Origin member",
+        "B": "Create a separate Cube for each file",
+        "C": "Assign each file to a different Scenario Type",
+        "D": "Tag each file with its own Source ID (often the file name), so a reload replaces only the records with that Source ID"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says imported data can be isolated and protected by Source ID and/or Workflow Channel; the Source ID is a field in the Data Source that tags records to decide how they reload, a common choice is the file name, and 'data reloading can be separated by different Source IDs in one Workflow.' A is incorrect — moving file data to Forms abandons the Import process and its audit trail. B is incorrect — a separate Cube per file is extreme and splits data that belongs together. C is incorrect — Scenario Types vary dimensions and Workflows by scenario; they do not separate files in the same Scenario."
+    },
+    {
+      "id": "FH_T01",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel Add-In vs. Spreadsheet",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 297",
+      "source_page": 297,
+      "difficulty": "medium",
+      "question": "A company wants to give ad hoc, Excel-style OneStream reporting to 500 users. Users don't have local administrator rights, and IT doesn't want to reinstall anything on each machine when OneStream is upgraded. Which option fits BEST?",
+      "options": {
+        "A": "Spreadsheet in the OneStream Windows (browserless/ClickOnce) application",
+        "B": "The Excel Add-In, since it updates itself automatically when the servers are upgraded",
+        "C": "Spreadsheet opened from the web browser version of OneStream",
+        "D": "The Excel Add-In, since only the add-in supports Quick Views"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says Spreadsheet is in the Windows application, which needs no administrator rights to install and no separate update, which makes it the option for 'many Users' (p. 297–298). B is incorrect — the Excel Add-In is a COM add-in that requires installation rights and a new version on each machine after server upgrades. C is incorrect — Spreadsheet is not available through the web browser. D is incorrect — Quick Views work in both Excel and Spreadsheet (Figure 11.5, p. 299)."
+    },
+    {
+      "id": "FH_T02",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Excel/Spreadsheet Portability",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 299",
+      "source_page": 299,
+      "difficulty": "medium",
+      "question": "An analyst builds a workbook in Spreadsheet that contains a Cube View, a Quick View and a Table View, saves it locally as .xlsx, and then opens it with the Excel Add-In. What should the analyst expect?",
+      "options": {
+        "A": "None of the OneStream content will work, because Spreadsheet files can't be opened by the Excel Add-In",
+        "B": "All three will work, because files are fully portable between Spreadsheet and Excel",
+        "C": "The Cube View and Quick View will work, but the Table View won't, because Table Views only work in Spreadsheet",
+        "D": "Only XFGetCell formulas will work; the Cube View and Quick View must be added again"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book says files are portable between Excel and Spreadsheet in both directions, 'the only exception is Table Views; they are not portable as they only work in Spreadsheet' (p. 299). A is incorrect — the author moves files between the two regularly with no issues. B is incorrect — it ignores the Table View exception. D is incorrect — Cube Views and Quick Views are supported in both tools (Figure 11.5)."
+    },
+    {
+      "id": "FH_T03",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Retain Formulas in Cube View Content",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 301",
+      "source_page": 301,
+      "difficulty": "medium",
+      "question": "A planning team has offline Excel models that calculate driver-based values. They want to link those workbooks to OneStream so the input cells keep their Excel formulas through submit and refresh, instead of copying and pasting values. Which approach does the handbook recommend?",
+      "options": {
+        "A": "A Quick View with the Quick View Options set to retain formulas",
+        "B": "A Cube View added to the workbook with Retain Formulas in Cube View Content selected",
+        "C": "A Table View with editable fields defined in its Business Rule",
+        "D": "A Cube View with Dynamically Highlight Evaluated Cells selected and Retain Formulas cleared"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: Retain Formulas in Cube View Content keeps Excel or Spreadsheet formulas through submission and retrieval, and the book says that for formula-based submission 'Cube Views are your only option, as Quick Views does not support this' (p. 301, 315). A is incorrect — Quick Views do not support this feature. C is incorrect — Table Views update relational tables, not Cube data. D is incorrect — Dynamically Highlight Evaluated Cells is only available when Retain Formulas is selected; on its own it doesn't keep formulas (p. 316)."
+    },
+    {
+      "id": "FH_T04",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Asymmetry — Convert to XFGetCells",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 306",
+      "source_page": 306,
+      "difficulty": "hard",
+      "question": "A user who can't create Cube Views builds a Quick View with Actual and BudgetV2 in the columns and adds UD8 members None and Bud vs Act $. The result has four columns per period instead of Actual, Budget and Variance, and the user also wants a blank spacer column. What does the handbook suggest?",
+      "options": {
+        "A": "Insert a blank column inside the Quick View between Actual and Budget, then turn on suppression",
+        "B": "Change the Default Expansion for Columns preference to Children",
+        "C": "Edit the Scenario Member Filter in the POV so that it lists only Actual and BudgetV2",
+        "D": "Use Convert To XFGetCells, then delete the unwanted column and format freely, knowing the conversion can't be undone"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book presents Convert To XFGetCells as 'purpose-built for situations like this' when you can't create Cube Views; afterwards you can delete rows, columns or cells and format as you like, but the conversion is one-time and can't be undone (p. 306–307). A is incorrect — a blank column or row can't be placed inside a Quick View (p. 303). B is incorrect — the expansion preference controls double-click drilling and does not fix the column multiplication. C is incorrect — a Member Filter has no effect while the Dimension sits in the POV, and the asymmetry comes from multiplying Scenario by UD8."
+    },
+    {
+      "id": "FH_T05",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Cube View in Excel — Resizing Options",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 311",
+      "source_page": 311,
+      "difficulty": "medium",
+      "question": "A designer stacks three Cube Views vertically on one worksheet. Their row counts will grow as metadata is added. Which insertion settings follow the handbook's guidance?",
+      "options": {
+        "A": "Select Insert Or Delete Rows When Resizing Cube View Content on each Cube View and leave the columns option cleared",
+        "B": "Select both the rows option and the columns option so content can expand in either direction",
+        "C": "Select only Insert Or Delete Columns When Resizing Cube View Content",
+        "D": "Clear all resizing options and turn on suppression so that the Cube Views don't overlap"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: for vertically stacked content the book says to select Insert Or Delete Rows When Resizing and not to also select the columns option (p. 311, 315). B is incorrect — the book warns against selecting both at once. C is incorrect — the columns option is for horizontal stacking. D is incorrect — the book clears all resizing only for static content, and that content should have defined member lists with suppression turned off, not on."
+    },
+    {
+      "id": "FH_T06",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Cube View Formatting in Excel",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 316",
+      "source_page": 316,
+      "difficulty": "hard",
+      "question": "In Excel (OneStream 6.0 or later), a controller formats a Cube View three ways: bolds a row with the Home ribbon, adds native Excel conditional formatting, and defines a Selection Style for a discontinued line-of-business row. After Refresh Sheet, which formatting remains?",
+      "options": {
+        "A": "All three, because formatting is saved in the workbook",
+        "B": "Only the Home ribbon formatting; the conditional formatting and Selection Style are replaced by the Cube View definition",
+        "C": "The conditional formatting and Selection Style remain; the Home ribbon formatting disappears",
+        "D": "Only the Selection Style; native conditional formatting is overwritten by the Cube View's own conditional formatting"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book says formatting applied from the Excel Home ribbon disappears on refresh, except native conditional formatting, which sticks in 6.0 or later. To make other formatting persist, you associate it with the Cube View through Styles or Selection Styles (p. 316, 319–321). A is incorrect — ribbon formatting is lost on refresh. B is incorrect — it reverses which formatting survives. D is incorrect — the book says native conditional formatting 'simply works and will stick'."
+    },
+    {
+      "id": "FH_T07",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Quick View Preferences vs. Quick View Options",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 326",
+      "source_page": 326,
+      "difficulty": "medium",
+      "question": "A user changes the suppression settings under OneStream > Administration > Preferences and refreshes a Quick View they built last week, but the suppression doesn't change. What should the user do?",
+      "options": {
+        "A": "Turn on Invalidate Old Data When Workbook is Opened and refresh again",
+        "B": "Change suppression in that Quick View's Quick View Options; global preferences apply only to new Quick Views, except Double-Click Behavior",
+        "C": "Change the Default Expansion for Rows preference to NextLevel",
+        "D": "Turn on Retain all Formatting when Saving Offline, then refresh"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says global preferences are only the starting point for new Quick Views and do not change existing ones, except Double-Click Behavior. Each Quick View has its own Quick View Options, which is where 'ten out of ten times' the suppression change needs to be made (p. 326). A is incorrect — that setting forces #Refresh on open and has nothing to do with suppression. C is incorrect — that is a double-click expansion setting, not suppression. D is incorrect — that setting is about keeping formatting in offline copies."
+    },
+    {
+      "id": "FH_T08",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Quick View POV vs. Member Filter",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 330",
+      "source_page": 330,
+      "difficulty": "hard",
+      "question": "In a Quick View, the Scenario POV box shows BudgetV2 in black text, and the Member Filter (funnel) shows S#Root.Children. The user drags Scenario into the columns and later drags it back to the POV. What happens?",
+      "options": {
+        "A": "The columns show only BudgetV2; back in the POV, Scenario shows Root.Children",
+        "B": "The columns show only BudgetV2, because the filter is ignored until the workbook is refreshed",
+        "C": "The columns show Root.Children; back in the POV, Scenario returns to the user's gray default POV and the filter is reset",
+        "D": "The columns show the children of Root, because the filter takes over; back in the POV, Scenario shows BudgetV2 again and the filter is kept"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says the Member Filter has no effect while a Dimension is in the POV, and the POV has no effect while it is in a row or column. Moving Scenario to the columns showed Root.Children, and moving it back reverted to BudgetV2 'and will still retain the filter' (p. 330–331). A is incorrect — it reverses the roles of the POV and the filter. B is incorrect — the filter applies as soon as the Dimension is in a row or column. C is incorrect — the overridden (black-text) POV member BudgetV2 is kept; it doesn't revert to the user POV."
+    },
+    {
+      "id": "FH_T09",
+      "topic": "Tools",
+      "objective": "201.5.2",
+      "subtopic": "Hiding Cube View Parameter Prompts",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 11, p. 322",
+      "source_page": 322,
+      "difficulty": "medium",
+      "question": "A workbook contains a Cube View whose POV uses the parameter |!WfProfile_Assigned_Entities!|, so users are prompted on every refresh. The owner wants no prompt, with the Entity chosen in a cell on the sheet. What does the handbook recommend?",
+      "options": {
+        "A": "Create a name in Name Manager called WfProfile_Assigned_Entities (without the pipes and exclamation points) that refers to a cell holding the desired value",
+        "B": "Turn off Invalidate Old Data When Workbook is Opened",
+        "C": "Create a name in Name Manager called |!WfProfile_Assigned_Entities!|, keeping the pipes and exclamation points",
+        "D": "Select Retain Formulas in Cube View Content and type the Entity into the POV cell"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: a Cube View in Excel or Spreadsheet checks the Name Manager when it refreshes. Defining a name equal to the parameter name, ignoring the leading and trailing | and !, removes the prompt (p. 322–323). You can then add list validation against a reference Cube View. B is incorrect — that setting controls whether #Refresh shows when the workbook opens. C is incorrect — the book says to leave out the pipe and exclamation characters. D is incorrect — Retain Formulas is for submitting formula-driven input, not for answering parameter prompts."
+    },
+    {
+      "id": "FH_A01",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "Application Server Sets",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 376",
+      "source_page": 376,
+      "difficulty": "medium",
+      "question": "An on-premise environment has four application servers. The architect wants two of them to pick up only queued Stage tasks and the other two to handle Consolidation and Data Management tasks. Which statement about setting this up is true?",
+      "options": {
+        "A": "Server sets are defined per application in Application Properties, and one server can be listed in several sets.",
+        "B": "Server sets are defined in the Application Server Configuration File, and each application server can belong to only one server set.",
+        "C": "Server sets are defined in the Web Server Configuration File, and the web server routes Stage tasks to the right servers.",
+        "D": "Server sets are assigned on each Workflow Profile, and a server can sit in a Stage set and a Consolidation set at the same time."
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says server sets are defined in the Application Server Configuration File, group servers by the type of queued task they process, and an application server can only belong to a single server set. A is incorrect — server sets are not an Application Properties setting, and a server cannot be in more than one set. C is incorrect — the Web Server Configuration File lists web-to-app connections; it does not define server sets. D is incorrect — server sets are not set on Workflow Profiles, and the one-set-per-server limit rules out belonging to both."
+    },
+    {
+      "id": "FH_A02",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Workflow Cache Page Size",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 380",
+      "source_page": 380,
+      "difficulty": "hard",
+      "question": "A Workflow Profile will routinely import source files of about 2 million records. Which import cache configuration does the handbook recommend for this Workflow?",
+      "options": {
+        "A": "Cache Page Size 2,000 and Cache Pages in Memory Limit 2,000, so more, smaller pages can be multi-threaded.",
+        "B": "Leave the cache settings alone and raise MaxDegreeOfParallelismStage to 16 instead.",
+        "C": "Cache Page Size 100,000 and Cache Pages in Memory Limit 200, allowing up to 20 million records in memory.",
+        "D": "Cache Page Size 20,000 and Cache Pages in Memory Limit 10, to keep memory use on the Stage server low."
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: for a 2 million record source dataset the book recommends a cache page size of 100,000 with a 200-page limit (up to 20 million records), so the largest file always fits in memory; otherwise records spill to temp files on disk, which is much slower. A is incorrect — the book says very small pages (2,000 x 2,000) actually decrease performance because of the large number of pages and can cause SQL Server deadlocks. B is incorrect — MaxDegreeOfParallelismStage controls posting cache pages to the database during load, not how many records fit in memory. D is incorrect — 20,000 x 10 holds only 200,000 records, so a 2 million record file would spill to disk."
+    },
+    {
+      "id": "FH_A03",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Delete Performance — Replace Background",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 383",
+      "source_page": 383,
+      "difficulty": "hard",
+      "question": "An administrator wants to use the Replace Background (All Time, All Source IDs) load method to speed up the Stage delete step. The Workflow loads two files under different Source IDs and replaces only one Source ID at a time. Which statement is true?",
+      "options": {
+        "A": "Replace Background cannot be used here, because it always deletes ALL Source IDs.",
+        "B": "Replace Background can be used, but only if the Workflow uses a multi-period Workflow view.",
+        "C": "Replace Background can be used, because the Workflow has a monthly input frequency.",
+        "D": "Replace Background can be used if Replace (All Time) is also selected on the Workflow."
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book notes Replace Background must always be used to delete ALL Source IDs, and if a Workflow uses multiple Source IDs for partial replacement this method cannot be used. B is incorrect — the multi-period view is what Replace (All Time) addresses; it does not lift the all-Source-IDs restriction. C is incorrect — the method can be used for monthly input frequencies, but that does not override the partial-replacement restriction. D is incorrect — Replace (All Time) is a separate load method that replaces all time periods; it cannot be combined to keep other Source IDs."
+    },
+    {
+      "id": "FH_A04",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Load Cube Performance",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 384",
+      "source_page": 384,
+      "difficulty": "hard",
+      "question": "The first Load Cube for a new Workflow/Scenario/Time is slow, while later loads for the same combination run faster. The database server has spare capacity. Which Application Server Configuration File setting does the handbook point to for improving initial Load Cube times?",
+      "options": {
+        "A": "MaxDegreeOfParallelismStageNoSQL, which controls multi-threading for units of work that do not involve the network or database.",
+        "B": "NumThreadsForAggregatingChildEntities, which controls the number of primary units of work processed in parallel.",
+        "C": "NumSecondsBeforeLoggingSlowFormulas, which writes long-running steps to the error log.",
+        "D": "MaxDegreeOfParallelismStage, raised from the default of 8 (for example to 12) while watching database server performance."
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says raising MaxDegreeOfParallelismStage from 8 to a larger value such as 12 can cut initial Load Cube times, but should be monitored so it does not hurt the database server. (Later loads are faster because they update existing rows rather than insert into CalcStatus, DataUnitCacheTimeStamp and DataRecord.) A is incorrect — the no-SQL Stage limit (default 16) governs Transformation Rule processing in the app server cache, not posting to the database. B is incorrect — that is a Consolidation Engine thread setting. C is incorrect — it logs slow formulas during consolidation and does not speed up Load Cube."
+    },
+    {
+      "id": "FH_A05",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Long-Running Formulas Debug",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 387",
+      "source_page": 387,
+      "difficulty": "medium",
+      "question": "A consolidation runs slower than expected, and the administrator suspects a few Member Formulas. Which approach does the handbook describe for having the system write slow formulas to the error log?",
+      "options": {
+        "A": "Set Use Detailed Logging to True on the Workflow Profile and rerun Process Cube.",
+        "B": "Set NumSecondsBeforeLoggingSlowFormulas in XFAppServerConfig.xml, then run IISRESET on all application servers.",
+        "C": "Set the Environment Monitoring metrics setting to Always and review the Environment Tool graph.",
+        "D": "Set Clear Calculated Data During Calc to False on the Scenario so formula timings are kept."
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the Long-Running Formulas Debug option (NumSecondsBeforeLoggingSlowFormulas in the multi-threading section of XFAppServerConfig.xml) logs any formula that takes longer than the set number of seconds; it needs an IISRESET on all application servers, and the book says a formula taking 3 to 5 seconds or more should be investigated. A is incorrect — Use Detailed Logging is for troubleshooting Workflow imports (parse, transformation, post cache), not formulas. C is incorrect — environment metrics track server resources such as CPU and RAM, not individual formulas. D is incorrect — that Scenario setting controls whether calculated data is cleared at the start of the calc sequence; it does not log formula timings."
+    },
+    {
+      "id": "FH_A06",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "Environment Tool",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 391",
+      "source_page": 391,
+      "difficulty": "medium",
+      "question": "During a busy close, an administrator wants to stop one application server from accepting new job requests and then recycle its IIS application pool, without logging on to the server. Where does the handbook say this can be done?",
+      "options": {
+        "A": "The Live Monitoring page of the Diagnostics 123 MarketPlace solution",
+        "B": "System > Logging > Task Activity",
+        "C": "The Application Server sets section of the Environment Tool (System > Tools > Environment)",
+        "D": "System > Logging > Logon Activity"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the Environment Tool's Application Server sets section lets the administrator view server hardware and configuration, recycle the IIS application pool, and pause servers from accepting new job requests, with real-time monitoring and no need to log on to each server. A is incorrect — Diagnostics 123 Live Monitoring captures metrics through a data management job and shows them in a traffic-light report; it does not pause or recycle servers. B is incorrect — Task Activity tracks individual tasks, not server-level pause or recycle. D is incorrect — Logon Activity deals with user sessions, not application servers."
+    },
+    {
+      "id": "FH_A07",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Memory Manager Events",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 395",
+      "source_page": 395,
+      "difficulty": "hard",
+      "question": "The error log shows many entries every day like 'The Data Cache Memory Manager removed Data Units from the cache...' on the application servers. According to the handbook's Diagnostics 123 guidance, what does this most likely indicate?",
+      "options": {
+        "A": "The Data Unit sample year in Diagnostics 123 is set to the wrong year.",
+        "B": "MaxDegreeOfParallelism is set too low for the analytic model.",
+        "C": "The Reserved Memory setting should be lowered to 0% so the cache can grow.",
+        "D": "The servers need more RAM for the analytic model and data volumes being processed."
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the Memory Manager Report explains that if the .NET memory manager is removing Data Units from the analytic cache at a high rate every day, the servers need more RAM. A is incorrect — the sample year only drives Data Unit sizing in the environment analysis; it does not cause memory manager events. B is incorrect — thread settings control parallelism, not the size of the analytic cache. C is incorrect — the book recommends Reserved Memory at 40% so there is RAM in reserve for analytic overflow; lowering it would make memory pressure worse."
+    },
+    {
+      "id": "FH_A08",
+      "topic": "Administration",
+      "objective": "201.5.6",
+      "subtopic": "Managing Changes in Production",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 400",
+      "source_page": 400,
+      "difficulty": "medium",
+      "question": "A global production environment runs data management sequences around the clock. A Business Rule fix and a metadata change to Member Formulas must go in during business hours. Which approach BEST follows the handbook?",
+      "options": {
+        "A": "Use the MarketPlace Process Blocker solution so running tasks finish while new requests queue, then apply the changes.",
+        "B": "Apply the changes right away, because rule and metadata changes do not affect processes already running.",
+        "C": "Set the IIS Idle Time-Out on OneStreamAppAppPool to 0 before deploying so running processes are not interrupted.",
+        "D": "Restart all application servers first, then apply the changes while users log back on."
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book recommends Process Blocker for large environments because it pauses critical processes for maintenance without shutting down the application, letting current tasks finish while new requests queue. B is incorrect — the book warns that changing Business Rules, Confirmation Rules or metadata with Member Formulas under heavy load can cause running processes to error. C is incorrect — Idle Time-Out 0 is a server-recycling recommendation (OneStream handles recycling through its own settings), not a way to deploy changes safely. D is incorrect — restarting servers interrupts running work and does nothing to stop new requests while changes are applied."
+    },
+    {
+      "id": "FH_A09",
+      "topic": "Administration",
+      "objective": "201.1.2",
+      "subtopic": "DataRecord Table Anatomy",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 15, p. 412",
+      "source_page": 412,
+      "difficulty": "hard",
+      "question": "Actual data is loaded to the Cube each month. The January load into the DataRecord2026 table takes noticeably longer than the February–December loads, even though volumes are similar. What explains this?",
+      "options": {
+        "A": "Each month is stored as its own data record, so January has to create a new table partition for the year.",
+        "B": "January loads write to the DataRecord table and to a separate monthly status table, while later months write only values.",
+        "C": "January inserts new data records; later months update the existing record's M2–M12 value columns instead of inserting new rows.",
+        "D": "The PartitionId is reassigned to every Entity on the first load of each year, which later loads skip."
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: each DataRecordXXXX row holds 12 monthly value columns and 12 status columns, so the first month loaded inserts the records and later months only update the value on the same record, which is faster and keeps the record count down. A is incorrect — data is partitioned by year (XXXX), and there is not a separate data record per month. B is incorrect — the 12 status columns sit on the same DataRecord row as the value columns. D is incorrect — the PartitionId is tied to the Entity in the table; the book says nothing about it being reassigned on each year's first load."
+    },
+    {
+      "id": "FH_A10",
+      "topic": "Administration",
+      "objective": "201.7.2",
+      "subtopic": "Consolidation Performance Case Study",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 15, p. 417",
+      "source_page": 417,
+      "difficulty": "hard",
+      "question": "A full-year consolidation takes 40 minutes; the customer wants 20. The top Entity has about 300,000 data records in a non-aggregating pattern. Formulas have been reviewed and Parent-level calculations limited. During the run, Base Entities finish in about 5 minutes and the Parents take about 35. The environment is on-premise. What is the BEST next lever according to the handbook?",
+      "options": {
+        "A": "Add more CPUs to the Consolidation server so more Entities run in parallel.",
+        "B": "Move to faster CPUs (3.7–4.0 GHz or higher) on the Consolidation server.",
+        "C": "Increase NumThreadsForAggregatingChildEntities to add more parallel units of work.",
+        "D": "Add another general application server to take reporting load off the Consolidation server."
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the case study says that when Base Entities finish quickly but Parents with many records take most of the time, only CPU processor speed helps, because Parent processing is largely single-threaded; on-premise customers can replace CPUs, with 3.7–4.0 GHz the preferred minimum. A is incorrect — more CPUs mainly speed up Base Entities, which are already fast here. C is incorrect — more threads add parallelism, but parallelism is limited at Parent Entities, so returns diminish. D is incorrect — general servers handle navigation and reporting, not consolidation."
+    },
+    {
+      "id": "FH_A11",
+      "topic": "Administration",
+      "objective": "201.7.1",
+      "subtopic": "Logs and Notifications",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 2, p. 22",
+      "source_page": 22,
+      "difficulty": "medium",
+      "question": "An automated nightly data load sometimes fails because another maintenance job has locked the tables it needs. Business users usually discover the failure the next morning. Based on the handbook's guidance on backups and logs, what should the design include?",
+      "options": {
+        "A": "Turn logging up to maximum detail on every task so the cause is always captured.",
+        "B": "Rely on minute-by-minute cloud backups to restore the data after a failed load.",
+        "C": "Turn off task audit during the overnight window to reduce table contention.",
+        "D": "Send Administrators an email notification, with the log attached, when the load hits a critical failure."
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book's example is exactly this — when an automated load fails because another job has locked the tables, email the log to Administrators so they can investigate before business users discover the failure. A is incorrect — the book advises keeping logs at a useful level of detail but not so detailed that they fill up too quickly. B is incorrect — backups protect against corruption; they do not alert anyone or fix a failed load. C is incorrect — task audit is what lets administrators research such problems; the book recommends balancing it, not turning it off."
+    },
+    {
+      "id": "FH_C01",
+      "topic": "Cube",
+      "objective": "201.1.5",
+      "subtopic": "Stored vs. Calculated On-the-Fly",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 3, p. 60",
+      "source_page": 60,
+      "difficulty": "medium",
+      "question": "Which data does OneStream calculate when a Data Unit is created in memory, rather than storing it in the relational database?",
+      "options": {
+        "A": "Parent-level members of Account, Intercompany and the User-Defined dimensions",
+        "B": "Journal entries posted to base Entities",
+        "C": "Results of stored member formulas on base Accounts",
+        "D": "Line-item detail and text attached to base cells"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says all Parent levels of Accounts, Intercompany Partner and all Custom (User-Defined) dimensions are calculated when a requested Data Unit is created. A is the only option that isn't persisted. B, C and D are incorrect — the book lists base-level data, calculated numbers, line-item detail, text and Journal information as stored and persisted in the relational database. The book also notes there are no administrative options to change what is stored versus calculated on the fly."
+    },
+    {
+      "id": "FH_C02",
+      "topic": "Cube",
+      "objective": "201.1.2",
+      "subtopic": "Data Unit Size",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 3, p. 62",
+      "source_page": 62,
+      "difficulty": "hard",
+      "question": "Analysis shows that one Entity's Data Unit holds about 2.5 million records, while most others hold about 300,000. Consolidation of that Entity is much slower. Based on the book's guidance, what is the BEST first design response?",
+      "options": {
+        "A": "Accept it, because the book's sweet spot for OneStream is 2 to 3 million records per Data Unit",
+        "B": "Add a User-Defined dimension to spread the records across more members",
+        "C": "Look at breaking up the Entity or the Cube to spread the data, and explain the performance impact to the client",
+        "D": "Add faster processors, because hardware fully removes the effect of large Data Units"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book puts the sweet spot at 250,000–500,000 records, says the largest Data Units should never exceed 2–3 million, and advises first seeing whether the Entity or Cube can be broken up, then explaining the performance impact. A is incorrect — 2–3 million is the ceiling, not the sweet spot. B is incorrect — adding a dimension adds intersections to the same Data Unit; it does not split it. D is incorrect — the book says hardware can lessen the impact, but Data Units over 2 million are still significantly slower."
+    },
+    {
+      "id": "FH_C03",
+      "topic": "Cube",
+      "objective": "201.1.4",
+      "subtopic": "Interdimensional Irrelevance — Constraints",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 3, p. 61",
+      "source_page": 61,
+      "difficulty": "medium",
+      "question": "A large Product UD is shared across Entities, but each Entity sells only its own part numbers. Parent-Entity Data Units are growing because invalid Product/Entity combinations are being loaded. Which feature does the book name as the FIRST way to limit which intersections are open?",
+      "options": {
+        "A": "Dimension constraints that limit which User-Defined members are valid by Account and by Entity",
+        "B": "Entity Defaults that tag each Entity with its products",
+        "C": "A separate Scenario Type for each Entity group",
+        "D": "Dynamic Attributes on the Product dimension"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says the first way to manage open dimensions is constraints, which limit the User-Defined dimensions used by Account and by Entity; its own example used constraints to limit part numbers by Entity, which stopped bad data loads and protected the Parent Entity's Data Unit. B is incorrect — Entity Defaults tag an Entity like an attribute; they do not stop input. C is incorrect — Scenario Types vary dimensions by Scenario, not by Entity. D is incorrect — the book warns that Dynamic Attributes can cause an explosion of intersections."
+    },
+    {
+      "id": "FH_C04",
+      "topic": "Cube",
+      "objective": "201.1.4",
+      "subtopic": "Valid Combinations for Budget",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 3, p. 62",
+      "source_page": 62,
+      "difficulty": "hard",
+      "question": "In one Cube, Actual history must stay open to all Account/UD combinations, but Budget users entering data through Excel must be blocked from invalid Account strings. Why are dimension constraints alone not enough, and what does the book suggest?",
+      "options": {
+        "A": "Constraints apply only to Parent Entities; use Entity Defaults instead",
+        "B": "Constraints vary only by Cube, so they cannot treat Actual and Budget differently in the same Cube; use a Conditional Input Rule, possibly driven by flags in an administrative Cube",
+        "C": "Constraints apply only to imported data; use Workflow Channels to block Excel input",
+        "D": "Constraints cannot reference User-Defined dimensions; use a Transformation Rule to reject invalid strings"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book lists three options and notes constraints 'will only vary by Cube'; the alternatives are a Conditional Input Rule, or rules plus an input template/administrative Cube where valid intersections are flagged (e.g., with a '1') and the rule loops over them. A is incorrect — constraints are not limited to Parent Entities, and Entity Defaults don't block input. C is incorrect — Workflow Channels control locking and layering, not valid Account strings. D is incorrect — the book describes constraints limiting User-Defined dimensions by Account and Entity, and Transformation Rules don't govern Excel input."
+    },
+    {
+      "id": "FH_C05",
+      "topic": "Cube",
+      "objective": "201.1.1",
+      "subtopic": "Cube Design Options",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 3, p. 65",
+      "source_page": 65,
+      "difficulty": "medium",
+      "question": "Users must be able to load to the same Entity in more than one Cube (Shared Entities), but a dimension member can belong to only one Cube. Which Cube design option does the book describe for this?",
+      "options": {
+        "A": "Monolithic Cube",
+        "B": "Super Cube with Linked Cubes",
+        "C": "Specialty Cube",
+        "D": "Paired Cubes"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says Paired Cubes are most often used for Split and Shared Entities, using a common Entity dimension of all Entities plus a hierarchy dimension for each Cube, with the base Cube linked as the child. A is incorrect — the Monolithic Cube is for very small or 'Lift & Shift' designs and doesn't use Extensibility. B is incorrect — the Super Cube links a Parent Cube to detail Cubes; it is the most common design but does not handle Shared Entities. C is incorrect — Specialty Cubes are standalone admin or driver Cubes (Driver, Overrides, Process Control), kept separate for simpler security."
+    },
+    {
+      "id": "FH_C06",
+      "topic": "Cube",
+      "objective": "201.1.1",
+      "subtopic": "Extensibility and Consolidation Performance",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 3, p. 66",
+      "source_page": 66,
+      "difficulty": "hard",
+      "question": "Consolidation logs show base Entities finishing quickly, while the top Parent Entities slow down sharply. According to the book, which TWO factors explain this, and what design approach addresses them?",
+      "options": {
+        "A": "Parent Entities store no data and must recalculate every time; fix it by turning on stored Parent aggregation",
+        "B": "Parent Entities run translation twice; fix it by translating only at base Entities",
+        "C": "Parents have few child Entities, so fewer processor threads are used, and their data is denser; Extensibility shrinks Parent Data Units",
+        "D": "Parent Entities are limited to one Workflow; fix it by assigning more Review profiles"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book explains that each child Entity uses a thread, so the base of the hierarchy can use many threads but a top Parent with few children can use only a couple, and that Parent datasets are naturally denser; designing smaller Parent Data Units through Extensibility greatly improves Consolidation times. A is incorrect — the book states that Parent Entities always store data, and there is no setting for stored versus on-the-fly. B is incorrect — translation is not the explanation the book gives. D is incorrect — Workflow Review profiles do not affect Consolidation threading or Data Unit density."
+    },
+    {
+      "id": "FH_C07",
+      "topic": "Cube",
+      "objective": "201.1.1",
+      "subtopic": "Scenario Type vs. Separate Cube",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 3, p. 63",
+      "source_page": 63,
+      "difficulty": "medium",
+      "question": "A client wants Actual, Budget, Forecast and Sustainability data. The same submitters handle Actual, Budget and Forecast. Sustainability data comes from plant managers, is mostly non-financial, has different security and isn't subject to blackout controls. Which design does the book recommend?",
+      "options": {
+        "A": "Use Scenario Types in one financial Cube for Actual/Budget/Forecast, and put Sustainability in its own Cube (at minimum its own Scenario Type)",
+        "B": "Put all four in separate Cubes, so each has its own Workflow",
+        "C": "Put all four in one Cube with a single Scenario Type, so reporting never has to change Cubes",
+        "D": "Put Sustainability in the financial Cube and control access with Data Cell Access security"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says Actual/Budget/Forecast fit well as Scenario Types — users only change Scenarios, and rules, reports and dimensions can vary by Scenario Type — while Sustainability, with different users, little common data, different security and a different Workflow, is better as its own Cube (at minimum its own Scenario Type). B is incorrect — splitting Actual/Budget/Forecast into separate Cubes loses the simplicity of one Workflow where users change only the Scenario. C is incorrect — one Scenario Type gives up the ability to vary dimensions and Workflows, and ignores how different Sustainability is. D is incorrect — security alone ignores the different users, Workflow and data, which the book says call for separation."
+    },
+    {
+      "id": "FH_C08",
+      "topic": "Cube",
+      "objective": "201.1.4",
+      "subtopic": "Stub Out Dimensions / None Members",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 3, p. 56",
+      "source_page": 56,
+      "difficulty": "medium",
+      "question": "A client plans to report sales by regional manager next year, but the ledger doesn't capture that detail yet. What does the book recommend doing in the current build?",
+      "options": {
+        "A": "Wait until the detail exists, then add the Dimension Type to the Cube",
+        "B": "Store the regional manager in a text attribute on the Entity and convert it to a dimension later",
+        "C": "Add the regional managers as extra Accounts so no new Dimension Type is needed",
+        "D": "'Stub out' the Dimension Type now on the Cube (even with only the None member), then add members as the detail becomes available"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book advises adding the Dimension Type now, even with only the default 'None' member, because changing the Dimension Type on a Cube later means reloading and reconciling the data again; with a stub, adding detail is just adding members. A is incorrect — adding the Dimension Type later is the costly change the book warns about (dropping and rebuilding the Cube's tables and losing load and sign-off history). B is incorrect — this is not the book's approach and still needs a later dimension change. C is incorrect — the book warns against splitting one concept across Dimension Types; putting managers in Accounts mixes unrelated concepts."
+    },
+    {
+      "id": "FH_K01",
+      "topic": "Cube",
+      "objective": "201.1.3",
+      "subtopic": "Org-By-Period Configuration",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 4, p. 97",
+      "source_page": 97,
+      "difficulty": "hard",
+      "question": "An Entity consolidates 100% into Parent A through March and 100% into Parent B from April onward. Both Parents must report correctly, and Parent B must not receive the Entity's January–March activity. Which combination of settings does the handbook describe?",
+      "options": {
+        "A": "Percent Ownership varying by time, the Scenario's Consolidation View set to YTD, and the Standard Consolidation Algorithm Type",
+        "B": "An alternate hierarchy with a new Parent, and the Scenario's Consolidation View set to YTD",
+        "C": "Percent Consolidation varying by time, the Scenario's Consolidation View set to Periodic, and an Org-By-Period Elimination algorithm so eliminations consider Percent Consolidation",
+        "D": "Ownership Type set to Custom 1 under Parent B, with the Stored Share Consolidation Algorithm Type"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book says Percent Consolidation (which can vary by time) must be set and the Scenario's Consolidation View must be Periodic so only April-forward activity goes to Parent B. Eliminations must also consider Percent Consolidation, which the Org-By-Period Elimination algorithm does (p. 97, 87). A is incorrect — Percent Ownership has no effect on consolidation by itself, and consolidating YTD would over-contribute to Parent B. B is incorrect — YTD consolidation still over-contributes, and the goal of Org-By-Period is to avoid maintaining multiple hierarchies. D is incorrect — Ownership Type has no effect on consolidation by itself, and Stored Share is about custom Share logic."
+    },
+    {
+      "id": "FH_K02",
+      "topic": "Cube",
+      "objective": "201.1.3",
+      "subtopic": "Translation Algorithm Types",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 4, p. 88",
+      "source_page": 88,
+      "difficulty": "hard",
+      "question": "A client wants certain Actual intersections translated at the current year's Budget rates, which already exist in the FX Rate table. The year must be determined dynamically, rates must not be copied to another Rate Type, and all other intersections should translate normally. Which Translation Algorithm Type fits?",
+      "options": {
+        "A": "Custom",
+        "B": "Standard Using Business Rules for FX Rates",
+        "C": "Standard, with Constant Year For FX Rates set on the Actual Scenario",
+        "D": "Standard, with Use Cube FX Settings set to True on the Actual Scenario"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says Standard Using Business Rules for FX Rates lets a rule specify rates for given intersections, with everything else translated by Standard logic. Its example is translating Actual at the current year's Budget rates, found dynamically, without copying rates (p. 88). A is incorrect — Custom calculates translated values for all intersections in a rule and is rarely used. C is incorrect — Constant Year For FX Rates translates the whole Scenario at one specified year's rates (p. 110). D is incorrect — True means the Scenario simply uses the Cube's FX settings, so nothing changes."
+    },
+    {
+      "id": "FH_K03",
+      "topic": "Cube",
+      "objective": "201.1.3",
+      "subtopic": "FX Triangulation",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 4, p. 89",
+      "source_page": 89,
+      "difficulty": "medium",
+      "question": "An application's default currency is USD. The FX Rate table contains GBP-to-USD and EUR-to-USD rates but no GBP/EUR rate. A GBP Entity is set to translate to EUR as well. What happens during translation?",
+      "options": {
+        "A": "Translation fails until a GBP/EUR rate is entered",
+        "B": "The Entity is translated using the EUR/USD rate alone",
+        "C": "OneStream uses the most recent GBP/EUR rate from a prior period",
+        "D": "OneStream triangulates through the USD default currency to derive the GBP/EUR rate"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says that if a rate is not entered, OneStream triangulates using the application's Default Currency, deriving GBP/EUR from the GBP/USD and EUR/USD rates (p. 89). A is incorrect — no direct rate is needed. B is incorrect — both rates are used to derive the cross rate. C is incorrect — the book describes triangulation, not carrying forward an earlier cross rate."
+    },
+    {
+      "id": "FH_K04",
+      "topic": "Cube",
+      "objective": "201.1.3",
+      "subtopic": "Auto Translation Currencies — Limitation",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 4, p. 92",
+      "source_page": 92,
+      "difficulty": "hard",
+      "question": "Two base Entities have CAD in their Auto Translation Currencies. Their USD Parent has no Auto Translation Currency. A user wants to see the Parent in CAD. Which statement is true?",
+      "options": {
+        "A": "The Parent can't be viewed in CAD; it needs CAD in its own Auto Translation Currencies, and it then translates independently rather than summing the children's CAD values",
+        "B": "The Parent shows CAD automatically as the consolidated total of its children's CAD translations",
+        "C": "The Parent's currency must be changed to CAD before any CAD values are available",
+        "D": "CAD must be added as the Cube's default currency"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book lists as a limitation that Auto Translation Currency values are not the consolidated total of the children. The Parent must have its own Auto Translation Currency and 'will translate on the fly, independently of the Base Entities' (p. 92). B is incorrect — this is exactly what the book says does not happen. C is incorrect — changing the Parent's currency is not what the book describes, and it would change the main rollup. D is incorrect — the Cube default currency drives triangulation and Cube FX settings, not extra Parent currencies."
+    },
+    {
+      "id": "FH_K05",
+      "topic": "Cube",
+      "objective": "201.1.3",
+      "subtopic": "Periodic Loads — Flow Setup",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 4, p. 99",
+      "source_page": 99,
+      "difficulty": "hard",
+      "question": "A client's ERP can only provide periodic (monthly) activity. Balance Sheet movements are loaded to the same activity Flow member used for the Income Statement, and that activity is translating at the closing rate. Which setup does the handbook prescribe for periodic loads?",
+      "options": {
+        "A": "Set the Scenario's No Data Zero View to YTD and keep Switch Type False on the shared activity member",
+        "B": "Load all balances to EndBalLoad and let only EndBal aggregate to the top of the Flow Dimension",
+        "C": "Set the Scenario's No Data Zero View to Periodic, and use a separate Balance Sheet activity Flow member with Switch Type True (Income Statement activity stays False)",
+        "D": "Set the activity member's Flow Processing Type to Is Alternate Input Currency For All Accounts"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: for periodic loads, the book says to set No Data Zero View to Periodic and to keep Balance Sheet activity in its own Flow member with Switch Type True, so it behaves like Income Statement data and translates at the average rate (p. 99, 104). A is incorrect — for periodic data, an unloaded period should be treated as a periodic zero, and Switch Type False keeps Balance Sheet behavior. B is incorrect — that is the setup for YTD loads. D is incorrect — that setting is for historical override members whose translated value is entered directly (p. 101)."
+    },
+    {
+      "id": "FH_B01",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "BI Blend Limits",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 12, p. 346",
+      "source_page": 346,
+      "difficulty": "medium",
+      "question": "A team is choosing between BI Blend and a Cube-based model. Which requirement points to a traditional Cube model?",
+      "options": {
+        "A": "Daily sales by invoice and customer, aggregated to Parent Entities",
+        "B": "Simple direct-method translation to the Cube's reporting currency",
+        "C": "Transient tables that are dropped and rebuilt several times a day",
+        "D": "Intercompany eliminations and minority interest based on PCON and POWN"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says BI Blend never writes to the Cube and does not handle complex translation, consolidation or elimination logic, and does not use Member Formulas or relationship properties like PCON, POWN or aggregation weight. Requirements like these call for a Cube (p. 346). A is incorrect — high-volume transactional data, such as customers or invoices, is the classic BI Blend use case (p. 345). B is incorrect — BI Blend does basic direct-method translation to the reporting currency. C is incorrect — transient data that is created, dropped and rebuilt is listed as a BI Blend use case."
+    },
+    {
+      "id": "FH_B02",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "Blend Unit",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 12, p. 354",
+      "source_page": 354,
+      "difficulty": "hard",
+      "question": "In a BI Blend load, a Derivative Rule uses a blend data buffer for a calculation that needs data from two different Blend Unit pages, and the results are wrong. What explains this?",
+      "options": {
+        "A": "Derivative Rules in BI Blend loads can't reference data buffers",
+        "B": "Blend data buffer calculations run only on the page being processed, so the Blend Unit was poorly chosen for this calculation",
+        "C": "The Blend Unit must always be the Entity Dimension, as in a Cube Data Unit",
+        "D": "BI Blend runs the Cube's Member Formulas, which must be set to stored for Blend to read them"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says the Blend Unit divides the load into pages, and blend data buffers in Derivative Rules can only be calculated on the page being processed, so 'if you choose the wrong Blend Unit, and try to run a calculation on two different pages, it will not work' (p. 354). A is incorrect — referencing a blend data buffer is a feature added for BI Blend loads. C is incorrect — any Dimension can be the Blend Unit, not just an Entity-like one (p. 345). D is incorrect — BI Blend does not use Member Formulas or rules from the Cube (p. 346)."
+    },
+    {
+      "id": "FH_B03",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "Analytic Blend Data Model Types",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 12, p. 346",
+      "source_page": 346,
+      "difficulty": "medium",
+      "question": "Regional managers keep monthly KPI files in Excel by hand. Volume is low, the data isn't multidimensional, and users need basic drill reporting and pivot analytics. Which Analytic Blend data model type does this describe?",
+      "options": {
+        "A": "Excel or Outlier Model",
+        "B": "Multidimensional Hybrid Model",
+        "C": "Operational Telemetry Model",
+        "D": "Financial & Operational Model"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book describes the Excel or Outlier Model as not multidimensional and lower volume, based on Excel files that rely on human intervention, with basic drill reporting or pivot analytics. It can be financially intelligent or not (p. 346, 351). B is incorrect — that is the highest-financial-intelligence type, with rich calculations and multidimensional reporting. C is incorrect — that type covers near real-time analysis and signaling. D is incorrect — that type is medium financial intelligence on operational data, with table-level metadata dropped and recreated each time, not manual Excel files."
+    },
+    {
+      "id": "FH_B04",
+      "topic": "Data Collection",
+      "objective": "201.3.1",
+      "subtopic": "Deployment — Central vs. Distributed Load",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 12, p. 350",
+      "source_page": 350,
+      "difficulty": "medium",
+      "question": "A BI Blend table built from the sales system must refresh daily. Planners complete their Planning Workflow only monthly. How should the BI Blend load be deployed?",
+      "options": {
+        "A": "As a distributed (inline) load in each planner's Workflow",
+        "B": "With the FinalizeBiBlendTable event handler run by each planner",
+        "C": "As a Central Load controlled by an administrator or central user, because its frequency doesn't follow the end users' process",
+        "D": "By loading the daily data into the Planning Cube so it consolidates with the plan"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book uses this example. When a BI Blend load must run daily but the Planning process is monthly, a Central Load fits because it 'doesn't follow the pattern of the normal End-User process' (p. 350). A is incorrect — inline loads fit when the load matches the user's own Workflow tasks. B is incorrect — that event handler creates a view after a BI Blend load finishes; it is not a deployment model for users. D is incorrect — BI Blend never writes data to the Cube (p. 346)."
+    },
+    {
+      "id": "FH_D01",
+      "topic": "Data Collection",
+      "objective": "201.3.3",
+      "subtopic": "Origin Dimension — Data Isolation",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 6, p. 163",
+      "source_page": 163,
+      "difficulty": "medium",
+      "question": "A site controller enters headcount through a Form for Entity 'Plant 10'. Later that day, the trial balance for Plant 10 is re-imported with the Replace method. What happens to the form-entered headcount?",
+      "options": {
+        "A": "It is cleared, because Replace clears the whole Data Unit for the Entity",
+        "B": "It stays, because the Origin dimension isolates Import, Forms and Journals data, so an import doesn't write over data in the Forms Origin member",
+        "C": "It is moved to the Import Origin member and combined with the trial balance",
+        "D": "It stays only if the Form was submitted through the Excel Add-in"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says the Origin dimension separates each Entity's data into Import, Forms and Journals, combining data protection and layering, and that 'data loaded through import does not write over data in the Form's Origin Member.' A is incorrect — the import's Replace affects Import-origin data, not Forms. C is incorrect — data never moves between Origin members; each stays in its own. D is incorrect — the book lists both Forms and the Excel Add-in under the Forms origin, so either way the data is protected."
+    },
+    {
+      "id": "FH_D02",
+      "topic": "Data Collection",
+      "objective": "201.3.2",
+      "subtopic": "Excel Template Range Names",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 6, p. 172",
+      "source_page": 172,
+      "difficulty": "easy",
+      "question": "A controller wants to submit adjusting entries from an Excel workbook so they land as OneStream Journals. Which range-name prefix identifies Journal data in the Excel template?",
+      "options": {
+        "A": "XFD",
+        "B": "XFF",
+        "C": "XFJ",
+        "D": "XFC"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book's range-name table maps XFJ to Journal data. A is incorrect — XFD is a data load to Stage (Import). B is incorrect — XFF is Form data. D is incorrect — XFC is cell details."
+    },
+    {
+      "id": "FH_D03",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Transformation Rule Performance",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 6, p. 180",
+      "source_page": 180,
+      "difficulty": "hard",
+      "question": "A 2-million-row import now takes much longer to validate. The mapping review shows many Mask rules like ?86*?? and *84*7*, plus a single very long conditional List rule. Which change BEST matches the book's performance guidance?",
+      "options": {
+        "A": "Turn the Mask rules into Derivative rules, because Derivative rules run as a simple update pass to the database",
+        "B": "Merge all the List rules into one larger conditional List, to cut the number of rules processed",
+        "C": "Replace all Mask rules with * to *, because it is the most efficient rule type",
+        "D": "Cut down the ? wildcards and embedded asterisks (prefer one-sided * masks), and break the long conditional List into several smaller lists"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says question marks cost a lot of processing power and masks with ? or embedded asterisks run less efficiently, recommends one-sided * for low overhead, and for conditional Lists says to break them into multiple smaller lists for better memory use and faster processing. A is incorrect — Derivative rules use a lot of data transfer and memory, since all dimension fields go back to the App Server. B is incorrect — the book says the opposite: break conditional Lists into smaller ones. C is incorrect — * to * is fast, but it maps any member to the same-named target, which would replace the needed mapping logic."
+    },
+    {
+      "id": "FH_D04",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Source vs. Target Derivative Rules",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 6, p. 178",
+      "source_page": 178,
+      "difficulty": "medium",
+      "question": "After mapping, the aggregated balance in a mapped Account must be reclassified to a different target depending on whether the total is positive or negative. Which transformation rule type fits?",
+      "options": {
+        "A": "Source Derivative",
+        "B": "Composite",
+        "C": "Target Derivative",
+        "D": "Range"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book defines a Target Derivative as logic and math applied to post-transformation Stage data, with the example 'Does an aggregated mapped total need to be mapped differently because it is positive or negative?' A is incorrect — a Source Derivative applies to inbound source data before mapping (e.g., does the trial balance equal zero?). B is incorrect — Composite maps 'slices' of members across dimensions; it does not evaluate aggregated totals. D is incorrect — Range maps a run of source members to one target, with no logic on the sign of a total."
+    },
+    {
+      "id": "FH_D05",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Scenario/Time/View Mapping",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 6, p. 176",
+      "source_page": 176,
+      "difficulty": "medium",
+      "question": "An integration designer is building Transformation Rules for the Scenario, Time and View dimensions, to be reused by many Cubes. Which statement is true according to the book?",
+      "options": {
+        "A": "These dimensions can use only One-to-One rules, so a single Global rule group for each is recommended for reuse",
+        "B": "These dimensions require Composite rules, because they must reference the Entity being loaded",
+        "C": "These dimensions must be mapped separately for each Cube, because Transformation Rules can't be shared across Cubes",
+        "D": "These dimensions should use Mask rules (* to *) so new periods map automatically"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says Scenario, Time and View 'can only have one-to-one mapping' and recommends naming these rules as Global because they can be reused across Cubes, ideally with one group each. B is incorrect — Composite rules aren't available for these dimensions. C is incorrect — the book recommends reusing these Global rule groups across Cubes and profiles. D is incorrect — Mask rules aren't allowed for Scenario, Time or View."
+    },
+    {
+      "id": "FH_D06",
+      "topic": "Data Collection",
+      "objective": "201.5.4",
+      "subtopic": "Batch File Harvest Naming",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 6, p. 181",
+      "source_page": 181,
+      "difficulty": "medium",
+      "question": "An administrator automates loads by dropping files into the Harvest folder for batch processing. Which file name follows the book's batch field layout?",
+      "options": {
+        "A": "Actual-2011M1-Detroit;Import-1TB-R.txt",
+        "B": "1TB-Detroit;Import-Actual-2011M1-R.txt",
+        "C": "Detroit;Import-1TB-2011M1-Actual-R.txt",
+        "D": "1TB-Actual-Detroit;Import-R-2011M1.txt"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book's layout is File ID-WorkflowProfileName-ScenarioName-TimeName-LoadMethod.txt, with the example 1TB-Detroit;Import-Actual-2011M1-R.txt. A is incorrect — it starts with the Scenario instead of the File ID. C is incorrect — it starts with the Workflow Profile and puts Time before Scenario. D is incorrect — it puts the Scenario before the Workflow Profile and the Load Method before Time."
+    },
+    {
+      "id": "FH_D07",
+      "topic": "Data Collection",
+      "objective": "201.3.3",
+      "subtopic": "Large Loads — Spreading and Cache Settings",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 6, p. 167",
+      "source_page": 167,
+      "difficulty": "hard",
+      "question": "A single sequential import of about 1 million records takes ten minutes. Which approach does the book describe to cut the load time significantly?",
+      "options": {
+        "A": "Convert the file from delimited to fixed format, because the parser reads fixed files in parallel",
+        "B": "Break the data into smaller chunks loaded by several data loads/Workflows, since the parser is sequential; for very large sets, Cache Page Size and Cache Pages In Memory Limit can also be raised (e.g., to 2000)",
+        "C": "Load the file through an Excel template, since XFD ranges skip the parser",
+        "D": "Map the file with Derivative rules, so records are created in memory instead of parsed"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says the parser is sequential, so breaking a 1-million-record load into five groups let it run across several loads and Workflows in about two minutes instead of ten; for datasets over 1 million records, it suggests setting the Workflow Profile's Cache Page Size and Cache Pages In Memory Limit to 2000. A is incorrect — the book doesn't say fixed files parse in parallel. C is incorrect — Excel templates still load through the Workflow into Stage. D is incorrect — Derivative rules add processing cost, using a lot of data transfer and memory."
+    },
+    {
+      "id": "FH_M01",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Transformation Rule Cost — Two-Sided Mask",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 382",
+      "source_page": 382,
+      "difficulty": "medium",
+      "question": "A mapping analyst is reviewing rules for a high-volume load. Which Transformation Rule does the handbook classify as a very high processing cost, because records must be passed back to the application server?",
+      "options": {
+        "A": "Mask 12* → Target* (two-sided, source value used to derive the target)",
+        "B": "Mask 12* → 4000 (one-sided mask)",
+        "C": "List (1000,1010,1020) → 4000",
+        "D": "Range 1000,1999 → 4000"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: a two-sided mask pulls the dimension's records back to the application server so the source value can derive the target, then sends individual UPDATE statements back, which the book lists as very high cost. B is incorrect — a one-sided * mask runs as a single UPDATE with a LIKE clause (low cost). C is incorrect — a non-conditional list runs as a single UPDATE with an IN clause (low cost). D is incorrect — a non-conditional range runs as a single UPDATE with a BETWEEN clause (low cost)."
+    },
+    {
+      "id": "FH_M02",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Transformation Rule Cost — ? Placeholders",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 382",
+      "source_page": 382,
+      "difficulty": "hard",
+      "question": "A Mask rule is defined as 12??56 → 4100. Which statement about its performance is true?",
+      "options": {
+        "A": "It is very high cost, because it returns all dimension fields to the application server for conditional processing.",
+        "B": "It is low cost, because it runs as an UPDATE with a BETWEEN clause.",
+        "C": "It is low/medium cost, because the database must pattern-match with table scans; keeping the number of ? placeholders small helps.",
+        "D": "It costs the same as a * to * mask, because both pass the source value straight through as the target."
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book puts a one-sided ? mask in the low/medium tier; it runs an UPDATE with a LIKE pattern that forces table scans, and the tip is to keep the number of ? placeholders to a minimum. A is incorrect — returning all dimension fields to the app server describes conditional (#Script) rules, not this mask. B is incorrect — BETWEEN is how a Range rule is executed. D is incorrect — a * to * mask is low cost and simply passes the source value through as the target, which is not what 12??56 does."
+    },
+    {
+      "id": "FH_M03",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Conditional Range Tuning",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 383",
+      "source_page": 383,
+      "difficulty": "medium",
+      "question": "A single conditional Range rule (0000,9999 → #Script) is slowing Load and Transform on a large file. What does the handbook recommend?",
+      "options": {
+        "A": "Replace it with one conditional Mask rule (* → #Script) so the database does the filtering.",
+        "B": "Break the range into several smaller rule blocks, such as 0000–1000 and 1001–2000.",
+        "C": "Increase the Cache Pages in Memory Limit so the whole range fits in memory.",
+        "D": "Move the logic into a Derivative rule so it runs before the transformation."
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: for conditional ranges the book says to keep them restrictive, breaking one large range into multiple smaller blocks to keep memory use down and processing faster. A is incorrect — the book says never to use a * with no other criteria in a mask rule, because it brings a very large volume of records back to the app server. C is incorrect — cache page settings control how much of the source file is held in memory, not the cost of conditional rule queries. D is incorrect — Derivative rules are also very high cost and insert new records one at a time."
+    },
+    {
+      "id": "FH_M04",
+      "topic": "Data Collection",
+      "objective": "201.3.4",
+      "subtopic": "Transformation Rule Cost — Composite",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 14, p. 381",
+      "source_page": 381,
+      "difficulty": "hard",
+      "question": "Which of the following does the handbook classify as a LOW processing cost Transformation Rule type?",
+      "options": {
+        "A": "Map List (Conditional), e.g., List (xx,yy,zz) → #Script",
+        "B": "Derivative",
+        "C": "Map Mask (Conditional), e.g., Mask 12* → #Script",
+        "D": "Map Composite, e.g., A#[199?-???*]:E#[Texas]"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book lists Map Composite among the low-cost types; it pattern-matches on the first condition and then checks the second dimension condition. A is incorrect — a conditional list pulls ALL dimension fields back to the application server and is very high cost. B is incorrect — Derivative rules pull all dimension fields and insert derived records one by one (very high cost). C is incorrect — a conditional mask also returns all dimension fields to the application server (very high cost)."
+    },
+    {
+      "id": "FH_B05",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Large Pivot Grid vs. BI Viewer",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 12, p. 352",
+      "source_page": 352,
+      "difficulty": "medium",
+      "question": "A dashboard must let users browse a BI Blend table with millions of rows without rendering all the data at once. Which component fits BEST, and why?",
+      "options": {
+        "A": "BI Viewer, because it pages through large tables",
+        "B": "BI Viewer, because it can be included in Report Books",
+        "C": "Large Pivot Grid, because it reads Cube Views through FDX queries",
+        "D": "Large Pivot Grid, because it supports paging and connects directly to an application, BI Blend or external database table"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says the Large Pivot Grid 'is all about large amounts of data' because it can page instead of rendering everything, and it connects directly to a table only (application, BI Blend or external) (p. 352). A is incorrect — BI Viewer cannot page. B is incorrect — the book says BI Viewers cannot currently be used in Books (p. 350). C is incorrect — the Large Pivot Grid connects only to tables, not Cube Views."
+    },
+    {
+      "id": "FH_P01",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Cube View Row/Column Priority",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 10, p. 283",
+      "source_page": 283,
+      "difficulty": "medium",
+      "question": "A Cube View has a UD8 Dynamic Calc variance member in the rows and Cube View math for a percentage in one column. No overrides are set. Which calculation is used at the cell where they intersect?",
+      "options": {
+        "A": "The column's Cube View math",
+        "B": "The row's Dynamic Calc member",
+        "C": "The Cube View POV member's formula",
+        "D": "Whichever formula has the higher formula pass"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: a Cube View reads the row first, then the column, the Cube View POV and the user's POV, so with no overrides the row formula wins (whether it is a Dynamic Calc member or Cube View math); a row override placed in the column is how you make the column formula win for specific rows. A is incorrect — the column only wins if an override is set. C is incorrect — the Cube View POV is lower priority than both rows and columns. D is incorrect — formula passes order stored calculations in the calc sequence; they do not decide which Cube View formula is used."
+    },
+    {
+      "id": "FH_P02",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Report Rounding",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 10, p. 277",
+      "source_page": 277,
+      "difficulty": "medium",
+      "question": "A customer's scaled reports must foot and cross-foot. The controller asks to store rounding adjustments in the database so every report ties. What does OneStream recommend?",
+      "options": {
+        "A": "Store rounding in UD8 members written by Member Formulas.",
+        "B": "Use a Finance Business Rule to write rounding to a plug account at each Consolidation.",
+        "C": "Copy rounding amounts to a dedicated Flow member with a Data Management Copy Data step.",
+        "D": "Build the rounding into the Cube View rather than storing it in the database."
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says OneStream strongly recommends building rounding into the Cube View; storing it needs extra Members and complex rules, hurts performance, creates many data points with no value, and has to be maintained whenever metadata changes. A, B and C are incorrect — each one stores rounding in the database, which is the approach the book advises against (the customer must acknowledge it is not recommended practice)."
+    },
+    {
+      "id": "FH_P03",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Cube View Groups and Security",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 10, p. 280",
+      "source_page": 280,
+      "difficulty": "medium",
+      "question": "Business Unit B's super-users must maintain their own Cube Views but must not modify Business Unit A's or the corporate Cube Views, which they should still be able to run. How should this be set up?",
+      "options": {
+        "A": "Put the Cube Views in separate Cube View Groups and set each Group's access and maintenance security groups.",
+        "B": "Set access and maintenance security on each individual Cube View.",
+        "C": "Use the Cube View Profile visibility property to hide the corporate Cube Views from Business Unit B.",
+        "D": "Put all Cube Views in one Group and control editing through Workflow Profile security."
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: Cube Views cannot be secured one at a time, only by Cube View Group, and each Group has an access group (who can view) and a maintenance group (who can modify), so BU A, BU B and corporate Cube Views need separate Groups. B is incorrect — individual Cube View security is not available. C is incorrect — visibility controls where a Profile's Cube Views appear (OnePlace, Excel, Workflow and so on) for the whole Profile; it is not edit security. D is incorrect — one Group would give one set of maintainers to all Cube Views."
+    },
+    {
+      "id": "FH_P04",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Dashboard Data Consumption Types",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 10, p. 288",
+      "source_page": 288,
+      "difficulty": "medium",
+      "question": "A Dashboard lets a planner pick a region and product, enter budget drivers in a form, run a calculation, and see the results refresh, all on one screen. Which data consumption type does the handbook call this?",
+      "options": {
+        "A": "Static Analysis",
+        "B": "Interactive Analytics",
+        "C": "Functional Interaction and Analysis",
+        "D": "Multiple Reports"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: functional analytics combine interactive analysis with real business tasks, giving users a controlled way to change and calculate data; the book's example is a Data Entry Form where the user sets POV members, enters data, calculates and sees the results. A is incorrect — static analysis is 'what you see is what you get' with little or no interaction. B is incorrect — interactive analytics let users slice, filter and drill into data but do not include entering or calculating it. D is incorrect — Multiple Reports is a reason to choose a Dashboard (reporting objective), not a data consumption type."
+    },
+    {
+      "id": "FH_P05",
+      "topic": "Presentation",
+      "objective": "201.4.1",
+      "subtopic": "Dashboard Dataset Rules vs. SQL Joins",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 230",
+      "source_page": 230,
+      "difficulty": "hard",
+      "question": "A client wants a grid view showing the Workflow Profile each Entity is assigned to, using names. The WorkflowProfileEntities table stores only IDs and keys. Which approach does the handbook recommend?",
+      "options": {
+        "A": "A SQL data adapter that joins WorkflowProfileEntities to the Member and WorkflowProfileHierarchy tables.",
+        "B": "A Dashboard Dataset rule that selects from WorkflowProfileEntities, adds columns, fills the names using BRAPIs, and is called from a Method Query data adapter.",
+        "C": "A Cube View that uses a Member List Business Rule to return the Entities in Workflow Profile order.",
+        "D": "A Dashboard XFBR String rule that returns the full table as text to the grid view."
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says to avoid complex SQL joins and instead use a Dashboard Dataset rule — start from a SELECT on WorkflowProfileEntities, add fields, fill them by converting IDs to names with BRAPIs, and return the table; the result is cached in memory and is OneStream's recommended approach for custom Dashboard queries. A is incorrect — this is the slow multi-table SQL join the book warns against. C is incorrect — Member List rules return Cube dimension members for Cube Views, not relational table data. D is incorrect — XFBR String rules return text for properties and parameters, not datasets."
+    },
+    {
+      "id": "FH_S01",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "View All Data vs. Data Cell Access",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 9, p. 264",
+      "source_page": 264,
+      "difficulty": "hard",
+      "question": "HoustonApprover is in R_ViewAllData, the group assigned to the ViewAllData role. The business now wants this user to see only Balance Sheet data for Frankfurt, not P&L. The administrator adds the user to SL_Frankfurt_BS, a Data Cell Access ('slice') group that decreases P&L access for Frankfurt, but the user still sees Frankfurt P&L. What must be done to meet the requirement?",
+      "options": {
+        "A": "Move the SL_Frankfurt_BS item to the top of the cube's Data Cell Access list so it is evaluated first",
+        "B": "Set Display Access on the Frankfurt P&L accounts to Nobody",
+        "C": "Remove the user from the ViewAllData group, grant view access to the needed entities through their Read Data Groups, then use the slice group to decrease P&L access",
+        "D": "Set Use Parent Security for Relationship Consolidation to True on the cube so Frankfurt access comes from its Parent"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book says a user in a group assigned to the View All role is not subject to Data Cell Access, so the slice group does nothing; to honor the requirement you must build out view access entity by entity, grant it to the user, and then decrease it (p. 264, p. 251). A is incorrect — order matters among slice items, but no slice item applies at all to a ViewAllData user. B is incorrect — Display Access only hides members in member lists and is not data security. D is incorrect — relationship security controls access to Consolidation members based on the Parent; it does not restrict a View All user's account-level data."
+    },
+    {
+      "id": "FH_S02",
+      "topic": "Security",
+      "objective": "201.6.1",
+      "subtopic": "Read Access Plus Slice Security",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 9, p. 257",
+      "source_page": 257,
+      "difficulty": "hard",
+      "question": "A data loader for HoustonHeights now also needs to view Frankfurt's Balance Sheet data, but not its P&L. The user will never load Frankfurt. Which setup does the handbook recommend?",
+      "options": {
+        "A": "Add the user to V_Frankfurt (the group in Frankfurt's Read Data Group) and to SL_Frankfurt_BS, a Data Cell Access group that decreases access to the P&L",
+        "B": "Add the user only to SL_Frankfurt_BS, with a Data Cell Access item that increases access to Frankfurt Balance Sheet accounts",
+        "C": "Add the user to the Frankfurt Workflow group so they can see Frankfurt data in OnePlace",
+        "D": "Set Display Access on the P&L accounts to a group that excludes the user"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: because this is view-only, the book grants read access through the Entity's Read Data Group (V_Frankfurt) and then uses a slice group to restrict the P&L (p. 257–259). B is incorrect — Data Cell Access only works once the user already has access to the Entity; you cannot grant limited Frankfurt access by going straight to slice security. C is incorrect — the book says not to handle view-only access through the Workflow, which is for loading. D is incorrect — Display Access only hides members in lists; it does not restrict data."
+    },
+    {
+      "id": "FH_S03",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Data Loader — Workflow Group",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 9, p. 256",
+      "source_page": 256,
+      "difficulty": "medium",
+      "question": "User _SH_Houston is in M_HoustonHeights and M_SouthHouston (the Read and Write Data Groups on those Entities) and can open the application. In OnePlace, though, the user sees only the Cube root with no Workflows beneath it, so they cannot import. What is the most likely cause?",
+      "options": {
+        "A": "The ModifyData Application Security Role is set to Everyone instead of a restricted group",
+        "B": "The user has no Data Cell Access group for the Houston Entities",
+        "C": "The user lacks the Read Data Group for the Houston Parent required by relationship security",
+        "D": "The user is not in the Workflow group that grants access to the Houston Workflow Profile"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: in the book's example, the user had Entity access but could see only the Cube root with no Workflows 'because we did not add the Workflow group to their ID' (p. 256). A is incorrect — the book says setting ModifyData to Everyone is intentional and fine, because the Data Unit and Workflow checks still apply (p. 255). B is incorrect — slice security only reduces or adds to access that already exists; it does not control whether Workflows are visible. C is incorrect — relationship security affects Consolidation members, not whether a Workflow appears."
+    },
+    {
+      "id": "FH_S04",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Data Loader — Nested Entity Group",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 9, p. 257",
+      "source_page": 257,
+      "difficulty": "hard",
+      "question": "After an administrator restructured nested groups, a user in WF_HoustonWorkflow can still open the Houston Workflow and import a file with HoustonHeights and SouthHouston data. Validate now fails with an error on HoustonHeights only. What is the most likely cause?",
+      "options": {
+        "A": "The user is not in the Workflow's certification security group",
+        "B": "M_HoustonHeights, the Read and Write Data Group for HoustonHeights, is no longer nested in WF_HoustonWorkflow",
+        "C": "The ModifyData role is set to Everyone, so it no longer checks Entity access",
+        "D": "The user's group was removed from the Cube's Access group"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book shows that when M_HoustonHeights is removed from the WF_HoustonWorkflow group, the user can still open the Workflow and import, but gets an error when validating against that Entity (p. 256–257). A is incorrect — certification is a separate Workflow right; data loaders in the book cannot certify but still validate and load. C is incorrect — the book says ModifyData set to Everyone is not an error, because the other checks still apply. D is incorrect — without Cube access, the user would be stopped before getting to the Workflow at all (Figure 9.1, p. 245)."
+    },
+    {
+      "id": "FH_S05",
+      "topic": "Security",
+      "objective": "201.6.2",
+      "subtopic": "Security Roles vs. Interface Roles — FX Rates",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 9, p. 249",
+      "source_page": 249,
+      "difficulty": "hard",
+      "question": "A client wants members of R_ApplicationAdmin to add and edit FX rates. A separate group of analysts must be able to open the FX Rates page but must not change any rates. Which configuration follows the handbook's design?",
+      "options": {
+        "A": "Assign ManageFXRates to R_ApplicationAdmin and add the analysts to R_ApplicationAdmin",
+        "B": "Assign both ManageFXRates and FXRatesPage to R_ApplicationAdmin, and give the analysts the ViewAllData role",
+        "C": "Assign ManageFXRates (Application Security Role) to R_ApplicationAdmin, assign FXRatesPage (Application User Interface Role) to a separate group such as R_ViewFXRates nested in R_ApplicationAdmin, and add the analysts to R_ViewFXRates",
+        "D": "Assign FXRatesPage to Everyone and leave ManageFXRates on the Administrators group, since only that group can hold management roles"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: the book explains that a manage role alone isn't enough, because the user also needs the page's Application User Interface Role. Putting a separate group on the Interface Role, nested inside R_ApplicationAdmin, lets admins manage while others get view-only page access (p. 249–250, 259–260). A is incorrect — analysts in R_ApplicationAdmin could edit rates. B is incorrect — ViewAllData grants data view access, not page access, and with FXRatesPage on R_ApplicationAdmin the analysts couldn't open the page. D is incorrect — the book has R_ApplicationAdmin, not just Administrators, hold ManageFXRates; Administrators keep control of security, not every management role."
+    },
+    {
+      "id": "FH_S06",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "View All Users — Display Access",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 9, p. 251",
+      "source_page": 251,
+      "difficulty": "hard",
+      "question": "An internal audit team is in the group assigned to the ViewAllData role. Leadership asks that the team not see a sensitive Entity, ProjectX. Which statement is accurate?",
+      "options": {
+        "A": "Setting ProjectX's Display Access to Nobody hides it from member lists, but the team can still get its data by typing the Entity name into an XFGetCell or a free-form prompt; their data access can't be restricted while they are in ViewAllData",
+        "B": "A Data Cell Access item that decreases access on E#ProjectX for the audit group will block the data",
+        "C": "Removing the audit group from ProjectX's Read Data Group will block the data",
+        "D": "Assigning ProjectX to a Workflow Channel the audit group can't use will block the data"
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says the only way to keep a View All user from navigating to an Entity in a Member Filter is Display Access = Nobody, which does not stop them from typing the Entity name into an xfgetcell or free-form prompt; once a user is in ViewAllData, you cannot restrict the data they view (p. 251). B is incorrect — View All users are not restricted by Data Cell Access. C is incorrect — the ViewAllData role gives access regardless of the Entity's Read Data Group. D is incorrect — Workflow Channels are for functional purposes, not security (p. 244, 252)."
+    },
+    {
+      "id": "FH_S07",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Relationship Security — Effect on Cons Members",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 9, p. 265",
+      "source_page": 265,
+      "difficulty": "hard",
+      "question": "An administrator sets Use Parent Security for Relationship Consolidation on a cube. A data loader has Read and Write access to HoustonHeights but no access to its Parent, Houston. With no other security changes, which Consolidation members of HoustonHeights can this user still access?",
+      "options": {
+        "A": "All Consolidation members, because the user has Read and Write access to HoustonHeights",
+        "B": "None; the user loses all access to HoustonHeights data",
+        "C": "Only Share and Elimination",
+        "D": "Only Local and Translated"
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: after the setting was turned on, the book's user 'no longer [had] access to anything outside of Local and Translated, which are determined by the User's rights to the Entity itself.' The relationship members are governed by rights to the immediate Parent, and adding V_Houston restored them (p. 265–267). A is incorrect — that was the situation before the setting was turned on. B is incorrect — Entity rights still give Local and Translated. C is incorrect — Share and Elimination are relationship members that depend on Parent access, so they are the ones lost."
+    },
+    {
+      "id": "FH_S08",
+      "topic": "Security",
+      "objective": "201.6.3",
+      "subtopic": "Workflow Certifier Access",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 9, p. 261",
+      "source_page": 261,
+      "difficulty": "medium",
+      "question": "HoustonApprover must review HoustonHeights and SouthHouston data and certify the Houston Workflow Parent, but must not import or change any numbers. Which combination does the handbook use?",
+      "options": {
+        "A": "Read and Write Data Groups on both Entities plus the Workflow's execution group",
+        "B": "Access to the Houston Workflow plus the Workflow's separate certification security setting, with view-only (Read Data Group) access to the two Entities",
+        "C": "The ViewAllData role plus a Data Cell Access item set to Read Only for the Houston Entities",
+        "D": "The ModifyData role plus the Workflow execution group, with Display Access on the Entities set to the approver's group"
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book says the approver needs 'the same level of access to the Workflow, but a different level of execution', using the Workflow's separate certification security setting and view (not edit) rights to the Entities (p. 261–262). A is incorrect — Read and Write plus execution is the data loader setup and would allow loading. C is incorrect — Data Cell Access does not apply to ViewAllData users, and neither gives certification rights. D is incorrect — execution rights let the user load, and Display Access is not data security."
+    },
+    {
+      "id": "FH_R01",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Calculation Sequence — Business Rule Slots",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 214",
+      "source_page": 214,
+      "difficulty": "hard",
+      "question": "Several Account members on a Cube have Member Formulas on Formula Pass 6. One of those formulas uses a result written by a Finance Business Rule. In which of these Cube Business Rule slots must the Finance rule be placed so that it runs BEFORE the pass-6 formulas?",
+      "options": {
+        "A": "Business Rule 5",
+        "B": "Business Rule 7",
+        "C": "Business Rule 3",
+        "D": "Business Rule 8"
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: in the calculation sequence, Business Rules 3 and 4 run after formula passes 1–4 and before passes 5–8, so a rule in slot 3 finishes before pass 6. A is incorrect — Business Rules 5 and 6 run after passes 5–8, so pass 6 would already have run. B and D are incorrect — Business Rules 7 and 8 run after passes 9–12, well after pass 6."
+    },
+    {
+      "id": "FH_R02",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Member Formulas vs. Business Rules — Formula Pass",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 212",
+      "source_page": 212,
+      "difficulty": "hard",
+      "question": "A calculated Account must fire on Formula Pass 3 for the Actual Scenario Type but on Formula Pass 5 for Budget. What does the handbook say?",
+      "options": {
+        "A": "A Member can have only one formula pass for all Scenario Types and Time, so at least one of these calculations must go in a Business Rule.",
+        "B": "Set the Formula Type property to vary by Scenario Type, assigning pass 3 to Actual and pass 5 to Budget.",
+        "C": "Set the Formula Type property to vary by Time, since formula passes follow the same varying rules as the formula text.",
+        "D": "Assign Formula Pass 16 to the Member so it always runs last, which satisfies both requirements."
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says formula text can vary by Scenario Type and Time, but the formula pass cannot — a Member has one pass for all Scenario Types and Time, so at least one calculation would need to go in a Business Rule. B and C are incorrect — the pass is the one thing that cannot vary by Scenario Type or Time. D is incorrect — Pass 16 is a troubleshooting tip to make a formula run last; it does not meet a requirement for different passes."
+    },
+    {
+      "id": "FH_R03",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Dashboard Extender — Main Dashboard Only",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 209",
+      "source_page": 209,
+      "difficulty": "medium",
+      "question": "A designer attaches a Dashboard Extender rule (LoadDashboard function type) to an embedded Dashboard nested inside the main Dashboard, to set a default value for a combo box. The rule never fires. What is the most likely reason?",
+      "options": {
+        "A": "LoadDashboard only fires when a component is clicked, so the code belongs in ComponentSelectionChanged.",
+        "B": "Default parameter values can only be set with a Dashboard XFBR String rule.",
+        "C": "The rule has to be attached to a SQL Table Editor component to run on load.",
+        "D": "A Dashboard Extender can only be triggered on a main Dashboard, not on Dashboards nested inside it."
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book states that when applied to a Dashboard, a Dashboard Extender can only be triggered on a main Dashboard and cannot be triggered in nested Dashboards; its example of setting a default combo box value attaches the rule to the main Dashboard. A is incorrect — LoadDashboard fires when a Dashboard renders; ComponentSelectionChanged fires on a click. B is incorrect — XFBR rules can set default values, but the book's example uses a Dashboard Extender with XFLoadDashboardTaskResult, so XFBR is not the only way. C is incorrect — SQLTableEditorSaveData fires when Save is clicked in a SQL Table Editor, not on load."
+    },
+    {
+      "id": "FH_R04",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Avoiding Member List Loops",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 222",
+      "source_page": 222,
+      "difficulty": "medium",
+      "question": "A Finance rule builds a list of base Balance Sheet accounts and, inside a For Each loop, calls api.Data.Calculate once per account. Consolidation times have grown badly. What does the handbook recommend?",
+      "options": {
+        "A": "Keep the loop but add Remove Zeros to each api.Data.Calculate call.",
+        "B": "Remove the loop and use the account filter argument in api.Data.Calculate (or FilterMembers in GetDataBufferUsingFormula).",
+        "C": "Replace api.Data.Calculate inside the loop with equivalent BRAPI calls.",
+        "D": "Move the rule to Business Rule slot 8 so it runs after all formula passes."
+      },
+      "correct_answer": "B",
+      "explanation": "B is correct: the book's rule is to always avoid nesting a calculation inside a Member list loop and to use filter arguments in api.Data.Calculate or the FilterMembers syntax in GetDataBufferUsingFormula, which limit the cells evaluated without looping. A is incorrect — Remove Zeros trims source cells, but the slow part is still running the calculation over and over in the loop. C is incorrect — the book says to avoid BRAPIs in Finance rules when an equivalent API exists. D is incorrect — moving the slot changes when the rule runs, not how slow it is."
+    },
+    {
+      "id": "FH_R05",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Remove Zeros vs. Remove No Data",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 223",
+      "source_page": 223,
+      "difficulty": "hard",
+      "question": "Which statement about Remove Zeros and Remove No Data in stored calculations matches the handbook?",
+      "options": {
+        "A": "Remove Zeros filters out zero cells and No Data cells, and should be avoided when writing to a periodic view.",
+        "B": "Remove Zeros filters out only zero cells, while Remove No Data filters out both zero and No Data cells.",
+        "C": "Remove No Data should be avoided in YTD calculations, because YTD calculations must write zeros as derived data.",
+        "D": "Remove Zeros should be used in all periodic calculations to reduce database writes."
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book says Remove Zeros filters out zero cells and No Data cells, and to avoid it when writing to a periodic view (often because the Scenario's Default View is Periodic), since periodic calculations often need zeros written as derived data. B is incorrect — it reverses the two: Remove No Data filters only No Data cells. C is incorrect — it is periodic calculations, not YTD, that often need zeros; YTD calculations usually do not. D is incorrect — this is the opposite of the guidance for periodic views."
+    },
+    {
+      "id": "FH_R06",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "Seeding Rules",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 228",
+      "source_page": 228,
+      "difficulty": "medium",
+      "question": "Planners want to seed a Forecast Scenario from Actuals at the start of each cycle. The seed is large, and occasionally it has to be rerun. Which design does the handbook recommend?",
+      "options": {
+        "A": "Write it in the Calculate function of a Finance rule assigned to the Cube so it runs on every calculation.",
+        "B": "Write it as a Transformation Event Handler that fires on every Workflow import.",
+        "C": "Write it as a Dynamic Calc Member Formula on the Forecast Scenario members.",
+        "D": "Write it as a custom calculate rule (possibly as durable data) that users trigger on demand from a Dashboard or data management job."
+      },
+      "correct_answer": "D",
+      "explanation": "D is correct: the book says seeding should run when needed, not with every calculation or consolidation, so seeding rules should be custom calculations, possibly durable data, triggered on demand through a Dashboard or data management. A is incorrect — the Calculate function runs every time the Data Unit calculates, which the book says to avoid for seeding. B is incorrect — firing on every import would rerun the seed far more often than needed. C is incorrect — dynamic calculations are not stored, so they cannot create a stored starting point."
+    },
+    {
+      "id": "FH_R07",
+      "topic": "Rules",
+      "objective": "201.8.1",
+      "subtopic": "Event Handler Migration",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 238",
+      "source_page": 238,
+      "difficulty": "hard",
+      "question": "Production already has a Transformation Event Handler with logic that must be kept. A developer built new code in the Transformation Event Handler in Development and plans to move it with an XML Business Rules load. What does the handbook warn?",
+      "options": {
+        "A": "The XML load merges the new code into the existing rule's case statements.",
+        "B": "The XML load creates a second Transformation Event Handler, and both run on each event.",
+        "C": "The XML load replaces the existing rule's code and properties, so copy and paste only the needed code instead.",
+        "D": "Rename the Development Event Handler before extracting it so the load does not conflict."
+      },
+      "correct_answer": "C",
+      "explanation": "C is correct: each Event Handler type can exist only once per application and its name cannot be changed, so loading an XML with the same Event Handler replaces the target's code and properties; to move only part of the rule, copy and paste the code. A is incorrect — the load overwrites; it does not merge. B is incorrect — only one rule of each Event Handler type can exist in an application. D is incorrect — Event Handler names cannot be adjusted."
+    },
+    {
+      "id": "FH_R08",
+      "topic": "Rules",
+      "objective": "201.8.2",
+      "subtopic": "BRAPIs in Finance Rules",
+      "source_type": "HANDBOOK",
+      "source_section": "OneStream Foundation Handbook (2021), Ch. 8, p. 224",
+      "source_page": 224,
+      "difficulty": "hard",
+      "question": "During consolidations of an application with many Entities, the error 'max connection pool reached' appears and database deadlocks occur. Many stored Member Formulas and Finance rules call BRAPI functions that have equivalent api functions. What is the BEST fix?",
+      "options": {
+        "A": "Replace those BRAPI calls with the equivalent api functions in the Finance rules and stored Member Formulas.",
+        "B": "Raise NumThreadsForAggregatingChildEntities so more Entities finish before connections run out.",
+        "C": "Convert the stored Member Formulas to dynamic calculations.",
+        "D": "Raise MaxDegreeOfParallelism so the Consolidation Engine opens more database connections."
+      },
+      "correct_answer": "A",
+      "explanation": "A is correct: the book explains that BRAPIs in Finance rules and stored Member Formulas can open a database connection for each Entity and each rule during multi-threaded calculation, causing 'max connection pool reached' errors and deadlocks, so they should be avoided when an equivalent API exists. B and D are incorrect — more threads mean more simultaneous calls, which adds to the connection pressure. C is incorrect — dynamic calculations are not stored, so they cannot replace stored results that need to consolidate, and this does not address the BRAPI calls."
+    }
+  ]
+}

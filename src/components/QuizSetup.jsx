@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { TOPIC_GROUPS } from '../data/index.js'
 
 export default function QuizSetup({ topics, allQuestions, onStart, onBack, hasResults, quizResults }) {
   const [selectedTopics, setSelectedTopics] = useState([])
@@ -60,8 +61,14 @@ export default function QuizSetup({ topics, allQuestions, onStart, onBack, hasRe
               <button className="btn btn-ghost btn-sm" onClick={selectNone}>None</button>
             </div>
           </div>
+          {TOPIC_GROUPS.map(group => (
+          <div key={group.id} style={{ marginBottom: '16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '8px 0' }}>
+            <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)' }}>{group.label}</div>
+            <button className="btn btn-ghost btn-sm" onClick={() => setSelectedTopics(topics.filter(t => t.group === group.id).map(t => t.id))}>Only this section</button>
+          </div>
           <div className="topic-checkboxes">
-            {topics.map(topic => (
+            {topics.filter(t => t.group === group.id).map(topic => (
               <label key={topic.id} className="topic-checkbox">
                 <input
                   type="checkbox"
@@ -77,6 +84,8 @@ export default function QuizSetup({ topics, allQuestions, onStart, onBack, hasRe
               </label>
             ))}
           </div>
+          </div>
+          ))}
         </div>
 
         {/* Right: Options */}
